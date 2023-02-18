@@ -30,8 +30,8 @@ export const Page = ({
     <Layout>
       <AddressSearch />
       {children}
-      <div className="flex flex-col gap-sm">
-        <LocationButton icon="locationOff" />
+      <div className="flex flex-col gap-2">
+        <LocationButton />
         <Navigation />
       </div>
     </Layout>
