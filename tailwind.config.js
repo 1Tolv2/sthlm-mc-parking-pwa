@@ -21,11 +21,15 @@ module.exports = {
       },
       spacing: {
         sm: "5px",
-        md: "20px",
-        lg: "30px",
+        md: "15px",
+        lg: "20px",
         xl: "40px",
       },
     },
   },
   plugins: [],
+  safelist: [
+    { pattern: /(w|h)-\[*\w+\]*/ },
+    { pattern: /(p|m)(t|b|r|l|)*-\[*\w+\]*/ },
+  ],
 };
