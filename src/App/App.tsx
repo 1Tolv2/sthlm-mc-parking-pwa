@@ -1,6 +1,6 @@
 import React from "react";
-import { Page } from "../organisms/Page/Page";
-import "../../styles/global.css";
+import { Page } from "../components/organisms/Page/Page";
+import "../styles/global.css";
 
 export const App = (): JSX.Element => (
   <Page>

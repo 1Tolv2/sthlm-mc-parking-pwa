@@ -1,8 +1,7 @@
 import { enableAllPlugins } from "immer";
 import React from "react";
 import { createRoot } from "react-dom/client";
-import "./assets/scss/index.scss";
-import { App } from "./components/App/App";
+import { App } from "./App/App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
