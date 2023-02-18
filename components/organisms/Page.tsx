@@ -1,6 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { app } from "../../common/constants";
 import { Layout } from "../Layout/Layout";
 import LocationButton from "../molecules/LocationButton";
 import AddressSearch from "./AddressSearch";
@@ -21,7 +20,10 @@ export const Page = ({
   title,
 }: PropsWithChildren<PageProps>): JSX.Element => (
   <HelmetProvider>
-    <Helmet defaultTitle={app.name} titleTemplate={`${app.name} | %s`}>
+    <Helmet
+      defaultTitle="STHLM MC Parkering"
+      titleTemplate={`${"STHLM MC Parkering"} | %s`}
+    >
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <title>{title}</title>

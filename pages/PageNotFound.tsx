@@ -1,5 +1,5 @@
 import React from "react";
-import { Page } from "../components/organisms/Page";
+import { Page } from "../src/components/organisms/Page";
 
 export const PageNotFound = (): JSX.Element => {
   const pageNotFoundText = "404 - Page Not Found";
