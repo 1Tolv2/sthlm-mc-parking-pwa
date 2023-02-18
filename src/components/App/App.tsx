@@ -1,16 +1,9 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { store } from '../../store';
-import { Layout } from '../Layout/Layout';
-import { Routes } from '../Routes/Routes';
+import React from "react";
+import { Page } from "../organisms/Page/Page";
+import "../../styles/global.css";
 
 export const App = (): JSX.Element => (
-  <Provider store={store}>
-    <BrowserRouter>
-      <Layout>
-        <Routes />
-      </Layout>
-    </BrowserRouter>
-  </Provider>
+  <Page>
+    <h1>Test</h1>
+  </Page>
 );

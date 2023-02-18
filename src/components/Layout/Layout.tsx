@@ -1,18 +1,7 @@
-import React, { PropsWithChildren } from 'react';
-import { lazyComponent } from '../../common/utils';
-import { ErrorBoundarySuspense } from '../ErrorBoundarySuspense/ErrorBoundarySuspense';
+import React, { PropsWithChildren } from "react";
 
-const Footer = lazyComponent('Footer', import('../Footer/Footer'));
-const Header = lazyComponent('Header', import('../Header/Header'));
-
-export const Layout = ({ children }: PropsWithChildren<Record<string, unknown>>): JSX.Element => (
-  <>
-    <ErrorBoundarySuspense>
-      <Header />
-    </ErrorBoundarySuspense>
-    <ErrorBoundarySuspense>{children}</ErrorBoundarySuspense>
-    <ErrorBoundarySuspense>
-      <Footer />
-    </ErrorBoundarySuspense>
-  </>
+export const Layout = ({
+  children,
+}: PropsWithChildren<Record<string, unknown>>): JSX.Element => (
+  <main className="bg-red-500">{children}</main>
 );

@@ -1,21 +1,18 @@
-import { enableAllPlugins } from 'immer';
-import React, { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './assets/scss/index.scss';
-import { App } from './components/App/App';
-import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
-import reportWebVitals from './reportWebVitals';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { enableAllPlugins } from "immer";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "./assets/scss/index.scss";
+import { App } from "./components/App/App";
+import reportWebVitals from "./reportWebVitals";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 enableAllPlugins();
 
-const root = createRoot(document.getElementById('root') as HTMLElement);
+const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  <StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
-  </StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change unregister() to register()

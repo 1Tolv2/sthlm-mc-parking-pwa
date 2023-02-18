@@ -1,20 +1,23 @@
-import React, { PropsWithChildren, ReactNode } from 'react';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { app } from '../../common/constants';
-import { LayoutContainer, LayoutContainerProps } from '../LayoutContainer/LayoutContainer';
+import React, { PropsWithChildren, ReactNode } from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { app } from "../../../common/constants";
+import { Layout } from "../../Layout/Layout";
 
-interface PageProps extends LayoutContainerProps {
-  description: string;
+interface PageProps {
+  // className?: string | undefined;
+  // isFluid?: boolean;
+  // role?: string;
+  // Tag?: keyof JSX.IntrinsicElements;
+  description?: string;
   elements?: ReactNode;
   keywords?: string;
-  title: string;
+  title?: string;
 }
 
 export const Page = ({
   children,
   description,
   elements,
-  isFluid,
   keywords,
   title,
 }: PropsWithChildren<PageProps>): JSX.Element => (
@@ -25,8 +28,6 @@ export const Page = ({
       <title>{title}</title>
       {elements}
     </Helmet>
-    <LayoutContainer isFluid={isFluid} role="main" Tag="main">
-      {children}
-    </LayoutContainer>
+    <Layout>{children}</Layout>
   </HelmetProvider>
 );
