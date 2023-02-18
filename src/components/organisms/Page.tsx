@@ -1,8 +1,10 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { app } from "../../../common/constants";
-import { Layout } from "../../Layout/Layout";
-import NavBar from "../NavBar";
+import { app } from "../../common/constants";
+import { Layout } from "../Layout/Layout";
+import LocationButton from "../molecules/LocationButton";
+import AddressSearch from "./AddressSearch";
+import Navigation from "./Navigation";
 
 interface PageProps {
   description?: string;
@@ -26,8 +28,12 @@ export const Page = ({
       {elements}
     </Helmet>
     <Layout>
+      <AddressSearch />
       {children}
-      <NavBar />
+      <div className="flex flex-col gap-sm">
+        <LocationButton icon="locationOff" />
+        <Navigation />
+      </div>
     </Layout>
   </HelmetProvider>
 );
