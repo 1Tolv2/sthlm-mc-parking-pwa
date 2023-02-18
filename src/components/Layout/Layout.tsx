@@ -3,5 +3,5 @@ import React, { PropsWithChildren } from "react";
 export const Layout = ({
   children,
 }: PropsWithChildren<Record<string, unknown>>): JSX.Element => (
-  <main className="bg-red-500">{children}</main>
+  <main className="h-screen w-screen bg-neutral p-md">{children}</main>
 );

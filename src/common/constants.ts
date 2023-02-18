@@ -1,3 +1,3 @@
 export const app = {
-  name: "STHLM MC Parking",
+  name: "STHLM MC Parkering",
 };

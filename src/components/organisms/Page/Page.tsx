@@ -2,12 +2,9 @@ import React, { PropsWithChildren, ReactNode } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { app } from "../../../common/constants";
 import { Layout } from "../../Layout/Layout";
+import NavBar from "../NavBar";
 
 interface PageProps {
-  // className?: string | undefined;
-  // isFluid?: boolean;
-  // role?: string;
-  // Tag?: keyof JSX.IntrinsicElements;
   description?: string;
   elements?: ReactNode;
   keywords?: string;
@@ -28,6 +25,9 @@ export const Page = ({
       <title>{title}</title>
       {elements}
     </Helmet>
-    <Layout>{children}</Layout>
+    <Layout>
+      {children}
+      <NavBar />
+    </Layout>
   </HelmetProvider>
 );
