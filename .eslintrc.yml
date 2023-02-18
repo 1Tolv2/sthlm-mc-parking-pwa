@@ -20,5 +20,8 @@ plugins:
   - prettier
 rules: {
   quotes: ['error', 'double'],
-  'react/react-in-jsx-scope': 'off'
+  'react/react-in-jsx-scope': 'off',
+  'ban-types': 'off',
+  "no-empty-pattern": 'off',
+  "@typescript-eslint/ban-types": "warn"
   }
