@@ -1,5 +1,5 @@
 import React from "react";
-import { Page } from "../../components/organisms/Page/Page";
+import { Page } from "../components/organisms/Page/Page";
 
 export const Home = (): JSX.Element => {
   const homeText = "Home";
