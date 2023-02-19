@@ -1,4 +1,4 @@
-import { CoordinateItem } from "./coordinateItem";
+import { CoordinateItem } from "./CoordinateItem";
 import { Weekday } from ".";
 
 export interface FeatureItem {
