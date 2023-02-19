@@ -22,7 +22,7 @@ const AddressSearch = () => {
     );
   };
   return (
-    <div>
+    <div className="fixed top-md left-1/2 -translate-x-1/2 w-full">
       <StandardContainer width="full" className="mx-auto max-w-[500px]">
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
