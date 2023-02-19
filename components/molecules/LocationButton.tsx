@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ParkingContext } from "../Layout/Layout";
 import Icons from "../atoms/Icons";
 import StandardContainer from "../atoms/StandardContainer";
 import { getNearbyParkingSpots, getParkingSpots } from "../api";
@@ -7,14 +8,14 @@ export default function LocationButton() {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const [location, setLocation] = useState({});
-
+  const { setParkingSpots } = useContext(ParkingContext);
   const handleParkingSpots = async (position: any): Promise<void> => {
-    const data = position
-      ? await getNearbyParkingSpots(position.coords)
-      : await getParkingSpots();
+    const data = await getNearbyParkingSpots(position.coords);
+
     if (data) {
-      setLocation(data);
+      setParkingSpots(data.features);
+    } else {
+      console.log("NO DATA FOUND");
     }
   };
 
