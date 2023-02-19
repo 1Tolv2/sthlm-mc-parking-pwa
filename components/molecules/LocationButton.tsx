@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import Icons from "../atoms/Icons";
 import StandardContainer from "../atoms/StandardContainer";
-import { getParkingSpots } from "../api";
+import { getNearbyParkingSpots, getParkingSpots } from "../api";
 
 export default function LocationButton() {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
+  const [location, setLocation] = useState({});
+
+  const handleParkingSpots = async (position: any): Promise<void> => {
+    const data = position
+      ? await getNearbyParkingSpots(position.coords)
+      : await getParkingSpots();
+    if (data) {
+      setLocation(data);
+    }
+  };
 
   const handleLocation = async (): Promise<void> => {
     setIcon("locationOn");
-    const data = await getParkingSpots();
-    console.log(data);
+    navigator.geolocation.getCurrentPosition(handleParkingSpots);
   };
 
   return (
