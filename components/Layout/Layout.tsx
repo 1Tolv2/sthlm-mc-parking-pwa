@@ -27,9 +27,7 @@ export default function Layout({
         setCurrentParkingSpot,
       }}
     >
-      <main className="relative h-screen w-screen bg-neutral p-md">
-        {children}
-      </main>
+      <main className="relative h-screen w-screen bg-neutral">{children}</main>
     </ParkingContext.Provider>
   );
 }
