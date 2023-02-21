@@ -43,6 +43,7 @@ export default function LocationButton() {
     } else {
       setIcon("locationOff");
       handleParkingSpots();
+      setCurrentLocation(null);
     }
   };
 
