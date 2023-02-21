@@ -9,7 +9,18 @@ export default function LocationButton() {
     "locationOff" as "locationOff" | "locationOn"
   );
   const { setParkingSpots } = useContext(ParkingContext);
-  const handleParkingSpots = async (position: any): Promise<void> => {
+
+  const handleParkingSpots = async (): Promise<void> => {
+    const data = await getParkingSpots();
+
+    if (data) {
+      setParkingSpots(data.features);
+    } else {
+      console.log("NO DATA FOUND");
+    }
+  };
+
+  const handleNearbyParkingSpots = async (position: any): Promise<void> => {
     const data = await getNearbyParkingSpots(position.coords);
 
     if (data) {
@@ -20,8 +31,13 @@ export default function LocationButton() {
   };
 
   const handleLocation = async (): Promise<void> => {
-    setIcon("locationOn");
-    navigator.geolocation.getCurrentPosition(handleParkingSpots);
+    if (icon === "locationOff") {
+      setIcon("locationOn");
+      navigator.geolocation.getCurrentPosition(handleNearbyParkingSpots);
+    } else {
+      setIcon("locationOff");
+      handleParkingSpots();
+    }
   };
 
   return (
