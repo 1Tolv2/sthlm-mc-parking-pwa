@@ -1,13 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import React, { useState, useContext, useEffect } from "react";
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import ParkingLocations from "./ParkingLocations";
+import { ParkingContext } from "../Layout/Layout";
 type Props = {};
 
 const Map = (props: Props) => {
-  const [center] = useState({
+  const [center, setCenter] = useState({
     lat: 59.31323345086049,
     lng: 18.07502720995736,
   });
+  const [zoom, setZoom] = useState(11);
+  const { currentLocation } = useContext(ParkingContext);
+
+  useEffect(() => {
+    if (currentLocation) {
+      setCenter({
+        lat: currentLocation?.lat || 0,
+        lng: currentLocation?.lng || 0,
+      });
+      setZoom(16);
+    } else {
+      setCenter({ lat: 59.31323345086049, lng: 18.07502720995736 });
+      setZoom(11);
+    }
+  }, [currentLocation]);
 
   return (
     <div style={{ height: "100vh", width: "100%" }}>
@@ -17,7 +33,7 @@ const Map = (props: Props) => {
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
           center={center}
-          zoom={10}
+          zoom={zoom}
         >
           <ParkingLocations />
         </GoogleMap>

@@ -8,7 +8,7 @@ export default function LocationButton() {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const { setParkingSpots } = useContext(ParkingContext);
+  const { setParkingSpots, setCurrentLocation } = useContext(ParkingContext);
 
   const handleParkingSpots = async (): Promise<void> => {
     const data = await getParkingSpots();
@@ -22,6 +22,12 @@ export default function LocationButton() {
 
   const handleNearbyParkingSpots = async (position: any): Promise<void> => {
     const data = await getNearbyParkingSpots(position.coords);
+    setCurrentLocation({
+      // lat: position.coords.latitude || 0,
+      // lng: position.coords.longitude || 0,
+      lng: 18.07502720995736,
+      lat: 59.31323345086049,
+    });
 
     if (data) {
       setParkingSpots(data.features);
