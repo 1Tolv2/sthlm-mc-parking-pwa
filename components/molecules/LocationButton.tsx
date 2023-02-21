@@ -1,17 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ParkingContext } from "../Layout/Layout";
 import Icons from "../atoms/Icons";
 import StandardContainer from "../atoms/StandardContainer";
-import { getParkingSpots } from "../api";
+import { getNearbyParkingSpots, getParkingSpots } from "../api";
 
 export default function LocationButton() {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
+  const { setParkingSpots } = useContext(ParkingContext);
+
+  const handleParkingSpots = async (): Promise<void> => {
+    const data = await getParkingSpots();
+
+    if (data) {
+      setParkingSpots(data.features);
+    } else {
+      console.log("NO DATA FOUND");
+    }
+  };
+
+  const handleNearbyParkingSpots = async (position: any): Promise<void> => {
+    const data = await getNearbyParkingSpots(position.coords);
+
+    if (data) {
+      setParkingSpots(data.features);
+    } else {
+      console.log("NO DATA FOUND");
+    }
+  };
 
   const handleLocation = async (): Promise<void> => {
-    setIcon("locationOn");
-    const data = await getParkingSpots();
-    console.log(data);
+    if (icon === "locationOff") {
+      setIcon("locationOn");
+      navigator.geolocation.getCurrentPosition(handleNearbyParkingSpots);
+    } else {
+      setIcon("locationOff");
+      handleParkingSpots();
+    }
   };
 
   return (

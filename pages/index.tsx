@@ -4,6 +4,7 @@ import Layout from "../components/Layout/Layout";
 import LocationButton from "../components/molecules/LocationButton";
 import AddressSearch from "../components/organisms/AddressSearch";
 import Navigation from "../components/organisms/Navigation";
+import Map from "../components/molecules/Map";
 
 export default function Page() {
   return (
@@ -17,8 +18,9 @@ export default function Page() {
         <title>Sofia Johnsson S.</title>
       </Head>
       <Layout>
+        <Map />
         <AddressSearch />
-        <div className="flex flex-col gap-2">
+        <div className="fixed bottom-md left-1/2 -translate-x-1/2 flex flex-col gap-2 w-[500px]">
           <LocationButton />
           <Navigation />
         </div>
