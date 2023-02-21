@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, createContext, useState } from "react";
-import { FeatureItem } from "../../types";
+import { CoordinateItem, FeatureItem } from "../../types";
 
 interface ModalCtx {
   currentParkingSpot: FeatureItem | null;
@@ -8,6 +8,10 @@ interface ModalCtx {
   >;
   parkingSpots: FeatureItem[];
   setParkingSpots: React.Dispatch<React.SetStateAction<FeatureItem[]>>;
+  currentLocation: CoordinateItem | null;
+  setCurrentLocation: React.Dispatch<
+    React.SetStateAction<CoordinateItem | null>
+  >;
 }
 const ParkingContext = createContext<ModalCtx>({} as ModalCtx);
 
@@ -17,6 +21,9 @@ export default function Layout({
   const [parkingSpots, setParkingSpots] = useState<FeatureItem[]>([]);
   const [currentParkingSpot, setCurrentParkingSpot] =
     useState<FeatureItem | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<CoordinateItem | null>(
+    null
+  );
 
   return (
     <ParkingContext.Provider
@@ -25,6 +32,8 @@ export default function Layout({
         setParkingSpots,
         currentParkingSpot,
         setCurrentParkingSpot,
+        currentLocation,
+        setCurrentLocation,
       }}
     >
       <main className="relative h-screen w-screen bg-neutral">{children}</main>
