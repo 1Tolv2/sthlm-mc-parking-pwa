@@ -15,16 +15,8 @@ const ParkingLocations = () => {
 
   const handleParkingSpots = async (): Promise<void> => {
     const data = await getParkingSpots();
-    if (data) {
-      console.log("DATA", data.features);
-      setParkingSpots([
-        data.features[0],
-        data.features[1],
-        data.features[2],
-        data.features[3],
-        data.features[4],
-      ]);
-    }
+
+    data && setParkingSpots(data.features);
   };
 
   useEffect(() => {
