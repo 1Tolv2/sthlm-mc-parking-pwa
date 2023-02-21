@@ -19,12 +19,10 @@ export default function Page() {
       </Head>
       <Layout>
         <Map />
-        <div className="w-screen h-screen p-md">
-          <AddressSearch />
-          <div className="fixed bottom-md left-1/2 -translate-x-1/2 flex flex-col gap-2 w-full">
-            <LocationButton />
-            <Navigation />
-          </div>
+        <AddressSearch />
+        <div className="fixed bottom-md left-1/2 -translate-x-1/2 flex flex-col gap-2 w-[500px]">
+          <LocationButton />
+          <Navigation />
         </div>
       </Layout>
     </div>
