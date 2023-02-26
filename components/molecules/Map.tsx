@@ -15,11 +15,6 @@ type Props = {
 
 const Map = ({ states, mapStates }: Props) => {
   const { zoom, setZoom, center, setCenter } = mapStates;
-  // const [center, setCenter] = useState({
-  //   lat: 59.31323345086049,
-  //   lng: 18.07502720995736,
-  // });
-  // const [zoom, setZoom] = useState(11);
 
   const { currentLocation } = states;
 

@@ -2,7 +2,6 @@ import React, { ReactNode, useState } from "react";
 import { searchParkingSpots } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import { CoordinateItem, FeatureItem } from "../../types";
-import { DEFAULT_MAX_VERSION } from "tls";
 
 type Props = {
   states: { setParkingSpots: (parkingSpots: FeatureItem[]) => void };
