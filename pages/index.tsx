@@ -15,7 +15,7 @@ export default function Page() {
           name="Sök efter mc parkering i Stockholm"
           content="STHLM MC parkering"
         ></meta>
-        <title>Sofia Johnsson S.</title>
+        <title>STHLM MC Parking</title>
       </Head>
       <Layout>
         <Map />
