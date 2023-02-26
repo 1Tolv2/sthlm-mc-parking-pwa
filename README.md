@@ -43,13 +43,13 @@ To setup a local copy follow the steps below
 ### Installation
  
 1. First start cloning the repo by entering the below command in your terminal.
-```sh
-git clone https://github.com/1Tolv2/sthlm-mc-parking-pwa-typescript.git
-```
-1. After cloning the repository, cd in to the new folder and install.
-```sh
-npm install
-```
+   ```sh
+   git clone https://github.com/1Tolv2/sthlm-mc-parking-pwa-typescript.git
+   ```
+2. After cloning the repository, cd in to the new folder and install.
+   ```sh
+   npm install
+   ```
 
 ## Run the app
 ### Localhost
