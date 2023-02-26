@@ -1,12 +1,16 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useContext } from "react";
+import { searchParkingSpots } from "../api";
+import { ParkingContext } from "../Layout/Layout";
 import StandardContainer from "../atoms/StandardContainer";
 
 const AddressSearch = () => {
   const [address, setAddress] = useState<string>("");
+  const { setParkingSpots } = useContext(ParkingContext);
 
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("ADDRESS:", address);
+    const data = await searchParkingSpots(address);
+    setParkingSpots(data.features);
     setAddress("");
   };
 
