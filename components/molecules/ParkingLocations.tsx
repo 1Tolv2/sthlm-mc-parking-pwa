@@ -1,17 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Marker } from "@react-google-maps/api";
-import { ParkingContext } from "../Layout/Layout";
+import { FeatureItem } from "../../types";
 import { getParkingSpots } from "../api";
-
 import ParkingDetailModal from "./ParkingDetailModal";
 
-const ParkingLocations = () => {
+type Props = {
+  states: {
+    parkingSpots: FeatureItem[];
+    setParkingSpots: (parkingSpots: FeatureItem[]) => void;
+    currentParkingSpot: FeatureItem | null;
+    setCurrentParkingSpot: (currentParkingSpot: FeatureItem | null) => void;
+  };
+};
+
+const ParkingLocations = ({ states }: Props) => {
   const {
     parkingSpots,
     setParkingSpots,
     currentParkingSpot,
     setCurrentParkingSpot,
-  } = useContext(ParkingContext);
+  } = states;
 
   const handleParkingSpots = async (): Promise<void> => {
     const data = await getParkingSpots();
