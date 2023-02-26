@@ -14,7 +14,7 @@ const Content = (props: Props) => {
   });
 
   const [parkingSpots, setParkingSpots] = useState<FeatureItem[]>([]);
-  const [currentParkingSpot, setCurrentParkingSpot] =
+  const [targetedParkingSpot, setTargetedParkingSpot] =
     useState<FeatureItem | null>(null);
   const [currentLocation, setCurrentLocation] = useState<CoordinateItem | null>(
     null
@@ -29,8 +29,8 @@ const Content = (props: Props) => {
           setCurrentLocation,
           parkingSpots,
           setParkingSpots,
-          currentParkingSpot,
-          setCurrentParkingSpot,
+          targetedParkingSpot,
+          setTargetedParkingSpot,
         }}
         mapStates={{ zoom, setZoom, center, setCenter }}
       />
@@ -42,7 +42,6 @@ const Content = (props: Props) => {
         states={{
           parkingSpots,
           setParkingSpots,
-          currentParkingSpot,
           setCurrentLocation,
         }}
       />

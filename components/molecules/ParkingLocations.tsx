@@ -8,8 +8,8 @@ type Props = {
   states: {
     parkingSpots: FeatureItem[];
     setParkingSpots: (parkingSpots: FeatureItem[]) => void;
-    currentParkingSpot: FeatureItem | null;
-    setCurrentParkingSpot: (currentParkingSpot: FeatureItem | null) => void;
+    targetedParkingSpot: FeatureItem | null;
+    setTargetedParkingSpot: (targetedParkingSpot: FeatureItem | null) => void;
   };
 };
 
@@ -17,8 +17,8 @@ const ParkingLocations = ({ states }: Props) => {
   const {
     parkingSpots,
     setParkingSpots,
-    currentParkingSpot,
-    setCurrentParkingSpot,
+    targetedParkingSpot,
+    setTargetedParkingSpot,
   } = states;
 
   const handleParkingSpots = async (): Promise<void> => {
@@ -44,16 +44,18 @@ const ParkingLocations = ({ states }: Props) => {
             id={item.id}
             className="relative"
             onClick={(e) =>
-              setCurrentParkingSpot(
+              setTargetedParkingSpot(
                 parkingSpots?.find((item) => item.id === e.currentTarget.id) ||
                   null
               )
             }
           >
-            <Marker position={position} />
-            {currentParkingSpot && currentParkingSpot.id === item.id && (
-              <ParkingDetailModal data={item} />
-            )}
+            <Marker
+              position={position}
+              onClick={() => setTargetedParkingSpot(item)}
+            />
+
+            <ParkingDetailModal data={item} states={{ targetedParkingSpot }} />
           </li>
         );
       })}

@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 import { FeatureItem } from "../../types";
 import StandardContainer from "../atoms/StandardContainer";
 
-type Props = { data: FeatureItem };
+type Props = {
+  data: FeatureItem;
+  states: { targetedParkingSpot: FeatureItem | null };
+};
 
-const ParkingDetailModal = ({ data }: Props) => {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  useEffect(() => {
-    setModalVisible(false);
-    if (data) {
-      setModalVisible(true);
-    }
-  }, [data]);
-
+const ParkingDetailModal = ({ data, states }: Props) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const firstLetterToUpperCase = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
+
+  const { targetedParkingSpot } = states;
+
+  useEffect(() => {
+    setIsModalOpen(data.id === targetedParkingSpot?.id);
+  }, [targetedParkingSpot]);
 
   const formatRegulations = () => {
     const properties = data?.properties;
@@ -41,8 +42,8 @@ const ParkingDetailModal = ({ data }: Props) => {
 
   return (
     <>
-      {modalVisible && data && (
-        <div className="absolute bottom-[10px] left-[10px] z-50 w-max h-fit">
+      {isModalOpen && (
+        <div className="fixed top-1/2 right-[10px] -translate-y-1/2 z-60 w-max h-fit">
           <StandardContainer>
             <div className="max-w-[200px]">
               <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
