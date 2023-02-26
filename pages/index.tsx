@@ -22,7 +22,7 @@ export default function Page() {
         <AddressSearch />
         <div className="fixed bottom-md left-1/2 -translate-x-1/2 flex flex-col gap-2 w-[500px]">
           <LocationButton />
-          <Navigation />
+          {/* <Navigation /> */}
         </div>
       </Layout>
     </div>
