@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { searchParkingSpots } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import { CoordinateItem, FeatureItem } from "../../types";
+import { DEFAULT_MAX_VERSION } from "tls";
 
 type Props = {
   states: { setParkingSpots: (parkingSpots: FeatureItem[]) => void };
@@ -20,16 +21,19 @@ const AddressSearch = ({ states, mapStates }: Props) => {
     e.preventDefault();
     const data = await searchParkingSpots(address);
 
-    setParkingSpots(data.features);
-    console.log("FEATURES", data.features[0].geometry.coordinates[0][1]);
-    setCenter({
-      lat:
-        (data.features[0].geometry.coordinates[0][1] as unknown as number) || 0,
-      lng:
-        (data.features[0].geometry.coordinates[0][0] as unknown as number) || 0,
-    } as CoordinateItem);
-    setZoom(15);
-    setAddress("");
+    if (data.features.length > 0) {
+      setParkingSpots(data.features);
+      setCenter({
+        lat:
+          (data.features[0].geometry.coordinates[0][1] as unknown as number) ||
+          0,
+        lng:
+          (data.features[0].geometry.coordinates[0][0] as unknown as number) ||
+          0,
+      } as CoordinateItem);
+      setZoom(15);
+      setAddress("");
+    }
   };
 
   const renderSearchIcon = (): ReactNode => {
