@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Marker } from "@react-google-maps/api";
 import { FeatureItem } from "../../types";
 import { getParkingSpots } from "../api";
@@ -14,6 +14,10 @@ type Props = {
 };
 
 const ParkingLocations = ({ states }: Props) => {
+  const [modalPosition, setModalPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
   const {
     parkingSpots,
     setParkingSpots,
@@ -25,6 +29,16 @@ const ParkingLocations = ({ states }: Props) => {
     const data = await getParkingSpots();
 
     data && setParkingSpots(data.features);
+  };
+
+  const handleModalPosition = (coords: any) => {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    setModalPosition({
+      x: Math.round((coords.x / windowWidth) * 100),
+      y: Math.round((coords.y / windowHeight) * 100),
+    });
   };
 
   useEffect(() => {
@@ -52,10 +66,21 @@ const ParkingLocations = ({ states }: Props) => {
           >
             <Marker
               position={position}
-              onClick={() => setTargetedParkingSpot(item)}
+              onClick={(e: any) => {
+                handleModalPosition({
+                  x: e.domEvent.screenX,
+                  y: e.domEvent.screenY,
+                });
+                setTargetedParkingSpot(item);
+              }}
             />
 
-            <ParkingDetailModal data={item} states={{ targetedParkingSpot }} />
+            {modalPosition && (
+              <ParkingDetailModal
+                data={item}
+                states={{ targetedParkingSpot, modalPosition }}
+              />
+            )}
           </li>
         );
       })}

@@ -4,7 +4,10 @@ import StandardContainer from "../atoms/StandardContainer";
 
 type Props = {
   data: FeatureItem;
-  states: { targetedParkingSpot: FeatureItem | null };
+  states: {
+    targetedParkingSpot: FeatureItem | null;
+    modalPosition: { x: number; y: number } | null;
+  };
 };
 
 const ParkingDetailModal = ({ data, states }: Props) => {
@@ -13,11 +16,11 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-  const { targetedParkingSpot } = states;
+  const { targetedParkingSpot, modalPosition } = states;
 
   useEffect(() => {
     setIsModalOpen(data.id === targetedParkingSpot?.id);
-  }, [targetedParkingSpot]);
+  }, [targetedParkingSpot, modalPosition]);
 
   const formatRegulations = () => {
     const properties = data?.properties;
@@ -39,16 +42,25 @@ const ParkingDetailModal = ({ data, states }: Props) => {
       </div>
     );
   };
-
+  console.log(modalPosition);
   return (
     <>
       {isModalOpen && (
-        <div className="fixed top-1/2 right-[10px] -translate-y-1/2 z-60 w-max h-fit">
+        <div
+          style={{
+            top: `${modalPosition?.y || 0}vh`,
+            left: `${modalPosition?.x || 0}vw`,
+          }}
+          className="fixed z-60 w-max h-fit"
+        >
           <StandardContainer>
-            <div className="max-w-[200px]">
-              <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
-              {formatRegulations()}
-            </div>
+            <>
+              {console.log("WIDTH", modalPosition?.x)}
+              <div className="max-w-[200px]">
+                <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
+                {formatRegulations()}
+              </div>
+            </>
           </StandardContainer>
         </div>
       )}
