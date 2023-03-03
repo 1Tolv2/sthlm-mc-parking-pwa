@@ -22,6 +22,10 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     setIsModalOpen(data.id === targetedParkingSpot?.id);
   }, [targetedParkingSpot, modalPosition]);
 
+  const handleOpenDirections = () => {
+    console.log("CLICKED", data.geometry.coordinates[0]);
+  };
+
   const formatRegulations = () => {
     const properties = data?.properties;
 
@@ -42,7 +46,23 @@ const ParkingDetailModal = ({ data, states }: Props) => {
       </div>
     );
   };
-  console.log(modalPosition);
+
+  const renderMapIcon = () => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="48"
+        viewBox="0 96 960 960"
+        width="48"
+      >
+        <path
+          fill="#3F75FF"
+          d="m612 936-263-93-179 71q-17 9-33.5-1T120 883V325q0-13 7.5-23t19.5-15l202-71 263 92 178-71q17-8 33.5 1.5T840 268v565q0 11-7.5 19T814 864l-202 72Zm-34-75V356l-196-66v505l196 66Z"
+        />
+      </svg>
+    );
+  };
+
   return (
     <>
       {isModalOpen && (
@@ -54,13 +74,18 @@ const ParkingDetailModal = ({ data, states }: Props) => {
           className="fixed z-60 w-max h-fit"
         >
           <StandardContainer>
-            <>
-              {console.log("WIDTH", modalPosition?.x)}
-              <div className="max-w-[200px]">
+            <div className="flex max-w-[250px]">
+              <div>
                 <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
                 {formatRegulations()}
               </div>
-            </>
+              <div
+                className="cursor-pointer h-fit"
+                onClick={handleOpenDirections}
+              >
+                {renderMapIcon()}
+              </div>
+            </div>
           </StandardContainer>
         </div>
       )}
