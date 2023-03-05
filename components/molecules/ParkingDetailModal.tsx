@@ -23,7 +23,10 @@ const ParkingDetailModal = ({ data, states }: Props) => {
   }, [targetedParkingSpot, modalPosition]);
 
   const handleOpenDirections = () => {
-    console.log("CLICKED", data.geometry.coordinates[0]);
+    const lng: string = data.geometry.coordinates[0][0].toString();
+    const lat: string = data.geometry.coordinates[0][1].toString();
+
+    window.open(`https://maps.google.com/?q=${lat},${lng}`);
   };
 
   const formatRegulations = () => {
