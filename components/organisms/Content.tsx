@@ -34,10 +34,10 @@ const Content = (props: Props) => {
         }}
         mapStates={{ zoom, setZoom, center, setCenter }}
       />
-      <TopNavigation
+      {/* <TopNavigation
         states={{ setParkingSpots }}
         mapStates={{ setZoom, setCenter }}
-      />
+      /> */}
       <BottomNavigation
         states={{
           parkingSpots,
