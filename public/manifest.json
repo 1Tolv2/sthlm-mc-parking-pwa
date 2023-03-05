@@ -8,7 +8,7 @@
   "icons": [{
     "src": "/parking-48x48.png",
     "sizes": "48x48",
-    "purpose": "any",
+    "purpose": "any maskable",
     "type": "image/png"
   },
   {
