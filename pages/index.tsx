@@ -15,7 +15,8 @@ export default function Page() {
         />
         <meta name="theme-color" content="#FFFFFF" />
         <title>STHLM MC Parking</title>
-        <link rel="manifest" href="./manifest.json"></link>
+        <link rel="manifest" href="./manifest.json" />
+        <link rel="apple-touch-icon" href="/parking-180x180.png" />
       </Head>
       <Layout>
         <Content />
