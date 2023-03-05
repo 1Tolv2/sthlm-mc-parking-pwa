@@ -16,6 +16,12 @@
     "sizes": "144x144",
     "purpose": "any",
     "type": "image/png"
+  },
+  {
+    "src": "/parking-512x512.png",
+    "sizes": "512x512",
+    "purpose": "any",
+    "type": "image/png"
   }],
   "short_name": "STHLM MC Parkering",
   "name": "Stockholm Motorcykel Parkering",
