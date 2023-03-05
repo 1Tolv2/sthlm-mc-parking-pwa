@@ -1,14 +1,23 @@
-import React, { useState, useContext } from "react";
-import { ParkingContext } from "../Layout/Layout";
+import React, { useState } from "react";
+import { CoordinateItem, FeatureItem } from "../../types";
 import Icons from "../atoms/Icons";
 import StandardContainer from "../atoms/StandardContainer";
 import { getNearbyParkingSpots, getParkingSpots } from "../api";
 
-export default function LocationButton() {
+type Props = {
+  states: {
+    setParkingSpots: React.Dispatch<React.SetStateAction<FeatureItem[]>>;
+    setCurrentLocation: React.Dispatch<
+      React.SetStateAction<CoordinateItem | null>
+    >;
+  };
+};
+
+export default function LocationButton({ states }: Props) {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const { setParkingSpots, setCurrentLocation } = useContext(ParkingContext);
+  const { setParkingSpots, setCurrentLocation } = states;
 
   const handleParkingSpots = async (): Promise<void> => {
     const data = await getParkingSpots();

@@ -1,22 +1,44 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Marker } from "@react-google-maps/api";
-import { ParkingContext } from "../Layout/Layout";
+import { FeatureItem } from "../../types";
 import { getParkingSpots } from "../api";
-
 import ParkingDetailModal from "./ParkingDetailModal";
 
-const ParkingLocations = () => {
+type Props = {
+  states: {
+    parkingSpots: FeatureItem[];
+    setParkingSpots: (parkingSpots: FeatureItem[]) => void;
+    targetedParkingSpot: FeatureItem | null;
+    setTargetedParkingSpot: (targetedParkingSpot: FeatureItem | null) => void;
+  };
+};
+
+const ParkingLocations = ({ states }: Props) => {
+  const [modalPosition, setModalPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
   const {
     parkingSpots,
     setParkingSpots,
-    currentParkingSpot,
-    setCurrentParkingSpot,
-  } = useContext(ParkingContext);
+    targetedParkingSpot,
+    setTargetedParkingSpot,
+  } = states;
 
   const handleParkingSpots = async (): Promise<void> => {
     const data = await getParkingSpots();
 
     data && setParkingSpots(data.features);
+  };
+
+  const handleModalPosition = (coords: any) => {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    setModalPosition({
+      x: Math.round((coords.x / windowWidth) * 100),
+      y: Math.round((coords.y / windowHeight) * 100),
+    });
   };
 
   useEffect(() => {
@@ -36,15 +58,28 @@ const ParkingLocations = () => {
             id={item.id}
             className="relative"
             onClick={(e) =>
-              setCurrentParkingSpot(
+              setTargetedParkingSpot(
                 parkingSpots?.find((item) => item.id === e.currentTarget.id) ||
                   null
               )
             }
           >
-            <Marker position={position} />
-            {currentParkingSpot && currentParkingSpot.id === item.id && (
-              <ParkingDetailModal data={item} />
+            <Marker
+              position={position}
+              onClick={(e: any) => {
+                handleModalPosition({
+                  x: e.domEvent.screenX,
+                  y: e.domEvent.screenY,
+                });
+                setTargetedParkingSpot(item);
+              }}
+            />
+
+            {modalPosition && (
+              <ParkingDetailModal
+                data={item}
+                states={{ targetedParkingSpot, modalPosition }}
+              />
             )}
           </li>
         );

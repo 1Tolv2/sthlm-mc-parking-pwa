@@ -1,13 +1,38 @@
 import React, { ReactNode, useState } from "react";
+import { searchParkingSpots } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
+import { CoordinateItem, FeatureItem } from "../../types";
 
-const AddressSearch = () => {
+type Props = {
+  states: { setParkingSpots: (parkingSpots: FeatureItem[]) => void };
+  mapStates: {
+    setZoom: React.Dispatch<React.SetStateAction<number>>;
+    setCenter: React.Dispatch<React.SetStateAction<CoordinateItem | null>>;
+  };
+};
+
+const AddressSearch = ({ states, mapStates }: Props) => {
   const [address, setAddress] = useState<string>("");
+  const { setParkingSpots } = states;
+  const { setZoom, setCenter } = mapStates;
 
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("ADDRESS:", address);
-    setAddress("");
+    const data = await searchParkingSpots(address);
+
+    if (data.features.length > 0) {
+      setParkingSpots(data.features);
+      setCenter({
+        lat:
+          (data.features[0].geometry.coordinates[0][1] as unknown as number) ||
+          0,
+        lng:
+          (data.features[0].geometry.coordinates[0][0] as unknown as number) ||
+          0,
+      } as CoordinateItem);
+      setZoom(15);
+      setAddress("");
+    }
   };
 
   const renderSearchIcon = (): ReactNode => {
