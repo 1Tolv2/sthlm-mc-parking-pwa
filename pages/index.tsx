@@ -13,6 +13,7 @@ export default function Page() {
           content="Hitta mc parkering i stockholm"
           key="desc"
         />
+        <meta name="theme-color" content="#FFFFFF" />
         <title>STHLM MC Parking</title>
         <link rel="manifest" href="./manifest.json"></link>
       </Head>
