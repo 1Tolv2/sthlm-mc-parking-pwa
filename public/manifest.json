@@ -18,6 +18,12 @@
     "type": "image/png"
   },
   {
+    "src": "/parking-180x180.png",
+    "sizes": "180x180",
+    "purpose": "any",
+    "type": "image/png"
+  },
+  {
     "src": "/parking-512x512.png",
     "sizes": "512x512",
     "purpose": "any",
