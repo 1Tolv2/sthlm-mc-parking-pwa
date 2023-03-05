@@ -9,10 +9,14 @@ export default function Page() {
       <Head>
         <meta charSet="UTF-8" />
         <meta
-          name="Sök efter mc parkering i Stockholm"
-          content="STHLM MC parkering"
-        ></meta>
+          name="description"
+          content="Hitta mc parkering i stockholm"
+          key="desc"
+        />
+        <meta name="theme-color" content="#FFFFFF" />
         <title>STHLM MC Parking</title>
+        <link rel="manifest" href="./manifest.json" />
+        <link rel="apple-touch-icon" href="/parking-180x180.png" />
       </Head>
       <Layout>
         <Content />
