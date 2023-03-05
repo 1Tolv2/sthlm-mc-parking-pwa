@@ -7,7 +7,7 @@ self.addEventListener("install", (event) => {
       const cache = await caches.open(CACHE_NAME);
       cache.addAll([
         "/",
-        "/pages/**.tsx",
+        "/pages/index.tsx",
         "/styles/global.css",
         "/components/**/tsx",
       ]);
