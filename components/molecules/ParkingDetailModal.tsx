@@ -110,7 +110,7 @@ const ParkingDetailModal = ({ data, states }: Props) => {
           //   left: `${modalPosition?.x || 0}vw`,
           // }}
           id="parking-detail-modal"
-          className="fixed bottom-md left-md z-60 w-max h-fit"
+          className="fixed bottom-md left-md z-50 w-max h-fit"
         >
           <StandardContainer>
             <div className="flex w-[250px] min-h-[120px] justify-between">
