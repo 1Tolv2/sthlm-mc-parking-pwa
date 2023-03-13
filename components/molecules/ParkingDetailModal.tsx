@@ -15,7 +15,18 @@ const ParkingDetailModal = ({ data, states }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { targetedParkingSpot, modalPosition } = states;
+  const handleModal = () => {
+    console.log("MODAL", document.getElementById("parking-detail-modal"));
+    if (document.getElementById("parking-detail-modal")) {
+      setIsModalOpen(false);
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener("click", handleModal);
+
+    return document.removeEventListener("click", handleModal);
+  }, []);
   useEffect(() => {
     setIsModalOpen(data.id === targetedParkingSpot?.id);
   }, [targetedParkingSpot, modalPosition]);
@@ -29,7 +40,7 @@ const ParkingDetailModal = ({ data, states }: Props) => {
 
   const formatRates = (key: string, rate: any) => {
     return (
-      <li className="mb-sm" id={key + "1"}>
+      <li className="mb-sm" key={data?.properties?.ADDRESS + "-" + key}>
         {key === "weekdays" ? (
           <>
             <h3 className="hidden sm:block">Vardagar: </h3>
@@ -94,23 +105,33 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     <>
       {isModalOpen && (
         <div
-          style={{
-            top: `${modalPosition?.y || 0}vh`,
-            left: `${modalPosition?.x || 0}vw`,
-          }}
-          className="fixed z-60 w-max h-fit"
+          // style={{
+          //   top: `${modalPosition?.y || 0}vh`,
+          //   left: `${modalPosition?.x || 0}vw`,
+          // }}
+          id="parking-detail-modal"
+          className="fixed bottom-md left-md z-60 w-max h-fit"
         >
           <StandardContainer>
-            <div className="flex max-w-[250px]">
+            <div className="flex w-[250px] min-h-[120px] justify-between">
               <div>
                 <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
                 {renderRates()}
               </div>
-              <div
-                className="cursor-pointer h-fit"
-                onClick={handleOpenDirections}
-              >
-                {renderMapIcon()}
+              <div className="flex flex-col justify-between">
+                <div
+                  className="relative top-3 cursor-pointer mx-auto"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <div className="relative top-0.5 w-6 h-0.5 rotate-45 bg-neutral" />
+                  <div className="w-6 h-0.5 -rotate-45 bg-neutral" />
+                </div>
+                <div
+                  className="cursor-pointer h-fit"
+                  onClick={handleOpenDirections}
+                >
+                  {renderMapIcon()}
+                </div>
               </div>
             </div>
           </StandardContainer>
