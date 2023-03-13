@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/1Tolv2/sthlm-mc-parking-pwa">
-    <img src="components/assets/parking.svg" alt="parking icon" width="80" height="80" >
+    <img src="components/assets/images/og-icon.png" alt="parking icon" width="80" height="80" >
   </a>
 
 <h3 align="center">STHLM MC Parking</h3>
