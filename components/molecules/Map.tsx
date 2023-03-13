@@ -46,7 +46,7 @@ const Map = ({ states, mapStates }: Props) => {
           <ParkingLocations states={states} />
         </GoogleMap>
       ) : (
-        <div className="flex justify-center items-center absolute w-screen h-screen bg-white z-30">
+        <div className="flex justify-center items-center absolute w-screen h-screen bg-white z-[100]">
           Loading...
         </div>
       )}
