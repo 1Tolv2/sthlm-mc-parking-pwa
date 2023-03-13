@@ -31,11 +31,22 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     return (
       <li className="mb-sm" id={key + "1"}>
         {key === "weekdays" ? (
-          <span>{rate.time?.[0] + " - " + rate.time?.[1]}</span>
+          <>
+            <h3 className="hidden sm:block">Vardagar: </h3>
+            <span>{rate.time?.[0] + " - " + rate.time?.[1]}</span>
+          </>
         ) : key === "saturdays" ? (
-          <span>{`(${rate.time?.[0]} - ${rate.time?.[1]})`}</span>
+          <>
+            <h3 className="hidden sm:block">Dagar före helgdag: </h3>
+            <span>{`(${rate.time?.[0]} - ${rate.time?.[1]})`}</span>
+          </>
         ) : key === "sundays" ? (
-          <span className="text-unavailable-800">{`${rate.time?.[0]} - ${rate.time?.[1]}`}</span>
+          <>
+            <h3 className="hidden sm:block">Helgdagar:</h3>
+            <span className="text-unavailable-800">
+              {`${rate.time?.[0]} - ${rate.time?.[1]}`}
+            </span>
+          </>
         ) : (
           <></>
         )}
