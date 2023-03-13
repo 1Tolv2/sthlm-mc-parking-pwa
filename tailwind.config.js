@@ -22,6 +22,9 @@ module.exports = {
         },
         neutral: "#D9D9D9",
         black: "#353535",
+        available: { 500: "#00C853", 800: "#008035" },
+        unknown: { 500: "#FFD600", 800: "#b39500" },
+        unavailable: { 500: "#FF4646", 600: "#ff0000", 800: "#e60000" },
       },
       spacing: {
         sm: "5px",

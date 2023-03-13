@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FeatureItem } from "../../types";
 import StandardContainer from "../atoms/StandardContainer";
+import getParkingRates from "../../utils/getParkingRates";
 
 type Props = {
   data: FeatureItem;
@@ -12,12 +13,20 @@ type Props = {
 
 const ParkingDetailModal = ({ data, states }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const firstLetterToUpperCase = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
 
   const { targetedParkingSpot, modalPosition } = states;
+  const handleModal = () => {
+    console.log("MODAL", document.getElementById("parking-detail-modal"));
+    if (document.getElementById("parking-detail-modal")) {
+      setIsModalOpen(false);
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener("click", handleModal);
+
+    return document.removeEventListener("click", handleModal);
+  }, []);
   useEffect(() => {
     setIsModalOpen(data.id === targetedParkingSpot?.id);
   }, [targetedParkingSpot, modalPosition]);
@@ -29,22 +38,48 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     window.open(`https://maps.google.com/?q=${lat},${lng}`);
   };
 
-  const formatRegulations = () => {
-    const properties = data?.properties;
+  const formatRates = (key: string, rate: any) => {
+    return (
+      <li className="mb-sm" key={data?.properties?.ADDRESS + "-" + key}>
+        {key === "weekdays" ? (
+          <>
+            <h3 className="hidden sm:block">Vardagar: </h3>
+            <span>{rate.time?.[0] + " - " + rate.time?.[1]}</span>
+          </>
+        ) : key === "saturdays" ? (
+          <>
+            <h3 className="hidden sm:block">Dagar före helgdag: </h3>
+            <span>{`(${rate.time?.[0]} - ${rate.time?.[1]})`}</span>
+          </>
+        ) : key === "sundays" ? (
+          <>
+            <h3 className="hidden sm:block">Helgdagar:</h3>
+            <span className="text-unavailable-800">
+              {`${rate.time?.[0]} - ${rate.time?.[1]}`}
+            </span>
+          </>
+        ) : (
+          <></>
+        )}
+        {rate.note && <span>{rate.note}</span>}
+        {rate.fee > 0 && (
+          <span className="ml-sm">
+            {rate.fee.toString().replace(".", ",") + " kr/tim"}
+          </span>
+        )}
+      </li>
+    );
+  };
 
-    properties?.PARKING_RATE;
-    const splitString = properties?.PARKING_RATE?.split(": ");
-    const rate = splitString?.[0] || "";
-    const regulations = splitString?.[1]?.split(/(?<=\.)\s/);
+  const renderRates = () => {
+    const rates = getParkingRates(data?.properties?.PARKING_RATE);
+
     return (
       <div className="flex flex-col gap-md">
-        <p className="text-lg font-semibold">{firstLetterToUpperCase(rate)}</p>
         <ul>
-          {regulations?.map((item, index) => (
-            <li key={index} className="mb-md">
-              {item}
-            </li>
-          ))}
+          {Object.entries(rates).map(([key, value]) => {
+            return formatRates(key, value);
+          })}
         </ul>
       </div>
     );
@@ -70,23 +105,33 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     <>
       {isModalOpen && (
         <div
-          style={{
-            top: `${modalPosition?.y || 0}vh`,
-            left: `${modalPosition?.x || 0}vw`,
-          }}
-          className="fixed z-60 w-max h-fit"
+          // style={{
+          //   top: `${modalPosition?.y || 0}vh`,
+          //   left: `${modalPosition?.x || 0}vw`,
+          // }}
+          id="parking-detail-modal"
+          className="fixed bottom-md left-md z-50 w-max h-fit"
         >
           <StandardContainer>
-            <div className="flex max-w-[250px]">
+            <div className="flex w-[250px] min-h-[120px] justify-between">
               <div>
                 <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
-                {formatRegulations()}
+                {renderRates()}
               </div>
-              <div
-                className="cursor-pointer h-fit"
-                onClick={handleOpenDirections}
-              >
-                {renderMapIcon()}
+              <div className="flex flex-col justify-between">
+                <div
+                  className="relative top-3 cursor-pointer mx-auto"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <div className="relative top-0.5 w-6 h-0.5 rotate-45 bg-neutral" />
+                  <div className="w-6 h-0.5 -rotate-45 bg-neutral" />
+                </div>
+                <div
+                  className="cursor-pointer h-fit"
+                  onClick={handleOpenDirections}
+                >
+                  {renderMapIcon()}
+                </div>
               </div>
             </div>
           </StandardContainer>
