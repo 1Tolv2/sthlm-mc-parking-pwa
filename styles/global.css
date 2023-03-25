@@ -2,11 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Tratex svart';
+    src: local("TRATS"),
+        url("../fonts/TRATS___.TTF") format("truetype");
+}
+@font-face {
+    font-family: 'Tratex vit';
+    src: local("TRATS"),
+        url("../fonts/TRATV___.TTF") format("truetype");
+}
+
  * {
     -webkit-tap-highlight-color: transparent;
 }
 
 @layer {
+
+    h1, h2, h3, h4, h5, h6, p {
+        font-family: 'Tratex vit', sans-serif;
+    }
+
     .animate-shake {
         animation: shake 2s linear infinite;
     }
