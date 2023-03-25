@@ -3,10 +3,15 @@ import { FeatureItem, CoordinateItem } from "../../types";
 import Map from "../molecules/Map";
 import TopNavigation from "./TopNavigation";
 import BottomNavigation from "./BottomNavigation";
+import LoadingScreen from "../molecules/loadingComponents/LoadingScreen";
+import LoadingModal from "../molecules/loadingComponents/LoadingModal";
 
 type Props = {};
 
 const Content = (props: Props) => {
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [zoom, setZoom] = useState(11);
   const [center, setCenter] = useState<CoordinateItem | null>({
     lat: 59.31323345086049,
@@ -19,10 +24,11 @@ const Content = (props: Props) => {
   const [currentLocation, setCurrentLocation] = useState<CoordinateItem | null>(
     null
   );
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     <>
+      {isLoading && isInitialLoading && <LoadingScreen />}
+      {isLoading && !isInitialLoading && <LoadingModal />}
       <Map
         states={{
           currentLocation,
@@ -31,18 +37,23 @@ const Content = (props: Props) => {
           setParkingSpots,
           targetedParkingSpot,
           setTargetedParkingSpot,
+          isLoading,
+          setIsLoading,
+          setIsInitialLoading,
         }}
         mapStates={{ zoom, setZoom, center, setCenter }}
       />
-      {/* <TopNavigation
+      <TopNavigation
         states={{ setParkingSpots }}
         mapStates={{ setZoom, setCenter }}
-      /> */}
+      />
       <BottomNavigation
         states={{
           parkingSpots,
           setParkingSpots,
           setCurrentLocation,
+          isLoading,
+          setIsLoading,
         }}
       />
     </>

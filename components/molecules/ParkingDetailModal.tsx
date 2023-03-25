@@ -27,6 +27,7 @@ const ParkingDetailModal = ({ data, states }: Props) => {
 
     return document.removeEventListener("click", handleModal);
   }, []);
+
   useEffect(() => {
     setIsModalOpen(data.id === targetedParkingSpot?.id);
   }, [targetedParkingSpot, modalPosition]);
