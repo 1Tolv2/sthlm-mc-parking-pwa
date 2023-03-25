@@ -10,6 +10,8 @@ type Props = {
     setParkingSpots: (parkingSpots: FeatureItem[]) => void;
     targetedParkingSpot: FeatureItem | null;
     setTargetedParkingSpot: (targetedParkingSpot: FeatureItem | null) => void;
+    isLoading: boolean;
+    setIsLoading: (isLoading: boolean) => void;
   };
 };
 
@@ -23,6 +25,7 @@ const ParkingLocations = ({ states }: Props) => {
     setParkingSpots,
     targetedParkingSpot,
     setTargetedParkingSpot,
+    setIsLoading,
   } = states;
 
   const handleParkingSpots = async (): Promise<void> => {
@@ -42,7 +45,8 @@ const ParkingLocations = ({ states }: Props) => {
   };
 
   useEffect(() => {
-    handleParkingSpots();
+    handleParkingSpots().then(() => setIsLoading(false));
+    // handleParkingSpots();
   }, []);
 
   return (

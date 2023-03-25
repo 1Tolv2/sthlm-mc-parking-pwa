@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { GoogleMap, LoadScript, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import ParkingLocations from "./ParkingLocations";
 import { CoordinateItem } from "../../types";
 
@@ -37,7 +37,7 @@ const Map = ({ states, mapStates }: Props) => {
 
   return (
     <div style={{ height: "100vh", width: "100%" }}>
-      {isLoaded ? (
+      {isLoaded && (
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
           center={center as any}
@@ -45,10 +45,6 @@ const Map = ({ states, mapStates }: Props) => {
         >
           <ParkingLocations states={states} />
         </GoogleMap>
-      ) : (
-        <div className="flex justify-center items-center absolute w-screen h-screen bg-white z-[100]">
-          Loading...
-        </div>
       )}
     </div>
   );
