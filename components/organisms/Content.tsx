@@ -4,11 +4,14 @@ import Map from "../molecules/Map";
 import TopNavigation from "./TopNavigation";
 import BottomNavigation from "./BottomNavigation";
 import LoadingScreen from "../molecules/loadingComponents/LoadingScreen";
+import LoadingModal from "../molecules/loadingComponents/LoadingModal";
 
 type Props = {};
 
 const Content = (props: Props) => {
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+
   const [zoom, setZoom] = useState(11);
   const [center, setCenter] = useState<CoordinateItem | null>({
     lat: 59.31323345086049,
@@ -24,7 +27,8 @@ const Content = (props: Props) => {
 
   return (
     <>
-      {isLoading && <LoadingScreen />}
+      {isLoading && isInitialLoading && <LoadingScreen />}
+      {isLoading && !isInitialLoading && <LoadingModal />}
       <Map
         states={{
           currentLocation,
@@ -35,6 +39,7 @@ const Content = (props: Props) => {
           setTargetedParkingSpot,
           isLoading,
           setIsLoading,
+          setIsInitialLoading,
         }}
         mapStates={{ zoom, setZoom, center, setCenter }}
       />
