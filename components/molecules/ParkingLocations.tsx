@@ -29,9 +29,11 @@ const ParkingLocations = ({ states }: Props) => {
   } = states;
 
   const handleParkingSpots = async (): Promise<void> => {
+    setIsLoading(true);
     const data = await getParkingSpots();
 
     data && setParkingSpots(data.features);
+    setIsLoading(false);
   };
 
   const handleModalPosition = (coords: any) => {

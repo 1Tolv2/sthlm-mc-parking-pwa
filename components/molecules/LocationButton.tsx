@@ -10,6 +10,7 @@ type Props = {
     setCurrentLocation: React.Dispatch<
       React.SetStateAction<CoordinateItem | null>
     >;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
 
@@ -17,9 +18,10 @@ export default function LocationButton({ states }: Props) {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const { setParkingSpots, setCurrentLocation } = states;
+  const { setParkingSpots, setCurrentLocation, setIsLoading } = states;
 
   const handleParkingSpots = async (): Promise<void> => {
+    setIsLoading(true);
     const data = await getParkingSpots();
 
     if (data) {
@@ -27,9 +29,11 @@ export default function LocationButton({ states }: Props) {
     } else {
       console.log("NO DATA FOUND");
     }
+    setIsLoading(false);
   };
 
   const handleNearbyParkingSpots = async (position: any): Promise<void> => {
+    setIsLoading(true);
     const data = await getNearbyParkingSpots(position.coords);
     setCurrentLocation({
       // lat: position.coords.latitude || 0,
@@ -43,6 +47,7 @@ export default function LocationButton({ states }: Props) {
     } else {
       console.log("NO DATA FOUND");
     }
+    setIsLoading(false);
   };
 
   const handleLocation = async (): Promise<void> => {
