@@ -5,3 +5,35 @@
  * {
     -webkit-tap-highlight-color: transparent;
 }
+
+@layer {
+    .animate-shake {
+        animation: shake 2s linear infinite;
+    }
+
+    .animate-marquee {
+        animation: marquee 3s linear infinite;
+    }
+
+    @keyframes shake {
+        10%, 90% {
+            transform: translate3d(0, -1px, 0);
+        }
+
+        20%, 80% {
+            transform: translate3d(0, 2px, 0);
+        }
+
+        30%, 50%, 70% {
+            transform: translate3d(0, -3px, 0);
+        }
+
+        30%, 60% {
+            transform: translate3d(0, 3px, 0);
+        }
+    }
+    @keyframes marquee {
+        0% { left: 0%; }
+        100% { left: -100%; }
+    }
+}
