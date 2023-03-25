@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FeatureItem } from "../../types";
 import StandardContainer from "../atoms/StandardContainer";
 import getParkingRates from "../../utils/getParkingRates";
+import ExitButton from "../atoms/ExitButton";
 
 type Props = {
   data: FeatureItem;
@@ -120,13 +121,7 @@ const ParkingDetailModal = ({ data, states }: Props) => {
                 {renderRates()}
               </div>
               <div className="flex flex-col justify-between">
-                <div
-                  className="relative top-3 cursor-pointer mx-auto"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <div className="relative top-0.5 w-6 h-0.5 rotate-45 bg-neutral" />
-                  <div className="w-6 h-0.5 -rotate-45 bg-neutral" />
-                </div>
+                <ExitButton handleOnClick={() => setIsModalOpen(false)} />
                 <div
                   className="cursor-pointer h-fit"
                   onClick={handleOpenDirections}
