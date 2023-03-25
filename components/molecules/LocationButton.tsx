@@ -10,6 +10,7 @@ type Props = {
     setCurrentLocation: React.Dispatch<
       React.SetStateAction<CoordinateItem | null>
     >;
+    isLoading: boolean;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
@@ -18,7 +19,8 @@ export default function LocationButton({ states }: Props) {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const { setParkingSpots, setCurrentLocation, setIsLoading } = states;
+  const { setParkingSpots, setCurrentLocation, isLoading, setIsLoading } =
+    states;
 
   const handleParkingSpots = async (): Promise<void> => {
     setIsLoading(true);
@@ -70,7 +72,7 @@ export default function LocationButton({ states }: Props) {
         className="w-[54px] h-[54px]"
       >
         <div
-          onClick={handleLocation}
+          onClick={isLoading ? undefined : handleLocation}
           className="h-full w-full p-sm cursor-pointer"
         >
           <Icons icon={icon} />
