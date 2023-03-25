@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FeatureItem, CoordinateItem } from "../../types";
 import Map from "../molecules/Map";
-// import TopNavigation from "./TopNavigation";
+import TopNavigation from "./TopNavigation";
 import BottomNavigation from "./BottomNavigation";
-import LoadingScreen from "../molecules/LoadingScreen";
+import LoadingScreen from "../molecules/loadingComponents/LoadingScreen";
 
 type Props = {};
 
@@ -38,10 +38,10 @@ const Content = (props: Props) => {
         }}
         mapStates={{ zoom, setZoom, center, setCenter }}
       />
-      {/* <TopNavigation
+      <TopNavigation
         states={{ setParkingSpots }}
         mapStates={{ setZoom, setCenter }}
-      /> */}
+      />
       <BottomNavigation
         states={{
           parkingSpots,
