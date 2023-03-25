@@ -30,7 +30,7 @@ const icon = {
 
 const LoadingScreen = (props: Props) => {
   return (
-    <div className="absolute flex gap-10 flex-col justify-center items-center w-full h-full bg-primary z-50">
+    <div className="absolute flex gap-10 flex-col justify-center items-center w-full h-full bg-primary z-[100]">
       <div className="relative w-32 h-36 overflow-hidden">
         <div className="animate-shake">{icon.motorcycle()}</div>
         <div className="animate-marquee relative -top-4 w-[200%]">
