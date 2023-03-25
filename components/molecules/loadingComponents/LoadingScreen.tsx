@@ -7,7 +7,7 @@ const LoadingScreen = (props: Props) => {
   return (
     <div className="absolute flex gap-10 flex-col justify-center items-center w-full h-full bg-primary z-[100]">
       <LoadingAnimation />
-      <p className="text-xl text-white">Loading parkingspots</p>
+      <p className="text-xl text-white">Laddar in alla parkeringar</p>
     </div>
   );
 };
