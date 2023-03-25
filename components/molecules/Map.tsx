@@ -15,7 +15,7 @@ type Props = {
 
 const Map = ({ states, mapStates }: Props) => {
   const { zoom, setZoom, center, setCenter } = mapStates;
-  const { currentLocation, setIsLoading } = states;
+  const { currentLocation } = states;
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
