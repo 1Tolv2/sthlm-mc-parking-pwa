@@ -62,7 +62,7 @@ export default function LocationButton({ states }: Props) {
   };
 
   return (
-    <div className="flex justify-end w-full mx-auto max-w-[500px]">
+    <div className="flex justify-end mx-auto w-full md:w-[500px]">
       <StandardContainer
         padding="none"
         height=""

@@ -47,8 +47,8 @@ const AddressSearch = ({ states, mapStates }: Props) => {
     );
   };
   return (
-    <div className="fixed top-md left-1/2 -translate-x-1/2 w-[500px]">
-      <StandardContainer width="full" className="mx-auto max-w-[500px]">
+    <div className="fixed top-md left-1/2 -translate-x-1/2 w-full md:w-[500px]">
+      <StandardContainer width="full" className="mx-auto w-full">
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
         </div>
