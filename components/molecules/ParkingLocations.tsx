@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Marker } from "@react-google-maps/api";
-import { FeatureItem } from "../../types";
-import { getParkingSpots } from "../api";
-import ParkingDetailModal from "./ParkingDetailModal";
 import { useAppContext } from "../../context/AppContext";
 import { useParkingContext } from "../../context/ParkingContext";
+import { getParkingSpots, getNearbyParkingSpots } from "../api";
+
+import ParkingDetailModal from "./ParkingDetailModal";
 
 type Props = {};
 
@@ -21,6 +21,7 @@ const ParkingLocations = (props: Props) => {
     setParkingSpots,
     targetedParkingSpot,
     setTargetedParkingSpot,
+    setCurrentLocation,
   } = useParkingContext();
 
   const { setIsInitialLoading } = useAppContext();
@@ -31,6 +32,7 @@ const ParkingLocations = (props: Props) => {
 
     data && setParkingSpots(data.features);
     setIsLoading(false);
+    setIsInitialLoading(false);
   };
 
   const handleModalPosition = (coords: any) => {
@@ -43,11 +45,30 @@ const ParkingLocations = (props: Props) => {
     });
   };
 
-  useEffect(() => {
-    handleParkingSpots().then(() => {
+  const handleNearbyParkingSpots = async (position: any): Promise<void> => {
+    setIsLoading(true);
+    const data = await getNearbyParkingSpots(position.coords);
+
+    if (data.features.length !== 0) {
+      setCurrentLocation({
+        lat: position.coords.latitude || 0,
+        lng: position.coords.longitude || 0,
+        // longitude: 18.07502720995736,
+        // lat: 59.31323345086049,
+      });
+      setParkingSpots(data.features);
       setIsLoading(false);
       setIsInitialLoading(false);
-    });
+    } else {
+      handleParkingSpots();
+    }
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      handleNearbyParkingSpots,
+      handleParkingSpots
+    );
   }, []);
 
   return (
