@@ -3,6 +3,7 @@ import { Marker } from "@react-google-maps/api";
 import { FeatureItem } from "../../types";
 import { getParkingSpots } from "../api";
 import ParkingDetailModal from "./ParkingDetailModal";
+import { useAppContext } from "../../context/AppContext";
 
 type Props = {
   states: {
@@ -10,13 +11,14 @@ type Props = {
     setParkingSpots: (parkingSpots: FeatureItem[]) => void;
     targetedParkingSpot: FeatureItem | null;
     setTargetedParkingSpot: (targetedParkingSpot: FeatureItem | null) => void;
-    isLoading: boolean;
-    setIsLoading: (isLoading: boolean) => void;
+
     setIsInitialLoading: (isInitialLoading: boolean) => void;
   };
 };
 
 const ParkingLocations = ({ states }: Props) => {
+  const { setIsLoading } = useAppContext();
+
   const [modalPosition, setModalPosition] = useState<{
     x: number;
     y: number;
@@ -26,7 +28,6 @@ const ParkingLocations = ({ states }: Props) => {
     setParkingSpots,
     targetedParkingSpot,
     setTargetedParkingSpot,
-    setIsLoading,
     setIsInitialLoading,
   } = states;
 

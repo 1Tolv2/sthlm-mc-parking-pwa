@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAppContext } from "../../context/AppContext";
 import { FeatureItem, CoordinateItem } from "../../types";
 import Map from "../molecules/Map";
 import TopNavigation from "./TopNavigation";
@@ -9,8 +10,8 @@ import LoadingModal from "../molecules/loadingComponents/LoadingModal";
 type Props = {};
 
 const Content = (props: Props) => {
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const { isInitialLoading, isLoading, setIsInitialLoading, setIsLoading } =
+    useAppContext();
 
   const [zoom, setZoom] = useState(11);
   const [center, setCenter] = useState<CoordinateItem | null>({
@@ -37,8 +38,6 @@ const Content = (props: Props) => {
           setParkingSpots,
           targetedParkingSpot,
           setTargetedParkingSpot,
-          isLoading,
-          setIsLoading,
           setIsInitialLoading,
         }}
         mapStates={{ zoom, setZoom, center, setCenter }}
