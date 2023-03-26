@@ -38,15 +38,16 @@ export default function LocationButton({ states }: Props) {
     setIsLoading(true);
     const data = await getNearbyParkingSpots(position.coords);
 
-    if (data) {
-      setCurrentLocation({
-        lat: position.coords.latitude || 0,
-        lng: position.coords.longitude || 0,
-        // longitude: 18.07502720995736,
-        // lat: 59.31323345086049,
-      });
+    setCurrentLocation({
+      lat: position.coords.latitude || 0,
+      lng: position.coords.longitude || 0,
+      // longitude: 18.07502720995736,
+      // lat: 59.31323345086049,
+    });
+    if (data.features.length !== 0) {
       setParkingSpots(data.features);
     } else {
+      setParkingSpots([]);
       console.log("NO DATA FOUND");
     }
     setIsLoading(false);
