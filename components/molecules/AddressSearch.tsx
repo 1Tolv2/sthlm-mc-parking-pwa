@@ -1,11 +1,10 @@
 import React, { ReactNode, useState } from "react";
-import { CoordinateItem, FeatureItem } from "../../types";
+import { CoordinateItem } from "../../types";
 import {
   searchParkingSpots,
   getNearbyParkingSpots,
   searchStreetName,
   getStreetLocation,
-  // getStreets,
 } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import ExitButton from "../atoms/ExitButton";
@@ -13,9 +12,7 @@ import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
 
-type Props = {};
-
-const AddressSearch = (props: Props) => {
+const AddressSearch = () => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setZoom, setCenter } = useMapContext();
@@ -69,10 +66,10 @@ const AddressSearch = (props: Props) => {
     // fetchParkingSpots(address);
   };
 
-  const handleOnChange = async (e: any) => {
-    setAddress(e.target.value);
-    if (e.target.value !== "") {
-      const response = await searchStreetName(e.target.value);
+  const handleOnChange = async (e: React.FormEvent<HTMLInputElement>) => {
+    setAddress(e.currentTarget.value);
+    if (e.currentTarget.value !== "") {
+      const response = await searchStreetName(e.currentTarget.value);
       // if (response?.length === 1) {
       //   const data = await getStreets(response[0]);
       //   console.log("DATA", data);
@@ -85,7 +82,7 @@ const AddressSearch = (props: Props) => {
       setSearchResults(response?.slice(0, 3) || []);
       console.log("RES", response);
       // }
-    } else if (e.target.value === "") {
+    } else if (e.currentTarget.value === "") {
       setSearchResults([]);
     }
   };

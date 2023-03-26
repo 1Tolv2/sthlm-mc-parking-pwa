@@ -6,10 +6,9 @@ import { useModalContext } from "../../context/ModalContext";
 import { getNearbyParkingSpots, getParkingSpots } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import Icons from "../atoms/Icons";
+import { CoordinateItem } from "../../types";
 
-type Props = {};
-
-export default function LocationButton(props: Props) {
+export default function LocationButton() {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
@@ -29,9 +28,13 @@ export default function LocationButton(props: Props) {
     setIsLoading(false);
   };
 
-  const handleNearbyParkingSpots = async (position: any): Promise<void> => {
+  const handleNearbyParkingSpots = async (
+    position: GeolocationPosition
+  ): Promise<void> => {
     setIsLoading(true);
-    const data = await getNearbyParkingSpots(position.coords);
+    const data = await getNearbyParkingSpots(
+      position.coords as unknown as CoordinateItem
+    );
 
     setCurrentLocation({
       lat: position.coords.latitude || 0,

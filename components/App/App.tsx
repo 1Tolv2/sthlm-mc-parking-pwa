@@ -1,5 +1,5 @@
 import React from "react";
-import { Home } from "../../pages/Home";
+import Page from "../../pages/";
 import "../styles/global.css";
 
-export const App = (): JSX.Element => <Home />;
+export const App = (): JSX.Element => <Page />;

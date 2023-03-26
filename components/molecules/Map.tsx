@@ -4,9 +4,7 @@ import { useMapContext } from "../../context/MapContext";
 import ParkingLocations from "./ParkingLocations";
 import { useParkingContext } from "../../context/ParkingContext";
 
-type Props = {};
-
-const Map = (props: Props) => {
+const Map = () => {
   const { zoom, setZoom, center, setCenter } = useMapContext();
   const { currentLocation } = useParkingContext();
 
@@ -33,7 +31,7 @@ const Map = (props: Props) => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
-          center={center as any}
+          center={center as google.maps.LatLngLiteral}
           zoom={zoom}
         >
           <ParkingLocations />

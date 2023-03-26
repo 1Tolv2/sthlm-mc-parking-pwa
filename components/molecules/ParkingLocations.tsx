@@ -5,10 +5,9 @@ import { useParkingContext } from "../../context/ParkingContext";
 import { getParkingSpots, getNearbyParkingSpots } from "../api";
 
 import ParkingDetailModal from "./ParkingDetailModal";
+import { CoordinateItem } from "../../types";
 
-type Props = {};
-
-const ParkingLocations = (props: Props) => {
+const ParkingLocations = () => {
   const { setIsLoading } = useAppContext();
 
   const [modalPosition, setModalPosition] = useState<{
@@ -35,7 +34,7 @@ const ParkingLocations = (props: Props) => {
     setIsInitialLoading(false);
   };
 
-  const handleModalPosition = (coords: any) => {
+  const handleModalPosition = (coords: { x: number; y: number }) => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
@@ -45,9 +44,13 @@ const ParkingLocations = (props: Props) => {
     });
   };
 
-  const handleNearbyParkingSpots = async (position: any): Promise<void> => {
+  const handleNearbyParkingSpots = async (
+    position: GeolocationPosition
+  ): Promise<void> => {
     setIsLoading(true);
-    const data = await getNearbyParkingSpots(position.coords);
+    const data = await getNearbyParkingSpots(
+      position.coords as unknown as CoordinateItem
+    );
 
     if (data.features.length !== 0) {
       setCurrentLocation({
@@ -74,9 +77,9 @@ const ParkingLocations = (props: Props) => {
   return (
     <ul>
       {parkingSpots?.map((item) => {
-        const position: any = {
-          lng: item?.geometry?.coordinates[0][0],
-          lat: item?.geometry?.coordinates[0][1],
+        const position: CoordinateItem = {
+          lng: item?.geometry?.coordinates[0][0] as unknown as number,
+          lat: item?.geometry?.coordinates[0][1] as unknown as number,
         };
         return (
           <li
@@ -91,7 +94,7 @@ const ParkingLocations = (props: Props) => {
             }
           >
             <Marker
-              position={position}
+              position={position as google.maps.LatLngLiteral}
               onClick={(e: any) => {
                 handleModalPosition({
                   x: e.domEvent.screenX,

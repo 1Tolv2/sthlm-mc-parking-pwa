@@ -6,9 +6,7 @@ import BottomNavigation from "./BottomNavigation";
 import LoadingScreen from "../molecules/loadingComponents/LoadingScreen";
 import LoadingModal from "../molecules/loadingComponents/LoadingModal";
 
-type Props = {};
-
-const Content = (props: Props) => {
+const Content = () => {
   const { isInitialLoading, isLoading } = useAppContext();
 
   return (
