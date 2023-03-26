@@ -2,9 +2,10 @@ import React, { ReactNode, useState } from "react";
 import { CoordinateItem, FeatureItem } from "../../types";
 import {
   searchParkingSpots,
-  getNearbyParkingSpots,
+  // getNearbyParkingSpots,
   searchStreetName,
-  getStreetLocation,
+  // getStreetLocation,
+  // getStreets,
 } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import ExitButton from "../atoms/ExitButton";
@@ -24,9 +25,16 @@ const AddressSearch = ({ states, mapStates }: Props) => {
   const { setZoom, setCenter } = mapStates;
 
   const fetchParkingSpots = async (address: string) => {
-    // const data = await searchParkingSpots(address);
-    const coordinates = await getStreetLocation(address);
-    const data = await getNearbyParkingSpots(coordinates);
+    const streetName = address;
+
+    // const coordinates = await getStreetLocation(streetName);
+    // If specific street number is given
+    // const data = await getNearbyParkingSpots({
+    //   longitude: coordinates.longitude,
+    //   latitude: coordinates.latitude,
+    // });
+    const data = await searchParkingSpots(streetName);
+    console.log("COORDS", data);
     if (data.features.length > 0) {
       setParkingSpots(data.features);
       setCenter({
@@ -51,8 +59,18 @@ const AddressSearch = ({ states, mapStates }: Props) => {
     setAddress(e.target.value);
     if (e.target.value !== "") {
       const response = await searchStreetName(e.target.value);
+      // if (response?.length === 1) {
+      //   const data = await getStreets(response[0]);
+      //   console.log("DATA", data);
+      //   setSearchResults([
+      //     `${response[0]} ${data[0].StreetNum}`,
+      //     `${response[0]} ${data[1].StreetNum}`,
+      //     `${response[0]} ${data[2].StreetNum}`,
+      //   ]);
+      // } else {
       setSearchResults(response?.slice(0, 3) || []);
       console.log("RES", response);
+      // }
     } else if (e.target.value === "") {
       setSearchResults([]);
     }
@@ -61,6 +79,7 @@ const AddressSearch = ({ states, mapStates }: Props) => {
   const handleOnSearchResultClick = (result: string) => {
     setAddress(result);
     fetchParkingSpots(result);
+    setSearchResults([]);
   };
 
   const renderSearchIcon = (): ReactNode => {
