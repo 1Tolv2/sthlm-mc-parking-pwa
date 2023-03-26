@@ -3,24 +3,17 @@ import { CoordinateItem, FeatureItem } from "../../types";
 import Icons from "../atoms/Icons";
 import StandardContainer from "../atoms/StandardContainer";
 import { getNearbyParkingSpots, getParkingSpots } from "../api";
+import { useAppContext } from "../../context/AppContext";
+import { useParkingContext } from "../../context/ParkingContext";
 
-type Props = {
-  states: {
-    setParkingSpots: React.Dispatch<React.SetStateAction<FeatureItem[]>>;
-    setCurrentLocation: React.Dispatch<
-      React.SetStateAction<CoordinateItem | null>
-    >;
-    isLoading: boolean;
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  };
-};
+type Props = {};
 
-export default function LocationButton({ states }: Props) {
+export default function LocationButton(props: Props) {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const { setParkingSpots, setCurrentLocation, isLoading, setIsLoading } =
-    states;
+  const { setParkingSpots, setCurrentLocation } = useParkingContext();
+  const { isLoading, setIsLoading } = useAppContext();
 
   const handleParkingSpots = async (): Promise<void> => {
     setIsLoading(true);

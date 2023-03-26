@@ -9,20 +9,16 @@ import {
 } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import ExitButton from "../atoms/ExitButton";
+import { useMapContext } from "../../context/MapContext";
+import { useParkingContext } from "../../context/ParkingContext";
 
-type Props = {
-  states: { setParkingSpots: (parkingSpots: FeatureItem[]) => void };
-  mapStates: {
-    setZoom: React.Dispatch<React.SetStateAction<number>>;
-    setCenter: React.Dispatch<React.SetStateAction<CoordinateItem | null>>;
-  };
-};
+type Props = {};
 
-const AddressSearch = ({ states, mapStates }: Props) => {
+const AddressSearch = (props: Props) => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
-  const { setParkingSpots } = states;
-  const { setZoom, setCenter } = mapStates;
+  const { setZoom, setCenter } = useMapContext();
+  const { setParkingSpots } = useParkingContext();
 
   const fetchParkingSpots = async (address: string) => {
     const streetName = address;

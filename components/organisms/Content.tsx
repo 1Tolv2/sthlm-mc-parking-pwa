@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
+import { useMapContext } from "../../context/MapContext";
 import { FeatureItem, CoordinateItem } from "../../types";
 import Map from "../molecules/Map";
 import TopNavigation from "./TopNavigation";
@@ -13,11 +14,12 @@ const Content = (props: Props) => {
   const { isInitialLoading, isLoading, setIsInitialLoading, setIsLoading } =
     useAppContext();
 
-  const [zoom, setZoom] = useState(11);
-  const [center, setCenter] = useState<CoordinateItem | null>({
-    lat: 59.31323345086049,
-    lng: 18.07502720995736,
-  });
+  const { zoom, setZoom, center, setCenter } = useMapContext();
+  // const [zoom, setZoom] = useState(11);
+  // const [center, setCenter] = useState<CoordinateItem | null>({
+  //   lat: 59.31323345086049,
+  //   lng: 18.07502720995736,
+  // });
 
   const [parkingSpots, setParkingSpots] = useState<FeatureItem[]>([]);
   const [targetedParkingSpot, setTargetedParkingSpot] =
@@ -30,31 +32,9 @@ const Content = (props: Props) => {
     <>
       {isLoading && isInitialLoading && <LoadingScreen />}
       {isLoading && !isInitialLoading && <LoadingModal />}
-      <Map
-        states={{
-          currentLocation,
-          setCurrentLocation,
-          parkingSpots,
-          setParkingSpots,
-          targetedParkingSpot,
-          setTargetedParkingSpot,
-          setIsInitialLoading,
-        }}
-        mapStates={{ zoom, setZoom, center, setCenter }}
-      />
-      <TopNavigation
-        states={{ setParkingSpots }}
-        mapStates={{ setZoom, setCenter }}
-      />
-      <BottomNavigation
-        states={{
-          parkingSpots,
-          setParkingSpots,
-          setCurrentLocation,
-          isLoading,
-          setIsLoading,
-        }}
-      />
+      <Map />
+      <TopNavigation />
+      <BottomNavigation />
     </>
   );
 };

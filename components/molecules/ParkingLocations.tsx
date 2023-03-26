@@ -4,32 +4,26 @@ import { FeatureItem } from "../../types";
 import { getParkingSpots } from "../api";
 import ParkingDetailModal from "./ParkingDetailModal";
 import { useAppContext } from "../../context/AppContext";
+import { useParkingContext } from "../../context/ParkingContext";
 
-type Props = {
-  states: {
-    parkingSpots: FeatureItem[];
-    setParkingSpots: (parkingSpots: FeatureItem[]) => void;
-    targetedParkingSpot: FeatureItem | null;
-    setTargetedParkingSpot: (targetedParkingSpot: FeatureItem | null) => void;
+type Props = {};
 
-    setIsInitialLoading: (isInitialLoading: boolean) => void;
-  };
-};
-
-const ParkingLocations = ({ states }: Props) => {
+const ParkingLocations = (props: Props) => {
   const { setIsLoading } = useAppContext();
 
   const [modalPosition, setModalPosition] = useState<{
     x: number;
     y: number;
   } | null>(null);
+
   const {
     parkingSpots,
     setParkingSpots,
     targetedParkingSpot,
     setTargetedParkingSpot,
-    setIsInitialLoading,
-  } = states;
+  } = useParkingContext();
+
+  const { setIsInitialLoading } = useAppContext();
 
   const handleParkingSpots = async (): Promise<void> => {
     setIsLoading(true);
