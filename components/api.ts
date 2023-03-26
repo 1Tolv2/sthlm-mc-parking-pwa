@@ -28,7 +28,7 @@ export const searchParkingSpots = async (
 export const getStreets = async (
   streetName: string,
   streetNumber?: string
-): Promise<any> => {
+): Promise<CoordinateItem> => {
   const { data } = await axios.get(
     `/api/streets?streetName=${streetName}${
       streetNumber ? "&streetNumber=${streetNumber}" : ""

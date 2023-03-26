@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-function Header({}: Props) {
+function Header() {
   return <div>Header</div>;
 }
 
