@@ -4,8 +4,8 @@ import Modal from "../components/molecules/Modal";
 export const useModalContext = () => useContext(ModalContext);
 
 interface ModalCtx {
-  isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  modalContent: string;
+  setModalContent: React.Dispatch<React.SetStateAction<string>>;
 }
 const ModalContext = createContext({} as ModalCtx);
 
@@ -14,11 +14,16 @@ type Props = {
 };
 
 const ModalContextProvider = ({ children }: Props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<string>("");
 
   return (
-    <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
-      {isModalOpen && <Modal handleOnClose={() => setIsModalOpen(false)} />}
+    <ModalContext.Provider value={{ modalContent, setModalContent }}>
+      {modalContent && (
+        <Modal
+          handleOnClose={() => setModalContent("")}
+          content={modalContent}
+        />
+      )}
       {children}
     </ModalContext.Provider>
   );

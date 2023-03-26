@@ -3,16 +3,18 @@ import ExitButton from "../atoms/ExitButton";
 
 type Props = {
   handleOnClose: () => void;
-  children?: JSX.Element;
+  content: string;
 };
 
-const Modal = ({ handleOnClose, children }: Props) => {
+const Modal = ({ handleOnClose, content }: Props) => {
   return (
     <div className="absolute w-screen h-screen z-[90] flex justify-center items-center">
-      <div className="w-fit h-fit bg-primary text-white ">
-        <ExitButton handleOnClick={handleOnClose} />
-        <div className="text-base sm:text-lg font-tratex p-lg border-8 border-white rounded-lg">
-          {children}
+      <div className="relative w-fit h-fit bg-primary text-white drop-shadow">
+        <div className="absolute right-4 top-4">
+          <ExitButton handleOnClick={handleOnClose} />
+        </div>
+        <div className="text-base sm:text-lg font-tratex p-xl border-8 border-white rounded-lg">
+          {content}
         </div>
       </div>
     </div>

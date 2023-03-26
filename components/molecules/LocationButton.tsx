@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { CoordinateItem, FeatureItem } from "../../types";
-import Icons from "../atoms/Icons";
-import StandardContainer from "../atoms/StandardContainer";
-import { getNearbyParkingSpots, getParkingSpots } from "../api";
 import { useAppContext } from "../../context/AppContext";
 import { useParkingContext } from "../../context/ParkingContext";
+import { useModalContext } from "../../context/ModalContext";
+
+import { getNearbyParkingSpots, getParkingSpots } from "../api";
+import StandardContainer from "../atoms/StandardContainer";
+import Icons from "../atoms/Icons";
 
 type Props = {};
 
@@ -14,6 +15,7 @@ export default function LocationButton(props: Props) {
   );
   const { setParkingSpots, setCurrentLocation } = useParkingContext();
   const { isLoading, setIsLoading } = useAppContext();
+  const { setModalContent } = useModalContext();
 
   const handleParkingSpots = async (): Promise<void> => {
     setIsLoading(true);
@@ -41,6 +43,8 @@ export default function LocationButton(props: Props) {
       setParkingSpots(data.features);
     } else {
       setParkingSpots([]);
+      setIsLoading(false);
+      setModalContent("Inga parkeringar hittades");
       console.log("NO DATA FOUND");
     }
     setIsLoading(false);
