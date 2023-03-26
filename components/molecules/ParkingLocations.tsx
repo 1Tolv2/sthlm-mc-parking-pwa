@@ -53,7 +53,6 @@ const ParkingLocations = ({ states }: Props) => {
       setIsLoading(false);
       setIsInitialLoading(false);
     });
-    // handleParkingSpots();
   }, []);
 
   return (

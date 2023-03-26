@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FeatureItem } from "../../types";
 import StandardContainer from "../atoms/StandardContainer";
 import getParkingRates from "../../utils/getParkingRates";
+import ExitButton from "../atoms/ExitButton";
 
 type Props = {
   data: FeatureItem;
@@ -116,16 +117,14 @@ const ParkingDetailModal = ({ data, states }: Props) => {
           <StandardContainer>
             <div className="flex w-[250px] min-h-[120px] justify-between">
               <div>
-                <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
+                <h2 className="text-xl break-words mb-md">
+                  {data?.properties?.ADDRESS}
+                </h2>
                 {renderRates()}
               </div>
               <div className="flex flex-col justify-between">
-                <div
-                  className="relative top-3 cursor-pointer mx-auto"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <div className="relative top-0.5 w-6 h-0.5 rotate-45 bg-neutral" />
-                  <div className="w-6 h-0.5 -rotate-45 bg-neutral" />
+                <div className="relative top-3 w-[48px]">
+                  <ExitButton handleOnClick={() => setIsModalOpen(false)} />
                 </div>
                 <div
                   className="cursor-pointer h-fit"

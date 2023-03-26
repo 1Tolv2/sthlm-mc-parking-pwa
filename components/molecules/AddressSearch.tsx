@@ -1,7 +1,13 @@
 import React, { ReactNode, useState } from "react";
-import { searchParkingSpots } from "../api";
-import StandardContainer from "../atoms/StandardContainer";
 import { CoordinateItem, FeatureItem } from "../../types";
+import {
+  searchParkingSpots,
+  getNearbyParkingSpots,
+  searchStreetName,
+  getStreetLocation,
+} from "../api";
+import StandardContainer from "../atoms/StandardContainer";
+import ExitButton from "../atoms/ExitButton";
 
 type Props = {
   states: { setParkingSpots: (parkingSpots: FeatureItem[]) => void };
@@ -13,13 +19,14 @@ type Props = {
 
 const AddressSearch = ({ states, mapStates }: Props) => {
   const [address, setAddress] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setParkingSpots } = states;
   const { setZoom, setCenter } = mapStates;
 
-  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = await searchParkingSpots(address);
-
+  const fetchParkingSpots = async (address: string) => {
+    // const data = await searchParkingSpots(address);
+    const coordinates = await getStreetLocation(address);
+    const data = await getNearbyParkingSpots(coordinates);
     if (data.features.length > 0) {
       setParkingSpots(data.features);
       setCenter({
@@ -33,6 +40,27 @@ const AddressSearch = ({ states, mapStates }: Props) => {
       setZoom(15);
       setAddress("");
     }
+  };
+
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // fetchParkingSpots(address);
+  };
+
+  const handleOnChange = async (e: any) => {
+    setAddress(e.target.value);
+    if (e.target.value !== "") {
+      const response = await searchStreetName(e.target.value);
+      setSearchResults(response?.slice(0, 3) || []);
+      console.log("RES", response);
+    } else if (e.target.value === "") {
+      setSearchResults([]);
+    }
+  };
+
+  const handleOnSearchResultClick = (result: string) => {
+    setAddress(result);
+    fetchParkingSpots(result);
   };
 
   const renderSearchIcon = (): ReactNode => {
@@ -57,14 +85,33 @@ const AddressSearch = ({ states, mapStates }: Props) => {
             id="address"
             type="text"
             name="address"
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={handleOnChange}
             value={address}
             placeholder="Hitta parkering"
             className="w-full h-full outline-transparent focus:outline-transparent"
           />
           <input type="submit" hidden title="submit" />
         </form>
+        <ExitButton handleOnClick={() => setAddress("")} />
       </StandardContainer>
+      {searchResults && searchResults.length !== 0 && (
+        <div className="pl-[50px] pr-[39px] opacity-90">
+          <StandardContainer className="mt-sm" width="w-full md:w-[450px]">
+            <ul className="w-full">
+              {searchResults &&
+                searchResults.map((result) => (
+                  <li
+                    key={`result-${result}`}
+                    className="p-1 hover:bg-primary-200 cursor-pointer"
+                    onClick={() => handleOnSearchResultClick(result)}
+                  >
+                    {result}
+                  </li>
+                ))}
+            </ul>
+          </StandardContainer>
+        </div>
+      )}
     </div>
   );
 };
