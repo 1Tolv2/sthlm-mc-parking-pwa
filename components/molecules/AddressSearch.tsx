@@ -2,15 +2,16 @@ import React, { ReactNode, useState } from "react";
 import { CoordinateItem, FeatureItem } from "../../types";
 import {
   searchParkingSpots,
-  // getNearbyParkingSpots,
+  getNearbyParkingSpots,
   searchStreetName,
-  // getStreetLocation,
+  getStreetLocation,
   // getStreets,
 } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import ExitButton from "../atoms/ExitButton";
 import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
+import { useModalContext } from "../../context/ModalContext";
 
 type Props = {};
 
@@ -19,18 +20,12 @@ const AddressSearch = (props: Props) => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setZoom, setCenter } = useMapContext();
   const { setParkingSpots } = useParkingContext();
+  const { setModalContent } = useModalContext();
 
   const fetchParkingSpots = async (address: string) => {
     const streetName = address;
 
-    // const coordinates = await getStreetLocation(streetName);
-    // If specific street number is given
-    // const data = await getNearbyParkingSpots({
-    //   longitude: coordinates.longitude,
-    //   latitude: coordinates.latitude,
-    // });
     const data = await searchParkingSpots(streetName);
-    console.log("COORDS", data);
     if (data.features.length > 0) {
       setParkingSpots(data.features);
       setCenter({
@@ -43,6 +38,29 @@ const AddressSearch = (props: Props) => {
       } as CoordinateItem);
       setZoom(15);
       setAddress("");
+    } else if (data.features.length === 0) {
+      try {
+        const coordinates = await getStreetLocation(streetName);
+        const proximityData = await getNearbyParkingSpots({
+          longitude: coordinates.longitude,
+          latitude: coordinates.latitude,
+        });
+        if (proximityData.features.length !== 0) {
+          setParkingSpots(data.features);
+          setCenter({
+            lat:
+              (data.features[0].geometry
+                .coordinates[0][1] as unknown as number) || 0,
+            lng:
+              (data.features[0].geometry
+                .coordinates[0][0] as unknown as number) || 0,
+          } as CoordinateItem);
+          setZoom(15);
+          setAddress("");
+        }
+      } catch (err) {
+        setModalContent("Inga parkeringar hittades");
+      }
     }
   };
 
