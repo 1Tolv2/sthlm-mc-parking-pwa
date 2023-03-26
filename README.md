@@ -58,5 +58,5 @@ Start up the application by running the below command when standing in the root 
 npm run dev
 ```
 
-After starting your app you can open <a href="http://http://localhost:3000/">http://http://localhost:3000/</a> in the browser.
+After starting your app you can open <a href="http://localhost:3000/">http://localhost:3000/</a> in the browser.
 The page reloads as you make changes and save your code.
