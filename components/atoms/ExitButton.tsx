@@ -7,7 +7,7 @@ type Props = {
 const ExitButton = ({ handleOnClick }: Props) => {
   return (
     <div
-      className="relative top-3 cursor-pointer mx-auto"
+      className="relative top-[10px] cursor-pointer mx-auto w-6 h-6"
       onClick={handleOnClick}
     >
       <div className="relative top-0.5 w-6 h-0.5 rotate-45 bg-neutral" />
