@@ -117,11 +117,15 @@ const ParkingDetailModal = ({ data, states }: Props) => {
           <StandardContainer>
             <div className="flex w-[250px] min-h-[120px] justify-between">
               <div>
-                <h2 className="text-2xl mb-md">{data?.properties?.ADDRESS}</h2>
+                <h2 className="text-xl break-words mb-md">
+                  {data?.properties?.ADDRESS}
+                </h2>
                 {renderRates()}
               </div>
               <div className="flex flex-col justify-between">
-                <ExitButton handleOnClick={() => setIsModalOpen(false)} />
+                <div className="relative top-3 w-[48px]">
+                  <ExitButton handleOnClick={() => setIsModalOpen(false)} />
+                </div>
                 <div
                   className="cursor-pointer h-fit"
                   onClick={handleOpenDirections}
