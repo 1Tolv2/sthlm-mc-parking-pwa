@@ -1,6 +1,11 @@
 import React, { ReactNode, useState } from "react";
 import { CoordinateItem, FeatureItem } from "../../types";
-import { searchParkingSpots, searchStreetName } from "../api";
+import {
+  searchParkingSpots,
+  getNearbyParkingSpots,
+  searchStreetName,
+  getStreetLocation,
+} from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import ExitButton from "../atoms/ExitButton";
 
@@ -19,8 +24,9 @@ const AddressSearch = ({ states, mapStates }: Props) => {
   const { setZoom, setCenter } = mapStates;
 
   const fetchParkingSpots = async (address: string) => {
-    const data = await searchParkingSpots(address);
-
+    // const data = await searchParkingSpots(address);
+    const coordinates = await getStreetLocation(address);
+    const data = await getNearbyParkingSpots(coordinates);
     if (data.features.length > 0) {
       setParkingSpots(data.features);
       setCenter({
@@ -38,7 +44,7 @@ const AddressSearch = ({ states, mapStates }: Props) => {
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetchParkingSpots(address);
+    // fetchParkingSpots(address);
   };
 
   const handleOnChange = async (e: any) => {
@@ -50,6 +56,11 @@ const AddressSearch = ({ states, mapStates }: Props) => {
     } else if (e.target.value === "") {
       setSearchResults([]);
     }
+  };
+
+  const handleOnSearchResultClick = (result: string) => {
+    setAddress(result);
+    fetchParkingSpots(result);
   };
 
   const renderSearchIcon = (): ReactNode => {
@@ -92,10 +103,7 @@ const AddressSearch = ({ states, mapStates }: Props) => {
                   <li
                     key={`result-${result}`}
                     className="p-1 hover:bg-primary-200 cursor-pointer"
-                    onClick={() => {
-                      setAddress(result);
-                      fetchParkingSpots(result);
-                    }}
+                    onClick={() => handleOnSearchResultClick(result)}
                   >
                     {result}
                   </li>

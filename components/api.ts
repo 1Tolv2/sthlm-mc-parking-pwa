@@ -29,3 +29,12 @@ export const searchStreetName = async (search: string): Promise<string[]> => {
   const { data } = await axios.get(`/api/streets/streetNames?search=${search}`);
   return data[0]?.StreetNames as unknown as string[];
 };
+
+export const getStreetLocation = async (
+  search: string
+): Promise<CoordinateItem> => {
+  const { data } = await axios.get(
+    `/api/streets/streetLocation?search=${search}`
+  );
+  return data as unknown as CoordinateItem;
+};
