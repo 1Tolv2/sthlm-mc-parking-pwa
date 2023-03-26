@@ -37,14 +37,14 @@ export default function LocationButton({ states }: Props) {
   const handleNearbyParkingSpots = async (position: any): Promise<void> => {
     setIsLoading(true);
     const data = await getNearbyParkingSpots(position.coords);
-    setCurrentLocation({
-      // lat: position.coords.latitude || 0,
-      // lng: position.coords.longitude || 0,
-      lng: 18.07502720995736,
-      lat: 59.31323345086049,
-    });
 
     if (data) {
+      setCurrentLocation({
+        lat: position.coords.latitude || 0,
+        lng: position.coords.longitude || 0,
+        // longitude: 18.07502720995736,
+        // lat: 59.31323345086049,
+      });
       setParkingSpots(data.features);
     } else {
       console.log("NO DATA FOUND");
