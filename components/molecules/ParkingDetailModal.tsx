@@ -40,7 +40,7 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     window.open(`https://maps.google.com/?q=${lat},${lng}`);
   };
 
-  const formatRates = (key: string, rate: any) => {
+  const formatRates = (key: string, rate: Rates) => {
     return (
       <li className="mb-sm" key={data?.properties?.ADDRESS + "-" + key}>
         {key === "weekdays" ? (
@@ -73,15 +73,16 @@ const ParkingDetailModal = ({ data, states }: Props) => {
     );
   };
 
+  type Rates = { time: string[]; fee: number; note: string };
   const renderRates = () => {
     const rates = getParkingRates(data?.properties?.PARKING_RATE);
 
     return (
       <div className="flex flex-col gap-md">
         <ul>
-          {Object.entries(rates).map(([key, value]) => {
-            return formatRates(key, value);
-          })}
+          {Object.entries(rates).map(([key, value]) =>
+            formatRates(key, value as Rates)
+          )}
         </ul>
       </div>
     );

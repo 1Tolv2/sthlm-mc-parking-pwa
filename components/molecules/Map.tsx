@@ -31,7 +31,7 @@ const Map = () => {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
-          center={center as any}
+          center={center as google.maps.LatLngLiteral}
           zoom={zoom}
         >
           <ParkingLocations />
