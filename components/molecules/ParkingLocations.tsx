@@ -6,9 +6,7 @@ import { getParkingSpots, getNearbyParkingSpots } from "../api";
 
 import ParkingDetailModal from "./ParkingDetailModal";
 
-type Props = {};
-
-const ParkingLocations = (props: Props) => {
+const ParkingLocations = () => {
   const { setIsLoading } = useAppContext();
 
   const [modalPosition, setModalPosition] = useState<{

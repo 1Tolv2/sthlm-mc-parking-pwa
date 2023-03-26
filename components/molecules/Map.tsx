@@ -4,9 +4,7 @@ import { useMapContext } from "../../context/MapContext";
 import ParkingLocations from "./ParkingLocations";
 import { useParkingContext } from "../../context/ParkingContext";
 
-type Props = {};
-
-const Map = (props: Props) => {
+const Map = () => {
   const { zoom, setZoom, center, setCenter } = useMapContext();
   const { currentLocation } = useParkingContext();
 

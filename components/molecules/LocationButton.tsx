@@ -7,9 +7,7 @@ import { getNearbyParkingSpots, getParkingSpots } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import Icons from "../atoms/Icons";
 
-type Props = {};
-
-export default function LocationButton(props: Props) {
+export default function LocationButton() {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );

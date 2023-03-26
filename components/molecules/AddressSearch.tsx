@@ -13,9 +13,7 @@ import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
 
-type Props = {};
-
-const AddressSearch = (props: Props) => {
+const AddressSearch = () => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setZoom, setCenter } = useMapContext();

@@ -1,9 +1,7 @@
 import React from "react";
 import StandardContainer from "../atoms/StandardContainer";
 
-type Props = {};
-
-const MenuBar = (props: Props) => {
+const MenuBar = () => {
   const renderNavigation = () => {
     return (
       <div className="w-full text-center border-r-2 last:border-0 border-neutral">
