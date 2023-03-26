@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import AppProvider from "../context/index";
 import Layout from "../components/Layout/Layout";
 import Content from "../components/organisms/Content";
 
@@ -19,7 +20,9 @@ export default function Page() {
         <link rel="apple-touch-icon" href="/parking-180x180.png" />
       </Head>
       <Layout>
-        <Content />
+        <AppProvider>
+          <Content />
+        </AppProvider>
       </Layout>
     </div>
   );

@@ -5,28 +5,27 @@ import {
   getNearbyParkingSpots,
   searchStreetName,
   getStreetLocation,
+  // getStreets,
 } from "../api";
 import StandardContainer from "../atoms/StandardContainer";
 import ExitButton from "../atoms/ExitButton";
+import { useMapContext } from "../../context/MapContext";
+import { useParkingContext } from "../../context/ParkingContext";
+import { useModalContext } from "../../context/ModalContext";
 
-type Props = {
-  states: { setParkingSpots: (parkingSpots: FeatureItem[]) => void };
-  mapStates: {
-    setZoom: React.Dispatch<React.SetStateAction<number>>;
-    setCenter: React.Dispatch<React.SetStateAction<CoordinateItem | null>>;
-  };
-};
+type Props = {};
 
-const AddressSearch = ({ states, mapStates }: Props) => {
+const AddressSearch = (props: Props) => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
-  const { setParkingSpots } = states;
-  const { setZoom, setCenter } = mapStates;
+  const { setZoom, setCenter } = useMapContext();
+  const { setParkingSpots } = useParkingContext();
+  const { setModalContent } = useModalContext();
 
   const fetchParkingSpots = async (address: string) => {
-    // const data = await searchParkingSpots(address);
-    const coordinates = await getStreetLocation(address);
-    const data = await getNearbyParkingSpots(coordinates);
+    const streetName = address;
+
+    const data = await searchParkingSpots(streetName);
     if (data.features.length > 0) {
       setParkingSpots(data.features);
       setCenter({
@@ -39,6 +38,29 @@ const AddressSearch = ({ states, mapStates }: Props) => {
       } as CoordinateItem);
       setZoom(15);
       setAddress("");
+    } else if (data.features.length === 0) {
+      try {
+        const coordinates = await getStreetLocation(streetName);
+        const proximityData = await getNearbyParkingSpots({
+          longitude: coordinates.longitude,
+          latitude: coordinates.latitude,
+        });
+        if (proximityData.features.length !== 0) {
+          setParkingSpots(data.features);
+          setCenter({
+            lat:
+              (data.features[0].geometry
+                .coordinates[0][1] as unknown as number) || 0,
+            lng:
+              (data.features[0].geometry
+                .coordinates[0][0] as unknown as number) || 0,
+          } as CoordinateItem);
+          setZoom(15);
+          setAddress("");
+        }
+      } catch (err) {
+        setModalContent("Inga parkeringar hittades");
+      }
     }
   };
 
@@ -51,8 +73,18 @@ const AddressSearch = ({ states, mapStates }: Props) => {
     setAddress(e.target.value);
     if (e.target.value !== "") {
       const response = await searchStreetName(e.target.value);
+      // if (response?.length === 1) {
+      //   const data = await getStreets(response[0]);
+      //   console.log("DATA", data);
+      //   setSearchResults([
+      //     `${response[0]} ${data[0].StreetNum}`,
+      //     `${response[0]} ${data[1].StreetNum}`,
+      //     `${response[0]} ${data[2].StreetNum}`,
+      //   ]);
+      // } else {
       setSearchResults(response?.slice(0, 3) || []);
       console.log("RES", response);
+      // }
     } else if (e.target.value === "") {
       setSearchResults([]);
     }
@@ -61,6 +93,7 @@ const AddressSearch = ({ states, mapStates }: Props) => {
   const handleOnSearchResultClick = (result: string) => {
     setAddress(result);
     fetchParkingSpots(result);
+    setSearchResults([]);
   };
 
   const renderSearchIcon = (): ReactNode => {

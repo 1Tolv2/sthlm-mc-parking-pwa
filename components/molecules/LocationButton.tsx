@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-import { CoordinateItem, FeatureItem } from "../../types";
-import Icons from "../atoms/Icons";
-import StandardContainer from "../atoms/StandardContainer";
+import { useAppContext } from "../../context/AppContext";
+import { useParkingContext } from "../../context/ParkingContext";
+import { useModalContext } from "../../context/ModalContext";
+
 import { getNearbyParkingSpots, getParkingSpots } from "../api";
+import StandardContainer from "../atoms/StandardContainer";
+import Icons from "../atoms/Icons";
 
-type Props = {
-  states: {
-    setParkingSpots: React.Dispatch<React.SetStateAction<FeatureItem[]>>;
-    setCurrentLocation: React.Dispatch<
-      React.SetStateAction<CoordinateItem | null>
-    >;
-    isLoading: boolean;
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  };
-};
+type Props = {};
 
-export default function LocationButton({ states }: Props) {
+export default function LocationButton(props: Props) {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const { setParkingSpots, setCurrentLocation, isLoading, setIsLoading } =
-    states;
+  const { setParkingSpots, setCurrentLocation } = useParkingContext();
+  const { isLoading, setIsLoading } = useAppContext();
+  const { setModalContent } = useModalContext();
 
   const handleParkingSpots = async (): Promise<void> => {
     setIsLoading(true);
@@ -37,16 +32,19 @@ export default function LocationButton({ states }: Props) {
   const handleNearbyParkingSpots = async (position: any): Promise<void> => {
     setIsLoading(true);
     const data = await getNearbyParkingSpots(position.coords);
-    setCurrentLocation({
-      // lat: position.coords.latitude || 0,
-      // lng: position.coords.longitude || 0,
-      lng: 18.07502720995736,
-      lat: 59.31323345086049,
-    });
 
-    if (data) {
+    setCurrentLocation({
+      lat: position.coords.latitude || 0,
+      lng: position.coords.longitude || 0,
+      // longitude: 18.07502720995736,
+      // lat: 59.31323345086049,
+    });
+    if (data.features.length !== 0) {
       setParkingSpots(data.features);
     } else {
+      setParkingSpots([]);
+      setIsLoading(false);
+      setModalContent("Inga parkeringar hittades");
       console.log("NO DATA FOUND");
     }
     setIsLoading(false);

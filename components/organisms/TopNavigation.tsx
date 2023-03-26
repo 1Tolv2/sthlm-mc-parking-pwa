@@ -1,14 +1,7 @@
 import React from "react";
-import { CoordinateItem, FeatureItem } from "../../types";
 import AddressSearch from "../molecules/AddressSearch";
 
-type Props = {
-  states: { setParkingSpots: (parkingSpots: FeatureItem[]) => void };
-  mapStates: {
-    setZoom: React.Dispatch<React.SetStateAction<number>>;
-    setCenter: React.Dispatch<React.SetStateAction<CoordinateItem | null>>;
-  };
-};
+type Props = {};
 
 const TopNavigation = (props: Props) => {
   return (
