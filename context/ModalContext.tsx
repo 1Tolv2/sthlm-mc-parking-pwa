@@ -1,16 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
-import { CoordinateItem } from "../types";
 import Modal from "../components/molecules/Modal";
 
 export const useModalContext = () => useContext(ModalContext);
 
-type ModalConfig = {
-  isOpen: boolean;
-};
-
 interface ModalCtx {
-  modalConfig: ModalConfig;
-  setModalConfig: React.Dispatch<React.SetStateAction<ModalConfig>>;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const ModalContext = createContext({} as ModalCtx);
 
@@ -19,12 +14,11 @@ type Props = {
 };
 
 const ModalContextProvider = ({ children }: Props) => {
-  const [modalConfig, setModalConfig] = useState<ModalConfig>({
-    isOpen: false,
-  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <ModalContext.Provider value={{ modalConfig, setModalConfig }}>
+    <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
+      {isModalOpen && <Modal handleOnClose={() => setIsModalOpen(false)} />}
       {children}
     </ModalContext.Provider>
   );
