@@ -123,7 +123,7 @@ const ParkingDetailModal = ({ data, states }: Props) => {
                 {renderRates()}
               </div>
               <div className="flex flex-col justify-between">
-                <div className="relative top-3 w-[48px]">
+                <div className="relative w-fit mx-auto">
                   <ExitButton handleOnClick={() => setIsModalOpen(false)} />
                 </div>
                 <div
