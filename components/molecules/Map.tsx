@@ -4,7 +4,10 @@ import { useMapContext } from "../../context/MapContext";
 import ParkingLocations from "./ParkingLocations";
 import { useParkingContext } from "../../context/ParkingContext";
 
-const Map = () => {
+type Props = {
+  children: React.ReactNode;
+};
+const Map = ({ children }: Props) => {
   const { zoom, setZoom, center, setCenter } = useMapContext();
   const { currentLocation } = useParkingContext();
 
@@ -27,7 +30,7 @@ const Map = () => {
   }, [currentLocation]);
 
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div className="relative w-full h-full rounded-xl overflow-hidden bg-white">
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
@@ -37,6 +40,7 @@ const Map = () => {
           <ParkingLocations />
         </GoogleMap>
       )}
+      {children}
     </div>
   );
 };

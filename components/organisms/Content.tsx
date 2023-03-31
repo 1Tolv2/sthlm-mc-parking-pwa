@@ -5,17 +5,21 @@ import TopNavigation from "./TopNavigation";
 import BottomNavigation from "./BottomNavigation";
 import LoadingScreen from "../molecules/loadingComponents/LoadingScreen";
 import LoadingModal from "../molecules/loadingComponents/LoadingModal";
+import ParkingDetailModal from "../molecules/ParkingDetailModal";
+import { useParkingContext } from "../../context/ParkingContext";
 
 const Content = () => {
   const { isInitialLoading, isLoading } = useAppContext();
 
   return (
     <>
-      {isLoading && isInitialLoading && <LoadingScreen />}
-      {isLoading && !isInitialLoading && <LoadingModal />}
-      <Map />
+      {/* {isLoading && isInitialLoading && <LoadingScreen />}
+      {isLoading && !isInitialLoading && <LoadingModal />} */}
       <TopNavigation />
-      <BottomNavigation />
+      <Map>
+        <BottomNavigation />
+      </Map>
+      <ParkingDetailModal />
     </>
   );
 };

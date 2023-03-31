@@ -1,12 +1,10 @@
 import React from "react";
 import LocationButton from "../molecules/LocationButton";
-// import MenuBar from "../molecules/MenuBar";
 
 const BottomNavigation = () => {
   return (
-    <div className="fixed bottom-md left-1/2 -translate-x-1/2 flex flex-col gap-2 w-full md:w-[500px] z-40">
+    <div className="absolute bottom-0 right-0 flex flex-col gap-2 w-full h-fit m-sm md:w-[500px] z-50">
       <LocationButton />
-      {/* <MenuBar /> */}
     </div>
   );
 };

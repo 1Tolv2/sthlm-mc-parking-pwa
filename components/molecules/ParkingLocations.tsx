@@ -10,15 +10,9 @@ import { CoordinateItem } from "../../types";
 const ParkingLocations = () => {
   const { setIsLoading } = useAppContext();
 
-  const [modalPosition, setModalPosition] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
-
   const {
     parkingSpots,
     setParkingSpots,
-    targetedParkingSpot,
     setTargetedParkingSpot,
     setCurrentLocation,
   } = useParkingContext();
@@ -32,16 +26,6 @@ const ParkingLocations = () => {
     data && setParkingSpots(data.features);
     setIsLoading(false);
     setIsInitialLoading(false);
-  };
-
-  const handleModalPosition = (coords: { x: number; y: number }) => {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    setModalPosition({
-      x: Math.round((coords.x / windowWidth) * 100),
-      y: Math.round((coords.y / windowHeight) * 100),
-    });
   };
 
   const handleNearbyParkingSpots = async (
@@ -95,21 +79,8 @@ const ParkingLocations = () => {
           >
             <Marker
               position={position as google.maps.LatLngLiteral}
-              onClick={(e: any) => {
-                handleModalPosition({
-                  x: e.domEvent.screenX,
-                  y: e.domEvent.screenY,
-                });
-                setTargetedParkingSpot(item);
-              }}
+              onClick={(e: any) => setTargetedParkingSpot(item)}
             />
-
-            {modalPosition && (
-              <ParkingDetailModal
-                data={item}
-                states={{ targetedParkingSpot, modalPosition }}
-              />
-            )}
           </li>
         );
       })}

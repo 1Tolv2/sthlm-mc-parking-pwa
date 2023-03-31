@@ -105,7 +105,7 @@ const AddressSearch = () => {
     );
   };
   return (
-    <div className="fixed top-md left-1/2 -translate-x-1/2 w-full md:w-[500px]">
+    <div className="relative w-full md:w-[500px]">
       <StandardContainer width="full" className="mx-auto w-full">
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
@@ -125,7 +125,7 @@ const AddressSearch = () => {
         <ExitButton handleOnClick={() => setAddress("")} />
       </StandardContainer>
       {searchResults && searchResults.length !== 0 && (
-        <div className="pl-[50px] pr-[39px] opacity-90">
+        <div className="absolute pl-[50px] pr-[39px] w-full opacity-90">
           <StandardContainer className="mt-sm" width="w-full md:w-[450px]">
             <ul className="w-full">
               {searchResults &&
