@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Marker } from "@react-google-maps/api";
+import { Marker, MarkerClusterer } from "@react-google-maps/api";
 import { useAppContext } from "../../context/AppContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { getParkingSpots, getNearbyParkingSpots } from "../api";
@@ -57,32 +57,21 @@ const ParkingLocations = () => {
   }, []);
 
   return (
-    <ul>
-      {parkingSpots?.map((item) => {
-        const position: CoordinateItem = {
-          lng: item?.geometry?.coordinates[0][0] as unknown as number,
-          lat: item?.geometry?.coordinates[0][1] as unknown as number,
-        };
-        return (
-          <li
+    <MarkerClusterer>
+      {(clusterer) =>
+        (parkingSpots as any)?.map((item: any) => (
+          <Marker
             key={item.id}
-            id={item.id}
-            className="relative"
-            onClick={(e) =>
-              setTargetedParkingSpot(
-                parkingSpots?.find((item) => item.id === e.currentTarget.id) ||
-                  null
-              )
-            }
-          >
-            <Marker
-              position={position as google.maps.LatLngLiteral}
-              onClick={() => setTargetedParkingSpot(item)}
-            />
-          </li>
-        );
-      })}
-    </ul>
+            position={{
+              lng: item?.geometry?.coordinates[0][0] as unknown as number,
+              lat: item?.geometry?.coordinates[0][1] as unknown as number,
+            }}
+            clusterer={clusterer}
+            onClick={() => setTargetedParkingSpot(item)}
+          />
+        ))
+      }
+    </MarkerClusterer>
   );
 };
 
