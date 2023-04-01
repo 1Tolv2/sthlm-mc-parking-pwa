@@ -1,5 +1,5 @@
 import React from "react";
-import StandardContainer from "../atoms/StandardContainer";
+import StandardContainer from "./StandardContainer";
 
 const MenuBar = () => {
   const renderNavigation = () => {

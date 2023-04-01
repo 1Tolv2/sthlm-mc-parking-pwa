@@ -1,5 +1,5 @@
 import React from "react";
-import ExitButton from "../library/ExitButton";
+import ExitButton from "./buttons/ExitButton";
 
 type Props = {
   handleOnClose: () => void;

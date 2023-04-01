@@ -1,5 +1,5 @@
 import React from "react";
-import LocationButton from "./library/LocationButton";
+import LocationButton from "./library/buttons/LocationButton";
 
 const MapNavigation = () => {
   return (

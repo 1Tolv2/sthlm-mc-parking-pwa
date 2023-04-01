@@ -20,7 +20,7 @@ module.exports = {
           900: "#00164d",
           DEFAULT: "#3F75FF",
         },
-        neutral: "#D9D9D9",
+        neutral: { 500: "#D9D9D9", 600: "#b0b0b0", DEFAULT: "#D9D9D9" },
         black: "#353535",
         available: { 500: "#00C853", 800: "#008035" },
         unknown: { 500: "#FFD600", 800: "#b39500" },

@@ -7,7 +7,7 @@ import {
   getStreetLocation,
 } from "../api";
 import StandardContainer from "../library/StandardContainer";
-import ExitButton from "../library/ExitButton";
+import ExitButton from "./buttons/ExitButton";
 import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
@@ -122,7 +122,14 @@ const AddressSearch = () => {
           />
           <input type="submit" hidden title="submit" />
         </form>
-        <ExitButton handleOnClick={() => setAddress("")} />
+        {address && (
+          <ExitButton
+            handleOnClick={() => {
+              setAddress("");
+              setSearchResults([]);
+            }}
+          />
+        )}
       </StandardContainer>
       {searchResults && searchResults.length !== 0 && (
         <div className="absolute pl-[50px] pr-[39px] w-full opacity-90">

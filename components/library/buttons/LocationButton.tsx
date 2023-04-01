@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useAppContext } from "../../context/AppContext";
-import { useParkingContext } from "../../context/ParkingContext";
-import { useModalContext } from "../../context/ModalContext";
+import { useAppContext } from "../../../context/AppContext";
+import { useParkingContext } from "../../../context/ParkingContext";
+import { useModalContext } from "../../../context/ModalContext";
 
-import { getNearbyParkingSpots, getParkingSpots } from "../api";
-import StandardContainer from "../library/StandardContainer";
-import Icons from "../library/Icons";
-import { CoordinateItem } from "../../types";
+import { getNearbyParkingSpots, getParkingSpots } from "../../api";
+import StandardContainer from "../StandardContainer";
+import Icons from "../Icons";
+import { CoordinateItem } from "../../../types";
 
 export default function LocationButton() {
   const [icon, setIcon] = useState(
