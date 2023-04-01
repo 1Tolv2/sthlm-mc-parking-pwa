@@ -99,7 +99,10 @@ const ParkingDetailModal = () => {
             </h2>
             {renderRates()}
           </div>
-          <div className="w-full h-fit text-center p-md rounded-xl bg-primary text-white">
+          <div
+            className="w-full h-fit text-center p-md rounded-xl bg-primary text-white cursor-pointer"
+            onClick={handleOpenDirections}
+          >
             Navigera
           </div>
         </div>
