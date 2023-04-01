@@ -36,6 +36,7 @@ const Map = ({ children }: Props) => {
           mapContainerStyle={{ width: "100%", height: "100%" }}
           center={center as google.maps.LatLngLiteral}
           zoom={zoom}
+          options={{ disableDefaultUI: true }}
         >
           <ParkingLocations />
         </GoogleMap>
