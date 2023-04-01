@@ -70,7 +70,7 @@ export default function LocationButton() {
         padding="none"
         height=""
         width=""
-        className="w-[54px] h-[54px] drop-shadow-lg"
+        className="w-[54px] h-[54px] drop-shadow-lg md:drop-shadow-2xl"
       >
         <div
           onClick={isLoading ? undefined : handleLocation}
