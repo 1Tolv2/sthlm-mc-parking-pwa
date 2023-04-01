@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Marker } from "@react-google-maps/api";
 import { useAppContext } from "../../context/AppContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { getParkingSpots, getNearbyParkingSpots } from "../api";
-
-import ParkingDetailModal from "./ParkingDetailModal";
 import { CoordinateItem } from "../../types";
 
 const ParkingLocations = () => {
@@ -79,7 +77,7 @@ const ParkingLocations = () => {
           >
             <Marker
               position={position as google.maps.LatLngLiteral}
-              onClick={(e: any) => setTargetedParkingSpot(item)}
+              onClick={() => setTargetedParkingSpot(item)}
             />
           </li>
         );
