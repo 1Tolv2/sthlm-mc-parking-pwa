@@ -89,7 +89,7 @@ const ParkingDetailModal = () => {
   return (
     <>
       {isModalOpen && (
-        <div className="relative w-full h-fit">
+        <div className="relative w-full max-w-[500px] mx-auto h-fit">
           <div className="absolute top-md right-md w-fit mx-auto">
             <ExitButton handleOnClick={() => setIsModalOpen(false)} />
           </div>
