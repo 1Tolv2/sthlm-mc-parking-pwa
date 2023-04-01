@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import AppProvider from "../context/index";
 import Layout from "../components/Layout/Layout";
-import Content from "../components/organisms/Content";
+import Content from "../components/Content";
 
 export default function Page() {
   return (

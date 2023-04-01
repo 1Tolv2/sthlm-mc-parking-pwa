@@ -6,8 +6,8 @@ import {
   searchStreetName,
   getStreetLocation,
 } from "../api";
-import StandardContainer from "../atoms/StandardContainer";
-import ExitButton from "../atoms/ExitButton";
+import StandardContainer from "../library/StandardContainer";
+import ExitButton from "../library/ExitButton";
 import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
@@ -33,7 +33,7 @@ const AddressSearch = () => {
           (data.features[0].geometry.coordinates[0][0] as unknown as number) ||
           0,
       } as CoordinateItem);
-      setZoom(15);
+      setZoom(14);
       setAddress("");
     } else if (data.features.length === 0) {
       try {
@@ -52,7 +52,7 @@ const AddressSearch = () => {
               (data.features[0].geometry
                 .coordinates[0][0] as unknown as number) || 0,
           } as CoordinateItem);
-          setZoom(15);
+          setZoom(14);
           setAddress("");
         }
       } catch (err) {

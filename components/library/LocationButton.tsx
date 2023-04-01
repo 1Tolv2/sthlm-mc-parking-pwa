@@ -4,8 +4,8 @@ import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
 
 import { getNearbyParkingSpots, getParkingSpots } from "../api";
-import StandardContainer from "../atoms/StandardContainer";
-import Icons from "../atoms/Icons";
+import StandardContainer from "../library/StandardContainer";
+import Icons from "../library/Icons";
 import { CoordinateItem } from "../../types";
 
 export default function LocationButton() {

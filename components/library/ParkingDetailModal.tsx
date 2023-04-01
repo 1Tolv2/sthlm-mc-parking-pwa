@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getParkingRates from "../../utils/getParkingRates";
-import ExitButton from "../atoms/ExitButton";
+import ExitButton from "../library/ExitButton";
 import { useParkingContext } from "../../context/ParkingContext";
 
 const ParkingDetailModal = () => {

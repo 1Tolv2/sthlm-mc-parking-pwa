@@ -1,7 +1,7 @@
 import React from "react";
-import LocationButton from "../molecules/LocationButton";
+import LocationButton from "./library/LocationButton";
 
-const BottomNavigation = () => {
+const MapNavigation = () => {
   return (
     <div className="absolute bottom-0 right-0 flex flex-col gap-2 w-full h-fit m-sm md:w-[500px] z-50">
       <LocationButton />
@@ -9,4 +9,4 @@ const BottomNavigation = () => {
   );
 };
 
-export default BottomNavigation;
+export default MapNavigation;

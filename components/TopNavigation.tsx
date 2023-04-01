@@ -1,5 +1,5 @@
 import React from "react";
-import AddressSearch from "../molecules/AddressSearch";
+import AddressSearch from "./library/AddressSearch";
 
 const TopNavigation = () => {
   return (
