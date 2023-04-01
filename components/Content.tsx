@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppContext } from "../context/AppContext";
-import Map from "./library/Map";
+import Map from "./library/map/Map";
 import TopNavigation from "./TopNavigation";
 import MapNavigation from "./MapNavigation";
 import LoadingScreen from "./library/loading/LoadingScreen";

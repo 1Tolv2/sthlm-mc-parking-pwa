@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { useMapContext } from "../../context/MapContext";
+import { useMapContext } from "../../../context/MapContext";
 import ParkingLocations from "./ParkingLocations";
-import { useParkingContext } from "../../context/ParkingContext";
+import { useParkingContext } from "../../../context/ParkingContext";
 
 type Props = {
   children: React.ReactNode;

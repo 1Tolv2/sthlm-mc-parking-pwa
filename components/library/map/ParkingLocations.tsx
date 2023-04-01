@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Marker, MarkerClusterer } from "@react-google-maps/api";
-import { useAppContext } from "../../context/AppContext";
-import { useParkingContext } from "../../context/ParkingContext";
-import { getParkingSpots, getNearbyParkingSpots } from "../api";
-import { CoordinateItem } from "../../types";
+import { useAppContext } from "../../../context/AppContext";
+import { useParkingContext } from "../../../context/ParkingContext";
+import { getParkingSpots, getNearbyParkingSpots } from "../../api";
+import { CoordinateItem } from "../../../types";
 
 const ParkingLocations = () => {
   const { setIsLoading } = useAppContext();
@@ -57,7 +57,7 @@ const ParkingLocations = () => {
   }, []);
 
   return (
-    <MarkerClusterer>
+    <MarkerClusterer maxZoom={15} minimumClusterSize={3}>
       {(clusterer) =>
         (parkingSpots as any)?.map((item: any) => (
           <Marker
