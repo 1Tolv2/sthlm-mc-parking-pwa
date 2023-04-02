@@ -1,10 +1,16 @@
 import React from "react";
+import { GetStaticProps } from "next";
 import Head from "next/head";
+import axios from "axios";
 import AppProvider from "../context/index";
 import Layout from "../components/Layout/Layout";
 import Content from "../components/Content";
+import { FeatureItem } from "../types";
 
-export default function Page() {
+type Props = {
+  data: FeatureItem[] | null;
+};
+export default function Page({ data }: Props) {
   return (
     <div>
       <Head>
@@ -21,9 +27,15 @@ export default function Page() {
       </Head>
       <Layout>
         <AppProvider>
-          <Content />
+          <Content data={data || []} />
         </AppProvider>
       </Layout>
     </div>
   );
+}
+
+export async function getStaticProps(): Promise<GetStaticProps> {
+  const url = `${process.env.NEXT_APP_TRAFIKVERKET_API_URL}/all?outputFormat=json&apiKey=${process.env.NEXT_APP_TRAFIKVERKET_API_KEY}`;
+  const { data } = await axios.get(url);
+  return { props: { data: data.features }, revalidate: 300 } as any;
 }

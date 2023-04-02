@@ -6,8 +6,6 @@ import { getParkingSpots, getNearbyParkingSpots } from "../../api";
 import { CoordinateItem } from "../../../types";
 
 const ParkingLocations = () => {
-  const { setIsLoading } = useAppContext();
-
   const {
     parkingSpots,
     setParkingSpots,
@@ -15,13 +13,16 @@ const ParkingLocations = () => {
     setCurrentLocation,
   } = useParkingContext();
 
-  const { setIsInitialLoading } = useAppContext();
+  const { isInitialLoading, setIsInitialLoading, setIsLoading } =
+    useAppContext();
 
   const handleParkingSpots = async (): Promise<void> => {
-    setIsLoading(true);
-    const data = await getParkingSpots();
+    if (!isInitialLoading) {
+      setIsLoading(true);
+      const data = await getParkingSpots();
 
-    data && setParkingSpots(data.features);
+      data && setParkingSpots(data.features);
+    }
     setIsLoading(false);
     setIsInitialLoading(false);
   };
@@ -42,11 +43,9 @@ const ParkingLocations = () => {
         // lat: 59.31323345086049,
       });
       setParkingSpots(data.features);
-      setIsLoading(false);
-      setIsInitialLoading(false);
-    } else {
-      handleParkingSpots();
     }
+    setIsLoading(false);
+    setIsInitialLoading(false);
   };
 
   useEffect(() => {
@@ -59,6 +58,7 @@ const ParkingLocations = () => {
   return (
     <MarkerClusterer maxZoom={15} minimumClusterSize={3}>
       {(clusterer) =>
+        parkingSpots &&
         (parkingSpots as any)?.map((item: any) => (
           <Marker
             key={item.id}
