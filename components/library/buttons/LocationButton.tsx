@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useAppContext } from "../../context/AppContext";
-import { useParkingContext } from "../../context/ParkingContext";
-import { useModalContext } from "../../context/ModalContext";
+import { useAppContext } from "../../../context/AppContext";
+import { useParkingContext } from "../../../context/ParkingContext";
+import { useModalContext } from "../../../context/ModalContext";
 
-import { getNearbyParkingSpots, getParkingSpots } from "../api";
-import StandardContainer from "../atoms/StandardContainer";
-import Icons from "../atoms/Icons";
-import { CoordinateItem } from "../../types";
+import { getNearbyParkingSpots, getParkingSpots } from "../../api";
+import StandardContainer from "../StandardContainer";
+import Icons from "../Icons";
+import { CoordinateItem } from "../../../types";
 
 export default function LocationButton() {
   const [icon, setIcon] = useState(
@@ -65,12 +65,12 @@ export default function LocationButton() {
   };
 
   return (
-    <div className="flex justify-end mx-auto w-full md:w-[500px]">
+    <div className="flex justify-end mx-auto w-full">
       <StandardContainer
         padding="none"
         height=""
         width=""
-        className="w-[54px] h-[54px]"
+        className="w-[54px] h-[54px] drop-shadow-lg md:drop-shadow-2xl"
       >
         <div
           onClick={isLoading ? undefined : handleLocation}

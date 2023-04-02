@@ -6,8 +6,8 @@ import {
   searchStreetName,
   getStreetLocation,
 } from "../api";
-import StandardContainer from "../atoms/StandardContainer";
-import ExitButton from "../atoms/ExitButton";
+import StandardContainer from "../library/StandardContainer";
+import ExitButton from "./buttons/ExitButton";
 import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
@@ -33,7 +33,7 @@ const AddressSearch = () => {
           (data.features[0].geometry.coordinates[0][0] as unknown as number) ||
           0,
       } as CoordinateItem);
-      setZoom(15);
+      setZoom(14);
       setAddress("");
     } else if (data.features.length === 0) {
       try {
@@ -52,7 +52,7 @@ const AddressSearch = () => {
               (data.features[0].geometry
                 .coordinates[0][0] as unknown as number) || 0,
           } as CoordinateItem);
-          setZoom(15);
+          setZoom(14);
           setAddress("");
         }
       } catch (err) {
@@ -105,7 +105,7 @@ const AddressSearch = () => {
     );
   };
   return (
-    <div className="fixed top-md left-1/2 -translate-x-1/2 w-full md:w-[500px]">
+    <div className="relative w-full md:w-[500px]">
       <StandardContainer width="full" className="mx-auto w-full">
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
@@ -122,10 +122,17 @@ const AddressSearch = () => {
           />
           <input type="submit" hidden title="submit" />
         </form>
-        <ExitButton handleOnClick={() => setAddress("")} />
+        {address && (
+          <ExitButton
+            handleOnClick={() => {
+              setAddress("");
+              setSearchResults([]);
+            }}
+          />
+        )}
       </StandardContainer>
       {searchResults && searchResults.length !== 0 && (
-        <div className="pl-[50px] pr-[39px] opacity-90">
+        <div className="absolute pl-[50px] pr-[39px] w-full opacity-90">
           <StandardContainer className="mt-sm" width="w-full md:w-[450px]">
             <ul className="w-full">
               {searchResults &&
