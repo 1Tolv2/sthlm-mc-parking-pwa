@@ -6,7 +6,6 @@ import Map from "./library/map/Map";
 import TopNavigation from "./TopNavigation";
 import MapNavigation from "./MapNavigation";
 import LoadingScreen from "./library/loading/LoadingScreen";
-import LoadingModal from "./library/loading/LoadingModal";
 import ParkingDetailModal from "./library/ParkingDetailModal";
 
 type Props = {
@@ -24,7 +23,6 @@ const Content = ({ data }: Props) => {
   return (
     <>
       {isLoading && isInitialLoading && <LoadingScreen />}
-      {isLoading && !isInitialLoading && <LoadingModal />}
       <TopNavigation />
       <Map>
         <MapNavigation />

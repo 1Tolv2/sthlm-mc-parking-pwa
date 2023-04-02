@@ -3,6 +3,8 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { useMapContext } from "../../../context/MapContext";
 import ParkingLocations from "./ParkingLocations";
 import { useParkingContext } from "../../../context/ParkingContext";
+import LoadingModal from "../loading/LoadingModal";
+import { useAppContext } from "../../../context/AppContext";
 
 type Props = {
   children: React.ReactNode;
@@ -10,6 +12,7 @@ type Props = {
 const Map = ({ children }: Props) => {
   const { zoom, setZoom, center, setCenter } = useMapContext();
   const { currentLocation } = useParkingContext();
+  const { isLoading, isInitialLoading } = useAppContext();
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -31,6 +34,8 @@ const Map = ({ children }: Props) => {
 
   return (
     <div className="relative w-full h-full rounded-xl overflow-hidden bg-white">
+      {isLoading && !isInitialLoading && <LoadingModal />}
+
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
