@@ -8,7 +8,7 @@ type Props = {
 
 const Modal = ({ handleOnClose, content }: Props) => {
   return (
-    <div className="absolute w-screen h-screen z-[90] flex justify-center items-center">
+    <div className="absolute top-0 left-0 w-full h-full z-[90] flex justify-center items-center">
       <div className="relative w-fit h-fit bg-primary text-white drop-shadow">
         <div className="absolute right-4 top-4">
           <ExitButton handleOnClick={handleOnClose} />
