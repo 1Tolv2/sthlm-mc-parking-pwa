@@ -117,6 +117,7 @@ const AddressSearch = () => {
             name="address"
             onChange={handleOnChange}
             value={address}
+            autoComplete="off"
             placeholder="Hitta parkering"
             className="w-full h-full outline-transparent focus:outline-transparent"
           />
