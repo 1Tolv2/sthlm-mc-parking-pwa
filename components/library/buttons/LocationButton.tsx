@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAppContext } from "../../../context/AppContext";
 import { useParkingContext } from "../../../context/ParkingContext";
 import { useModalContext } from "../../../context/ModalContext";
@@ -12,7 +12,8 @@ export default function LocationButton() {
   const [icon, setIcon] = useState(
     "locationOff" as "locationOff" | "locationOn"
   );
-  const { setParkingSpots, setCurrentLocation } = useParkingContext();
+  const { setParkingSpots, currentLocation, setCurrentLocation } =
+    useParkingContext();
   const { isLoading, setIsLoading } = useAppContext();
   const { setModalContent } = useModalContext();
 
@@ -63,6 +64,13 @@ export default function LocationButton() {
       setCurrentLocation(null);
     }
   };
+  useEffect(() => {
+    if (currentLocation) {
+      setIcon("locationOn");
+    } else {
+      setIcon("locationOff");
+    }
+  }, [currentLocation]);
 
   return (
     <div className="flex justify-end mx-auto w-full">
