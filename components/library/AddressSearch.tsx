@@ -105,8 +105,8 @@ const AddressSearch = () => {
     );
   };
   return (
-    <div className="relative w-full md:w-[500px]">
-      <StandardContainer width="full" className="mx-auto w-full">
+    <div className="relative w-full ">
+      <StandardContainer width="w-full" className="mx-auto w-full">
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
         </div>
