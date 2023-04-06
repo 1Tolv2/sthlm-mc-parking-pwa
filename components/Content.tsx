@@ -13,12 +13,17 @@ type Props = {
 };
 const Content = ({ data }: Props) => {
   const { isInitialLoading, isLoading } = useAppContext();
+  const { setParkingSpots } = useParkingContext();
+
+  useEffect(() => {
+    if (data) setParkingSpots(data);
+  }, []);
 
   return (
     <>
       {isLoading && isInitialLoading && <LoadingScreen />}
       <TopNavigation />
-      <Map staticData={data}>
+      <Map>
         <MapNavigation />
       </Map>
       <ParkingDetailModal />
