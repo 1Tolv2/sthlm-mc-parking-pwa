@@ -5,15 +5,13 @@ import ParkingLocations from "./ParkingLocations";
 import { useParkingContext } from "../../../context/ParkingContext";
 import LoadingModal from "../loading/LoadingModal";
 import { useAppContext } from "../../../context/AppContext";
-import { FeatureItem } from "../../../types";
 
 type Props = {
-  staticData: FeatureItem[] | null;
   children: React.ReactNode;
 };
-const Map = ({ staticData, children }: Props) => {
-  const { zoom, setZoom, center, setCenter, resetMap } = useMapContext();
-  const { currentLocation, setParkingSpots } = useParkingContext();
+const Map = ({ children }: Props) => {
+  const { zoom, setZoom, center, setCenter } = useMapContext();
+  const { currentLocation } = useParkingContext();
   const { isLoading, isInitialLoading } = useAppContext();
 
   const { isLoaded } = useJsApiLoader({
@@ -28,9 +26,6 @@ const Map = ({ staticData, children }: Props) => {
         lng: currentLocation?.lng || 0,
       });
       setZoom(16);
-    } else {
-      staticData && setParkingSpots(staticData);
-      resetMap();
     }
   }, [currentLocation]);
 
