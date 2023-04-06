@@ -3,7 +3,7 @@ import { useAppContext } from "../../../context/AppContext";
 import { useParkingContext } from "../../../context/ParkingContext";
 import { useModalContext } from "../../../context/ModalContext";
 
-import { getNearbyParkingSpots, getParkingSpots } from "../../api";
+import { getNearbyParkingSpots } from "../../api";
 import StandardContainer from "../StandardContainer";
 import Icons from "../Icons";
 import { CoordinateItem } from "../../../types";
@@ -17,22 +17,9 @@ export default function LocationButton() {
   const { isLoading, setIsLoading } = useAppContext();
   const { setModalContent } = useModalContext();
 
-  const handleParkingSpots = async (): Promise<void> => {
-    setIsLoading(true);
-    const data = await getParkingSpots();
-
-    if (data) {
-      setParkingSpots(data.features);
-    } else {
-      console.log("NO DATA FOUND");
-    }
-    setIsLoading(false);
-  };
-
   const handleNearbyParkingSpots = async (
     position: GeolocationPosition
   ): Promise<void> => {
-    setIsLoading(true);
     const data = await getNearbyParkingSpots(
       position.coords as unknown as CoordinateItem
     );
@@ -46,24 +33,24 @@ export default function LocationButton() {
     if (data.features.length !== 0) {
       setParkingSpots(data.features);
     } else {
-      setParkingSpots([]);
       setIsLoading(false);
       setModalContent("Inga parkeringar hittades");
       console.log("NO DATA FOUND");
     }
-    setIsLoading(false);
   };
 
   const handleLocation = async (): Promise<void> => {
+    setIsLoading(true);
     if (icon === "locationOff") {
       setIcon("locationOn");
       navigator.geolocation.getCurrentPosition(handleNearbyParkingSpots);
     } else {
       setIcon("locationOff");
-      handleParkingSpots();
       setCurrentLocation(null);
     }
+    setIsLoading(false);
   };
+
   useEffect(() => {
     if (currentLocation) {
       setIcon("locationOn");
