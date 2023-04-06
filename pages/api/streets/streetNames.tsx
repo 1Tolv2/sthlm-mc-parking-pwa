@@ -6,7 +6,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const searchParam = req.query.search as string;
-  console.log("SEARCH", searchParam);
   const params = new URLSearchParams();
   params.append("streetNamePattern", searchParam + "*");
   params.append("apiKey", process.env.NEXT_APP_TRAFIKVERKET_API_KEY || "");
