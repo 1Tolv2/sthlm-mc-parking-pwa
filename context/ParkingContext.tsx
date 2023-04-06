@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import { getParkingSpots } from "../components/api";
 import { CoordinateItem, FeatureItem } from "../types";
 
 export const useParkingContext = () => useContext(ParkingContext);
@@ -14,6 +15,7 @@ interface ParkingCtx {
   setCurrentLocation: React.Dispatch<
     React.SetStateAction<CoordinateItem | null>
   >;
+  resetParking: () => Promise<void>;
 }
 
 const ParkingContext = createContext({} as ParkingCtx);
@@ -29,6 +31,13 @@ const ParkingContextProvider = ({ children }: Props) => {
   const [currentLocation, setCurrentLocation] = useState<CoordinateItem | null>(
     null
   );
+
+  const resetParking = async () => {
+    const data = await getParkingSpots();
+    if (data.features.length > 0) setParkingSpots(data.features);
+    setTargetedParkingSpot(null);
+    setCurrentLocation(null);
+  };
   return (
     <ParkingContext.Provider
       value={{
@@ -38,6 +47,7 @@ const ParkingContextProvider = ({ children }: Props) => {
         setTargetedParkingSpot,
         currentLocation,
         setCurrentLocation,
+        resetParking,
       }}
     >
       {children}

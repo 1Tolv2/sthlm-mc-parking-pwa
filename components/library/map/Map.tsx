@@ -26,9 +26,6 @@ const Map = ({ children }: Props) => {
         lng: currentLocation?.lng || 0,
       });
       setZoom(16);
-    } else {
-      setCenter({ lat: 59.31323345086049, lng: 18.07502720995736 });
-      setZoom(11);
     }
   }, [currentLocation]);
 

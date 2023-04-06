@@ -16,10 +16,9 @@ const Content = ({ data }: Props) => {
   const { setParkingSpots } = useParkingContext();
 
   useEffect(() => {
-    if (data) {
-      setParkingSpots(data || []);
-    }
+    if (data) setParkingSpots(data);
   }, []);
+
   return (
     <>
       {isLoading && isInitialLoading && <LoadingScreen />}

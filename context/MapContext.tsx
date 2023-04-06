@@ -8,6 +8,7 @@ interface MapCtx {
   setZoom: React.Dispatch<React.SetStateAction<number>>;
   center: CoordinateItem;
   setCenter: React.Dispatch<React.SetStateAction<CoordinateItem>>;
+  resetMap: () => void;
 }
 const MapContext = createContext({} as MapCtx);
 
@@ -22,8 +23,13 @@ const MapContextProvider = ({ children }: Props) => {
     lng: 18.07502720995736,
   });
 
+  const resetMap = () => {
+    setZoom(11);
+    setCenter({ lat: 59.31323345086049, lng: 18.07502720995736 });
+  };
+
   return (
-    <MapContext.Provider value={{ zoom, setZoom, center, setCenter }}>
+    <MapContext.Provider value={{ zoom, setZoom, center, setCenter, resetMap }}>
       {children}
     </MapContext.Provider>
   );
