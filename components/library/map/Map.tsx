@@ -12,7 +12,7 @@ type Props = {
   children: React.ReactNode;
 };
 const Map = ({ staticData, children }: Props) => {
-  const { zoom, setZoom, center, setCenter } = useMapContext();
+  const { zoom, setZoom, center, setCenter, resetMap } = useMapContext();
   const { currentLocation, setParkingSpots } = useParkingContext();
   const { isLoading, isInitialLoading } = useAppContext();
 
@@ -30,8 +30,7 @@ const Map = ({ staticData, children }: Props) => {
       setZoom(16);
     } else {
       staticData && setParkingSpots(staticData);
-      setCenter({ lat: 59.31323345086049, lng: 18.07502720995736 });
-      setZoom(11);
+      resetMap();
     }
   }, [currentLocation]);
 
