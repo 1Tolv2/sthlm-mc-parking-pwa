@@ -38,7 +38,7 @@ module.exports = {
   plugins: [],
   safelist: [
     // allows all widths and heights
-    { pattern: /(w|h)-\[*\w+\]*/ },
+    { pattern: /(w|h)-\[*.+\]*/ },
     // allows a paddings and margins
     { pattern: /(p|m)(t|b|r|l|)*-\[*\w+\]*/ },
     { pattern: /bg-(neutral)-\d{3}/ },
