@@ -61,7 +61,7 @@ const ParkingDetailModal = () => {
           <></>
         )}
         {rate.note && <span>{rate.note}</span>}
-        {rate.fee > 0 && (
+        {rate.fee >= 0 && (
           <span className="ml-sm">
             {rate.fee.toString().replace(".", ",") + " kr/tim"}
           </span>
