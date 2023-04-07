@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import getParkingRates from "../../utils/getParkingRates";
 import ExitButton from "./buttons/ExitButton";
 import { useParkingContext } from "../../context/ParkingContext";
+import Icons from "./Icons";
 
 const ParkingDetailModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -100,10 +101,13 @@ const ParkingDetailModal = () => {
             {renderRates()}
           </div>
           <div
-            className="w-full h-fit text-center p-md rounded-xl bg-primary text-white cursor-pointer"
+            className="flex justify-center gap-3 w-full h-fit p-md rounded-xl bg-parkingBlue text-white cursor-pointer"
             onClick={handleOpenDirections}
           >
-            Navigera
+            <div className="relative h-8">
+              <Icons color="white" icon="direction" />
+            </div>
+            <p className="text-lg font-medium p-px m-0">Navigera</p>
           </div>
         </div>
       )}
