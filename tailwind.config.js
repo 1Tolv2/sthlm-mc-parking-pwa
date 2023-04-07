@@ -41,5 +41,6 @@ module.exports = {
     { pattern: /(w|h)-\[*\w+\]*/ },
     // allows a paddings and margins
     { pattern: /(p|m)(t|b|r|l|)*-\[*\w+\]*/ },
+    { pattern: /bg-(neutral)-\d{3}/ },
   ],
 };
