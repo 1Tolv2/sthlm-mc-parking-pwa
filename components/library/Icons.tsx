@@ -56,6 +56,19 @@ export default function Icons({ icon, color }: Props) {
         />
       </svg>
     ),
+    rightArrow: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="100%"
+        width="100%"
+        viewBox="0 96 960 960"
+      >
+        <path
+          fill={color ? color : "#225A98"}
+          d="m375 816-43-43 198-198-198-198 43-43 241 241-241 241Z"
+        />
+      </svg>
+    ),
   };
 
   return icons[icon];
