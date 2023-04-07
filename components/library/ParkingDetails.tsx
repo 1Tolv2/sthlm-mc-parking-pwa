@@ -1,11 +1,13 @@
 import React from "react";
 import Icons from "./Icons";
 import getParkingRates from "../../utils/getParkingRates";
-import { useParkingContext } from "../../context/ParkingContext";
+import { FeatureItem } from "../../types";
 
-const ParkingDetails = () => {
-  const { targetedParkingSpot } = useParkingContext();
+type Props = {
+  parkingDetails: FeatureItem;
+};
 
+const ParkingDetails = ({ parkingDetails }: Props) => {
   type Rates = { time: string[]; fee: number; note: string };
 
   const formatRateFee = (fee: number, isCurrent: boolean) => {
@@ -65,7 +67,7 @@ const ParkingDetails = () => {
     return (
       <li
         className="mb-sm"
-        key={targetedParkingSpot?.properties?.ADDRESS + "-" + taxDay}
+        key={parkingDetails?.properties?.ADDRESS + "-" + taxDay}
       >
         {currentRate === taxDay ? (
           renderCurrentRate(title, rate)
@@ -83,9 +85,7 @@ const ParkingDetails = () => {
     );
   };
 
-  const rates = getParkingRates(
-    targetedParkingSpot?.properties?.PARKING_RATE || ""
-  );
+  const rates = getParkingRates(parkingDetails?.properties?.PARKING_RATE || "");
   return (
     <div className="flex flex-col gap-md pl-[10px]">
       <ul>
