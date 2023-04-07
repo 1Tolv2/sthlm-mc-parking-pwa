@@ -80,7 +80,6 @@ const AddressSearch = () => {
       //   ]);
       // } else {
       setSearchResults(response?.slice(0, 3) || []);
-      console.log("RES", response);
       // }
     } else if (e.currentTarget.value === "") {
       setSearchResults([]);

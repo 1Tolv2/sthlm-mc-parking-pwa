@@ -59,7 +59,6 @@ export default function getParkingRates(
 ): ParkingRates[keyof ParkingRates] {
   const rate = /taxa \d{2}/.exec(rules)?.toString();
   if (!rate) return { rest: { fee: 0, note: "Avgiftsfri" } };
-  console.log(new Date().getMonth(), "DATE");
   const currentRates =
     parkingRates[new Date().getMonth() >= 3 ? "afterApril" : "beforeApril"];
   return (

@@ -53,7 +53,7 @@ const ParkingDetails = () => {
 
   const formatRates = (taxDay: string, rate: Rates) => {
     const currentRate = checkIfCurrentRate(taxDay, rate);
-    console.log("TAXDAY", rate.fee);
+
     const title =
       taxDay === "weekdays"
         ? "Vardagar: "
