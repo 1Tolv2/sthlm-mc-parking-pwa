@@ -15,16 +15,16 @@ const parkingRates = {
     "taxa 13": {
       weekdays: { time: ["07.00", "19.00"], fee: 4 },
       saturdays: { time: ["11.00", "17.00"], fee: 2.5 },
-      rest: { fee: 0 },
+      rest: { fee: 0, note: "Övrig tid" },
     },
     "taxa 14": {
       weekdays: { time: ["07.00", "19.00"], fee: 2.5 },
       saturdays: { time: ["11.00", "17.00"], fee: 2.5 },
-      rest: { fee: 0 },
+      rest: { fee: 0, note: "Övrig tid" },
     },
     "taxa 15": {
       weekdays: { time: ["07.00", "19.00"], fee: 2.5 },
-      rest: { fee: 0 },
+      rest: { fee: 0, note: "Övrig tid" },
     },
   } as ParkingRates,
   afterApril: {
@@ -35,21 +35,21 @@ const parkingRates = {
       weekdays: { time: ["07.00", "21.00"], fee: 7.75 },
       saturdays: { time: ["09.00", "19.00"], fee: 7.75 },
       sundays: { time: ["09.00", "19.00"], fee: 7.75 },
-      rest: { fee: 5 },
+      rest: { fee: 5, note: "Övrig tid" },
     },
     "taxa 13": {
       weekdays: { time: ["07.00", "19.00"], fee: 5 },
       saturdays: { time: ["11.00", "17.00"], fee: 3.75 },
-      rest: { fee: 0 },
+      rest: { fee: 0, note: "Övrig tid" },
     },
     "taxa 14": {
       weekdays: { time: ["07.00", "19.00"], fee: 2.5 },
       saturdays: { time: ["11.00", "17.00"], fee: 2.5 },
-      rest: { fee: 0 },
+      rest: { fee: 0, note: "Övrig tid" },
     },
     "taxa 15": {
       weekdays: { time: ["07.00", "19.00"], fee: 2.5 },
-      rest: { fee: 0 },
+      rest: { fee: 0, note: "Övrig tid" },
     },
   } as ParkingRates,
 };
