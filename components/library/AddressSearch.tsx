@@ -80,7 +80,6 @@ const AddressSearch = () => {
       //   ]);
       // } else {
       setSearchResults(response?.slice(0, 3) || []);
-      console.log("RES", response);
       // }
     } else if (e.currentTarget.value === "") {
       setSearchResults([]);
@@ -105,8 +104,8 @@ const AddressSearch = () => {
     );
   };
   return (
-    <div className="relative w-full md:w-[500px]">
-      <StandardContainer width="full" className="mx-auto w-full">
+    <div className="relative w-full ">
+      <StandardContainer width="w-full" className="mx-auto w-full">
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
         </div>
@@ -117,6 +116,7 @@ const AddressSearch = () => {
             name="address"
             onChange={handleOnChange}
             value={address}
+            autoComplete="off"
             placeholder="Hitta parkering"
             className="w-full h-full outline-transparent focus:outline-transparent"
           />

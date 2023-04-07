@@ -10,7 +10,7 @@ const parkingRates = {
       weekdays: { time: ["07.00", "21.00"], fee: 6.5 },
       saturdays: { time: ["09.00", "19.00"], fee: 6.5 },
       sundays: { time: ["09.00", "19.00"], fee: 6.5 },
-      rest: { fee: 4, note: "Övrig tid" },
+      rest: { fee: 4 },
     },
     "taxa 13": {
       weekdays: { time: ["07.00", "19.00"], fee: 4 },
@@ -60,7 +60,7 @@ export default function getParkingRates(
   const rate = /taxa \d{2}/.exec(rules)?.toString();
   if (!rate) return { rest: { fee: 0, note: "Avgiftsfri" } };
   const currentRates =
-    parkingRates[new Date().getMonth() > 3 ? "afterApril" : "beforeApril"];
+    parkingRates[new Date().getMonth() >= 3 ? "afterApril" : "beforeApril"];
   return (
     currentRates[rate as unknown as keyof ParkingRates] || {
       rest: { fee: 0, note: "Okänd" },

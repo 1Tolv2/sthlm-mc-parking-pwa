@@ -20,6 +20,7 @@ module.exports = {
           900: "#00164d",
           DEFAULT: "#3F75FF",
         },
+        parkingBlue: "#225A98",
         neutral: { 500: "#D9D9D9", 600: "#b0b0b0", DEFAULT: "#D9D9D9" },
         black: "#353535",
         available: { 500: "#00C853", 800: "#008035" },
