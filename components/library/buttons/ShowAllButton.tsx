@@ -17,9 +17,14 @@ const ShowAllButton = () => {
   };
 
   return (
-    <StandardContainer className="drop-shadow md:drop-shadow-2xl" width="w-fit">
+    <StandardContainer
+      padding="0"
+      width="w-fit"
+      height="h-[54px]"
+      className="drop-shadow md:drop-shadow-2xl"
+    >
       <button
-        className="w-max h-full font-semibold"
+        className="w-max h-full font-semibold pointer-events-auto p-md"
         onClick={handleParkingSpots}
       >
         Visa alla parkeringar

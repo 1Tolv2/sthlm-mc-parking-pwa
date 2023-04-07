@@ -69,7 +69,7 @@ export default function LocationButton() {
       >
         <div
           onClick={isLoading ? undefined : handleLocation}
-          className="h-full w-full p-sm cursor-pointer"
+          className="h-full w-full p-sm cursor-pointer pointer-events-auto"
         >
           <Icons icon={icon} />
         </div>
