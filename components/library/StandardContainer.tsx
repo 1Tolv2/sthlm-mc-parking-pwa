@@ -17,7 +17,7 @@ export default function StandardContainer({
 }: props) {
   return (
     <div
-      className={`flex items-center bg-white p-${padding} rounded-lg ${width} ${height} ${className}`}
+      className={`flex items-center bg-white p-${padding} rounded-xl ${width} ${height} ${className}`}
     >
       {children}
     </div>

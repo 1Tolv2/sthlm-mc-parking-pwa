@@ -16,7 +16,7 @@ const Content = ({ data }: Props) => {
   const { setParkingSpots } = useParkingContext();
 
   useEffect(() => {
-    if (data) setParkingSpots(data);
+    if (data && data.length > 0) setParkingSpots(data);
   }, []);
 
   return (

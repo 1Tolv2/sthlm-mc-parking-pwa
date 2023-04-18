@@ -7,7 +7,7 @@ import ParkingDetails from "./ParkingDetails";
 const ParkingDetailModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { targetedParkingSpot } = useParkingContext();
+  const { targetedParkingSpot, setTargetedParkingSpot } = useParkingContext();
   const handleModal = () => {
     if (document.getElementById("parking-detail-modal")) {
       setIsModalOpen(false);
@@ -37,13 +37,20 @@ const ParkingDetailModal = () => {
       {isModalOpen && (
         <div className="relative md:absolute md:bottom-0 md:left-1/2 md:-translate-x-1/2 w-full max-w-[500px] mx-auto h-fit bg-white rounded-xl md:p-md md:drop-shadow-2xl">
           <div className="absolute top-md right-md w-fit mx-auto">
-            <ExitButton handleOnClick={() => setIsModalOpen(false)} />
+            <ExitButton
+              handleOnClick={() => {
+                setIsModalOpen(false);
+                setTargetedParkingSpot(null);
+              }}
+            />
           </div>
           <div className="w-full text-left mb-md p-md">
             <h2 className="text-2xl font-semibold break-words mb-md w-[90%]">
               {targetedParkingSpot?.properties?.ADDRESS}
             </h2>
-            <ParkingDetails />
+            {targetedParkingSpot && (
+              <ParkingDetails parkingDetails={targetedParkingSpot} />
+            )}
           </div>
           <div
             className="flex justify-center gap-3 w-full h-fit p-md rounded-xl bg-parkingBlue text-white cursor-pointer"
