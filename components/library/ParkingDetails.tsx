@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Icons from "./Icons";
 import getParkingRates from "../../utils/getParkingRates";
 import { FeatureItem } from "../../types";
@@ -8,8 +8,37 @@ type Props = {
 };
 
 const ParkingDetails = ({ parkingDetails }: Props) => {
+  const [currentRate, setCurrentRate] = useState<string | null>(null);
+
   type Rates = { time: string[]; fee: number; note: string };
 
+  const checkCurrentRate = (rates: any): void => {
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    const currentWeekday = currentDate.getDay();
+
+    const currentRateDay =
+      currentWeekday === 0
+        ? "sundays"
+        : currentWeekday === 6
+        ? "saturdays"
+        : "weekdays";
+
+    let currentRateTime = false;
+    if (rates[currentRateDay]) {
+      currentRateTime =
+        currentHour >= Number(rates[currentRateDay].time?.[0]) &&
+        currentHour < Number(rates[currentRateDay].time?.[1]);
+    }
+
+    setCurrentRate(currentRateTime ? currentRateDay : "rest");
+  };
+
+  useEffect(() => {
+    checkCurrentRate(
+      getParkingRates(parkingDetails?.properties?.PARKING_RATE || "")
+    );
+  }, []);
   const formatRateFee = (fee: number, isCurrent: boolean) => {
     return (
       fee >= 0 && (
@@ -38,24 +67,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
     );
   };
 
-  const checkIfCurrentRate = (taxDay: string, rate: Rates) => {
-    const currentDate = new Date();
-    const currentHour = currentDate.getHours();
-    const currentWeekday = currentDate.getDay();
-    const currentRateDay =
-      (currentWeekday === 0 && taxDay === "sunday") ||
-      (currentWeekday === 6 && taxDay === "saturday") ||
-      (currentWeekday > 0 && currentWeekday < 6 && taxDay === "weekdays");
-
-    const currentRateTime =
-      currentHour >= Number(rate.time?.[0]) &&
-      currentHour < Number(rate.time?.[1]);
-    return currentRateDay && currentRateTime ? taxDay : "rest";
-  };
-
   const formatRates = (taxDay: string, rate: Rates) => {
-    const currentRate = checkIfCurrentRate(taxDay, rate);
-
     const title =
       taxDay === "weekdays"
         ? "Vardagar: "
@@ -74,9 +86,11 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
         ) : (
           <>
             <h3 className="font-medium text-gray-500">{title}</h3>
-            <span className="text-gray-500">
-              {rate.time?.[0] + " - " + rate.time?.[1]}
-            </span>
+            {taxDay !== "rest" && (
+              <span className="text-gray-500">
+                {rate.time?.[0] + " - " + rate.time?.[1]}
+              </span>
+            )}
             {formatRateFee(rate.fee, false)}
             {rate.note && <span className={"text-gray-500"}>{rate.note}</span>}
           </>
@@ -89,9 +103,9 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
   return (
     <div className="flex flex-col gap-md pl-[10px]">
       <ul>
-        {Object.entries(rates).map(([key, value]) =>
-          formatRates(key, value as Rates)
-        )}
+        {Object.entries(rates).map(([key, value]) => {
+          return formatRates(key, value as Rates);
+        })}
       </ul>
       <span className="italic text-gray-500 text-center text-sm">
         Avvikelser kan förekomma, kontrollera alltid föreskrifterna på plats
