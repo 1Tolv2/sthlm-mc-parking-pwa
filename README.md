@@ -55,7 +55,7 @@ You need to get 2 keys
 - A google maps JavaScript API key at: https://console.cloud.google.com/
 - A Open Stockholm key at: https://openstreetgs.stockholm.se/Home/News
 
-Add a .env file in the root folder add the following code in that file along with your keys
+Add a .env file in the root folder and add the following code along with your keys
 ```
 #HTTPS=true
 SSL_CRT_FILE=src/config/ssl/cert.pem
