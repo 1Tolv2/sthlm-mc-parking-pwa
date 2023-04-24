@@ -54,6 +54,7 @@ To setup a local copy follow the steps below
 You need to get 2 keys
 - A google maps JavaScript API key at: https://console.cloud.google.com/
 - A Open Stockholm key at: https://openstreetgs.stockholm.se/Home/News
+
 Add a .env file in the root folder add the following code in that file along with your keys
 ```
 #HTTPS=true
