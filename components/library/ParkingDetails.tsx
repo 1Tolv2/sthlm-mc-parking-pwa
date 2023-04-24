@@ -10,9 +10,10 @@ type Props = {
 const ParkingDetails = ({ parkingDetails }: Props) => {
   const [currentRate, setCurrentRate] = useState<string | null>(null);
 
-  type Rates = { time: string[]; fee: number; note: string };
+  type Rates = { sundays: Rate; weekdays: Rate; saturdays: Rate };
+  type Rate = { time: string[]; fee: number; note: string };
 
-  const checkCurrentRate = (rates: any): void => {
+  const checkCurrentRate = (rates: Rates): void => {
     const currentDate = new Date();
     const currentHour = currentDate.getHours();
     const currentWeekday = currentDate.getDay();
@@ -36,28 +37,28 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
 
   useEffect(() => {
     checkCurrentRate(
-      getParkingRates(parkingDetails?.properties?.PARKING_RATE || "")
+      getParkingRates(parkingDetails?.properties?.PARKING_RATE || "") as Rates
     );
   }, []);
   const formatRateFee = (fee: number, isCurrent: boolean) => {
     return (
       fee >= 0 && (
-        <span className={`ml-sm ${isCurrent ? "" : "text-gray-500"}`}>
+        <span className={`${isCurrent ? "" : "text-gray-500"}`}>
           {fee.toString().replace(".", ",") + " kr/tim"}
         </span>
       )
     );
   };
 
-  const renderCurrentRate = (title: string, rate: Rates) => {
+  const renderCurrentRate = (title: string, rate: Rate) => {
     return (
       <div className="relative pl-4">
         <span className="absolute -left-5 top-1/2 -translate-y-1/2 h-10">
           <Icons icon="rightArrow" />
         </span>
-        {title && <h3 className="font-medium text-xl">{title}</h3>}
+        {title && <h3 className="font-medium text-lg md:text-xl">{title}</h3>}
         {rate.time && (
-          <span className="text-lg">
+          <span className="text-lg mr-sm">
             {rate.time?.[0] + " - " + rate.time?.[1]}
           </span>
         )}
@@ -67,7 +68,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
     );
   };
 
-  const formatRates = (taxDay: string, rate: Rates) => {
+  const formatRates = (taxDay: string, rate: Rate) => {
     const title =
       taxDay === "weekdays"
         ? "Vardagar: "
@@ -87,7 +88,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
           <>
             <h3 className="font-medium text-gray-500">{title}</h3>
             {taxDay !== "rest" && (
-              <span className="text-gray-500">
+              <span className="text-gray-500 mr-sm">
                 {rate.time?.[0] + " - " + rate.time?.[1]}
               </span>
             )}
@@ -101,13 +102,13 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
 
   const rates = getParkingRates(parkingDetails?.properties?.PARKING_RATE || "");
   return (
-    <div className="flex flex-col gap-md pl-[10px]">
+    <div className="flex flex-col gap-sm md:gap-md pl-[10px]">
       <ul>
         {Object.entries(rates).map(([key, value]) => {
-          return formatRates(key, value as Rates);
+          return formatRates(key, value as Rate);
         })}
       </ul>
-      <span className="italic text-gray-500 text-center text-sm">
+      <span className="italic text-gray-500 text-center text-xs md:text-sm">
         Avvikelser kan förekomma, kontrollera alltid föreskrifterna på plats
       </span>
     </div>

@@ -3,7 +3,7 @@ import LoadingAnimation from "./LoadingAnimation";
 
 const LoadingScreen = () => {
   return (
-    <div className="absolute top-0 left-0 flex gap-10 flex-col justify-center items-center w-full h-full bg-primary z-[100] text-center">
+    <div className="absolute top-0 left-0 flex gap-10 flex-col justify-center items-center w-full h-full bg-parkingBlue z-[100] text-center">
       <h1 className="font-tratex text-[24px] sm:text-[40px] text-white">
         STHLM MC Parkering
       </h1>

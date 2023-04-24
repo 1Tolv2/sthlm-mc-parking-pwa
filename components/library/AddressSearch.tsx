@@ -12,7 +12,11 @@ import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
 
-const AddressSearch = () => {
+type Props = {
+  setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const AddressSearch = ({ setIsSearching }: Props) => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setZoom, setCenter } = useMapContext();
@@ -34,7 +38,8 @@ const AddressSearch = () => {
           0,
       } as CoordinateItem);
       setZoom(14);
-      setAddress("");
+      setIsSearching(true);
+      // setAddress("");
     } else if (data.features.length === 0) {
       try {
         const coordinates = await getStreetLocation(streetName);
@@ -126,6 +131,8 @@ const AddressSearch = () => {
           <ExitButton
             handleOnClick={() => {
               setAddress("");
+              setIsSearching(false);
+
               setSearchResults([]);
             }}
           />

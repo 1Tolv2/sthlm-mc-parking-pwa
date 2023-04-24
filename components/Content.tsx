@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { useParkingContext } from "../context/ParkingContext";
 import { FeatureItem } from "../types";
@@ -11,7 +11,9 @@ import ParkingDetailModal from "./library/ParkingDetailModal";
 type Props = {
   data: FeatureItem[];
 };
+
 const Content = ({ data }: Props) => {
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   const { isInitialLoading, isLoading } = useAppContext();
   const { setParkingSpots } = useParkingContext();
 
@@ -22,9 +24,9 @@ const Content = ({ data }: Props) => {
   return (
     <>
       {isLoading && isInitialLoading && <LoadingScreen />}
-      <TopNavigation />
+      <TopNavigation setIsSearching={setIsSearching} />
       <Map>
-        <MapNavigation />
+        <MapNavigation isSearching={isSearching} />
       </Map>
       <ParkingDetailModal />
     </>

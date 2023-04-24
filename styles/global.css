@@ -16,9 +16,14 @@
  * {
     -webkit-tap-highlight-color: transparent;
     box-sizing: border-box;
+    scrollbar-width: 0;
 }
-
+ *::-webkit-scrollbar {
+    display: none;
+}
 @layer {
+
+
 
     .font-tratex {
         font-family: 'Tratex vit', sans-serif;
