@@ -55,21 +55,7 @@ You need to get 2 keys
 - A google maps JavaScript API key at: https://console.cloud.google.com/
 - A Open Stockholm key at: https://openstreetgs.stockholm.se/Home/News
 
-Add a .env file in the root folder and add the following code along with your keys
-```
-#HTTPS=true
-SSL_CRT_FILE=src/config/ssl/cert.pem
-SSL_KEY_FILE=src/config/ssl/key.pem
-
-#Trafikverket API
-NEXT_APP_TRAFIKVERKET_API_URL=https://openparking.stockholm.se/LTF-Tolken/v1/pmotorcykel
-NEXT_APP_LV_API_URL=https://openstreetws.stockholm.se/LvWS-4.0/Lv.svc/json
-NEXT_APP_TRAFIKVERKET_API_KEY=Open Stockholm key
-
-# Google Maps
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=Google Maps key
-NEXT_PUBLIC_URL=Your deployed page root URL
-```
+Rename the `./.env.example` file to `.env` and add the fill out the empty variables with your keys
 
 ## Run the app
 ### Localhost
