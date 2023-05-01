@@ -51,20 +51,21 @@ const ParkingLocations = () => {
 
   return (
     <MarkerClusterer maxZoom={15} minimumClusterSize={3}>
-      {(clusterer) =>
-        parkingSpots &&
-        (parkingSpots as any)?.map((item: any) => (
-          <Marker
-            key={item.id}
-            position={{
-              lng: item?.geometry?.coordinates[0][0] as unknown as number,
-              lat: item?.geometry?.coordinates[0][1] as unknown as number,
-            }}
-            clusterer={clusterer}
-            onClick={() => setTargetedParkingSpot(item)}
-          />
-        ))
-      }
+      {(clusterer) => (
+        <div>
+          {parkingSpots?.map((item) => (
+            <Marker
+              key={item.id}
+              position={{
+                lng: item?.geometry?.coordinates[0][0] as unknown as number,
+                lat: item?.geometry?.coordinates[0][1] as unknown as number,
+              }}
+              clusterer={clusterer}
+              onClick={() => setTargetedParkingSpot(item)}
+            />
+          ))}
+        </div>
+      )}
     </MarkerClusterer>
   );
 };
