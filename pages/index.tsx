@@ -1,5 +1,5 @@
 import React from "react";
-import { GetStaticProps } from "next";
+import { GetStaticPropsResult } from "next";
 import Head from "next/head";
 import axios from "axios";
 import AppProvider from "../context/index";
@@ -34,8 +34,14 @@ export default function Page({ data }: Props) {
   );
 }
 
-export async function getStaticProps(): Promise<GetStaticProps> {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<FeatureItem[] | null>
+> {
   const url = `${process.env.NEXT_APP_TRAFIKVERKET_API_URL}/all?outputFormat=json&apiKey=${process.env.NEXT_APP_TRAFIKVERKET_API_KEY}`;
   const { data } = await axios.get(url);
-  return { props: { data: data.features }, revalidate: 300 } as any;
+
+  return {
+    props: { data: data.features } as unknown as FeatureItem[] | null,
+    revalidate: 300,
+  };
 }
