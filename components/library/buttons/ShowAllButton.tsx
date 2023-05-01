@@ -4,7 +4,11 @@ import { useParkingContext } from "../../../context/ParkingContext";
 import { useAppContext } from "../../../context/AppContext";
 import StandardContainer from "../StandardContainer";
 
-const ShowAllButton = () => {
+type Props = {
+  setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ShowAllButton = ({ setIsSearching }: Props) => {
   const { setIsLoading } = useAppContext();
   const { resetParking } = useParkingContext();
   const { resetMap } = useMapContext();
@@ -14,6 +18,7 @@ const ShowAllButton = () => {
     resetParking();
     resetMap();
     setIsLoading(false);
+    setIsSearching(false);
   };
 
   return (
