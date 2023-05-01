@@ -29,7 +29,7 @@ To display the map and location markers, the google Maps JavaScript API is used.
 
 ## Built with
 * [<img alt="TypeScript" src="https://img.shields.io/static/v1?style=flat&logo=typescript&label=&message=TypeScript&color=white"/>](https://www.typescriptlang.org/)
-* [<img alt="Next.js" src="https://img.shields.io/static/v1?style=flat&logo=next.js&label=&message=Next&color=black"/>](https://nextjs.org/)
+* [<img alt="Next.js" src="https://img.shields.io/static/v1?style=flat&logo=next.js&label=&message=Next.js&color=black"/>](https://nextjs.org/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
