@@ -37,7 +37,7 @@ export default function Page({ data }: Props) {
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<FeatureItem[] | null>
 > {
-  const url = `${process.env.NEXT_APP_TRAFIKVERKET_API_URL}/all?outputFormat=json&apiKey=${process.env.NEXT_APP_TRAFIKVERKET_API_KEY}`;
+  const url = `${process.env.NEXT_APP_OPEN_PARKING_API_URL}/all?outputFormat=json&apiKey=${process.env.NEXT_APP_OPEN_PARKING_API_KEY}`;
   const { data } = await axios.get(url);
 
   return {

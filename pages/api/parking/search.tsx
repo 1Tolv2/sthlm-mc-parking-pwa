@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const searchParam = req.query.search;
-  const url = `${process.env.NEXT_APP_TRAFIKVERKET_API_URL}/street/${searchParam}?outputFormat=json&apiKey=${process.env.NEXT_APP_TRAFIKVERKET_API_KEY}`;
+  const url = `${process.env.NEXT_APP_OPEN_PARKING_API_URL}/street/${searchParam}?outputFormat=json&apiKey=${process.env.NEXT_APP_OPEN_PARKING_API_KEY}`;
   const { data } = await axios.get(url);
   return res.status(200).json(data);
 }

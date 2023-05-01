@@ -9,7 +9,7 @@ export default async function handler(
   const { coordinates } = req.body;
 
   const radius = "&radius=100";
-  const url = `${process.env.NEXT_APP_TRAFIKVERKET_API_URL}/within?lat=${coordinates.latitude}&lng=${coordinates.longitude}&outputFormat=json&apiKey=${process.env.NEXT_APP_TRAFIKVERKET_API_KEY}`;
+  const url = `${process.env.NEXT_APP_OPEN_PARKING_API_URL}/within?lat=${coordinates.latitude}&lng=${coordinates.longitude}&outputFormat=json&apiKey=${process.env.NEXT_APP_OPEN_PARKING_API_KEY}`;
 
   const response = await axios.get(url + radius);
   const { data } = response;

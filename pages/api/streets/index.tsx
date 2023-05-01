@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   const { streetName, streetNumber } = req.query;
   const url = `${process.env.NEXT_APP_LV_API_URL}/GetAddresses?apiKey=${
-    process.env.NEXT_APP_TRAFIKVERKET_API_KEY
+    process.env.NEXT_APP_OPEN_PARKING_API_KEY
   }&municipalityPattern=*&streetName=${streetName}&streetNumPattern=${
     streetNumber ?? "*"
   }&postalCodePattern=*&postalAreaPattern=*`;
