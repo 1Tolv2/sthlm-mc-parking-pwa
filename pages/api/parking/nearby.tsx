@@ -22,7 +22,7 @@ export default async function handler(
       if (data.features.length > 0) {
         return res.status(200).json(data);
       } else {
-        return res.status(404).json({ message: "No parking spots found" });
+        return res.status(204).json({ message: "No parking spots found" });
       }
     }
   } else {

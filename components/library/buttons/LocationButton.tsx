@@ -27,8 +27,6 @@ export default function LocationButton() {
     setCurrentLocation({
       lat: position.coords.latitude || 0,
       lng: position.coords.longitude || 0,
-      // longitude: 18.07502720995736,
-      // lat: 59.31323345086049,
     });
     if (data.features.length !== 0) {
       setParkingSpots(data.features);

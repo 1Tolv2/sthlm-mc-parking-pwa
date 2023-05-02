@@ -26,18 +26,12 @@ const ParkingLocations = () => {
     const data = await getNearbyParkingSpots(
       position.coords as unknown as CoordinateItem
     );
-
-    // if (data.features.length !== 0) {
     setCurrentLocation({
       lat: position.coords.latitude || 0,
       lng: position.coords.longitude || 0,
-      // lng: 18.07502720995736,
-      // lat: 59.31323345086049,
     });
-    if (data.features.length === 0)
-      setModalContent("Inga parkeringar i närheten");
-    if (data.features.length > 0) setParkingSpots(data.features);
-    // }
+    if (!data) setModalContent("Inga parkeringar i närheten");
+    if (data) setParkingSpots(data.features);
     setIsLoading(false);
     setIsInitialLoading(false);
   };
