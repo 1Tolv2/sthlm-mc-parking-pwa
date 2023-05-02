@@ -21,7 +21,7 @@ export const getNearbyParkingSpots = async (
 export const searchParkingSpots = async (
   search: string
 ): Promise<ParkingResponse> => {
-  const { data } = await axios.get(`/api/parking/search?search=${search}`);
+  const { data } = await axios.get(`/api/parking/street?search=${search}`);
   return data as unknown as ParkingResponse;
 };
 

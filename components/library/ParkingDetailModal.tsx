@@ -53,7 +53,7 @@ const ParkingDetailModal = () => {
             )}
           </div>
           <div
-            className="flex justify-center gap-3 w-full h-fit p-md rounded-xl bg-parkingBlue text-white cursor-pointer"
+            className="flex justify-center gap-3 w-full h-fit p-md rounded-xl bg-primary text-white cursor-pointer"
             onClick={handleOpenDirections}
           >
             <div className="relative h-8">

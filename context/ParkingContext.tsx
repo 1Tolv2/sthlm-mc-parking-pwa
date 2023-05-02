@@ -34,7 +34,7 @@ const ParkingContextProvider = ({ children }: Props) => {
 
   const resetParking = async () => {
     const data = await getParkingSpots();
-    if (data.features.length > 0) setParkingSpots(data.features);
+    if (data.features?.length > 0) setParkingSpots(data.features);
     setTargetedParkingSpot(null);
     setCurrentLocation(null);
   };

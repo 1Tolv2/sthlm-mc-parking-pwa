@@ -5,7 +5,7 @@ import ModalContextProvider from "./ModalContext";
 import ParkingContextProvider from "./ParkingContext";
 
 type Props = {
-  children: any;
+  children: JSX.Element;
 };
 
 const AppProvider = ({ children }: Props) => {

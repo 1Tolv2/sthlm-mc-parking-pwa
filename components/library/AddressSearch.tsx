@@ -27,7 +27,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
     const streetName = address;
 
     const data = await searchParkingSpots(streetName);
-    if (data.features.length > 0) {
+    if (data.features?.length > 0) {
       setParkingSpots(data.features);
       setCenter({
         lat:
@@ -39,15 +39,14 @@ const AddressSearch = ({ setIsSearching }: Props) => {
       } as CoordinateItem);
       setZoom(14);
       setIsSearching(true);
-      // setAddress("");
-    } else if (data.features.length === 0) {
+    } else if (data.features?.length === 0) {
       try {
         const coordinates = await getStreetLocation(streetName);
         const proximityData = await getNearbyParkingSpots({
           longitude: coordinates.longitude,
           latitude: coordinates.latitude,
         });
-        if (proximityData.features.length !== 0) {
+        if (proximityData.features?.length !== 0) {
           setParkingSpots(data.features);
           setCenter({
             lat:
@@ -64,11 +63,6 @@ const AddressSearch = ({ setIsSearching }: Props) => {
         setModalContent("Inga parkeringar hittades");
       }
     }
-  };
-
-  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // fetchParkingSpots(address);
   };
 
   const handleOnChange = async (e: React.FormEvent<HTMLInputElement>) => {
@@ -114,7 +108,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
         </div>
-        <form className="w-full h-full" onSubmit={handleOnSubmit}>
+        <form className="w-full h-full">
           <input
             id="address"
             type="text"
@@ -132,7 +126,6 @@ const AddressSearch = ({ setIsSearching }: Props) => {
             handleOnClick={() => {
               setAddress("");
               setIsSearching(false);
-
               setSearchResults([]);
             }}
           />
