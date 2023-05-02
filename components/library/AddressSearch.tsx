@@ -27,7 +27,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
     const streetName = address;
 
     const data = await searchParkingSpots(streetName);
-    if (data.features.length > 0) {
+    if (data.features?.length > 0) {
       setParkingSpots(data.features);
       setCenter({
         lat:
@@ -39,14 +39,14 @@ const AddressSearch = ({ setIsSearching }: Props) => {
       } as CoordinateItem);
       setZoom(14);
       setIsSearching(true);
-    } else if (data.features.length === 0) {
+    } else if (data.features?.length === 0) {
       try {
         const coordinates = await getStreetLocation(streetName);
         const proximityData = await getNearbyParkingSpots({
           longitude: coordinates.longitude,
           latitude: coordinates.latitude,
         });
-        if (proximityData.features.length !== 0) {
+        if (proximityData.features?.length !== 0) {
           setParkingSpots(data.features);
           setCenter({
             lat:

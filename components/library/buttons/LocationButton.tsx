@@ -28,7 +28,7 @@ export default function LocationButton() {
       lat: position.coords.latitude || 0,
       lng: position.coords.longitude || 0,
     });
-    if (data.features.length !== 0) {
+    if (data.features?.length !== 0) {
       setParkingSpots(data.features);
     } else {
       setIsLoading(false);

@@ -15,11 +15,11 @@ export default async function handler(
     const response = await axios.get(url + radius);
     const { data } = response;
 
-    if (data.features.length > 0) {
+    if (data.features?.length > 0) {
       return res.status(200).json(data);
     } else {
       const { data } = await axios.get(url + "&radius=200");
-      if (data.features.length > 0) {
+      if (data.features?.length > 0) {
         return res.status(200).json(data);
       } else {
         return res.status(200).json({ message: "No parking spots found" });
