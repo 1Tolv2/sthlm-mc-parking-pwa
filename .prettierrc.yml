@@ -1,4 +1,3 @@
 {
-  "endOfLine": "auto",
-  "no-empty-pattern": 'off',
+  "endOfLine": "auto", # Maintain existing line endings
 }
