@@ -30,8 +30,9 @@ const ParkingLocations = () => {
       lat: position.coords.latitude || 0,
       lng: position.coords.longitude || 0,
     });
-    if (!data) setModalContent("Inga parkeringar i närheten");
-    if (data) setParkingSpots(data.features);
+    if (!data.features || data.features?.length !== 0)
+      setModalContent("Inga parkeringar i närheten");
+    if (data.features?.length > 0) setParkingSpots(data.features);
     setIsLoading(false);
     setIsInitialLoading(false);
   };
