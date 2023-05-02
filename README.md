@@ -69,6 +69,8 @@ The page reloads as you make changes and save your code.
 
 
 # Documentation
+This documentation is created for developers on the existing project but may give some insight if you are setting it up on your own.
+
 This project is setup by using `create-next-app --typescript`, to read more about this setup process see [Next.js "Getting started" documentation](https://nextjs.org/docs/getting-started).
 ## Scripts
 To run scripts you can write `npm run <SCRIPT>`, e.g `npm run dev`
@@ -142,14 +144,30 @@ This application uses the following to enforce code rules and
     npx prettier -c <file/dir/glob>
     #  Checks if files follow the format
     ```
-- Stylelint - CSS formatter [Stylelint docs](https://stylelint.io/)
-    ```sh
-    npx stylelint "**/*.css"
-    #  Checks if css files follow the format
-    ```
 
-## Deploy
-To be filled out
+## CI/CD
+### Deployment
+The application is deployed to [Vercel](https://vercel.com/docs). It redeploys when pushes are made to github. 
+
+*The application will only work on localhost:3000 and the main vercel domain due to the google API key being restricted, this will be fixed upon release so that there is a dev key.*
+
+### Tests
+There aren't currently any tests on the application but testing libraries are pre-installed with `create-next-app`
+
+### Useful CLI commands
+
+Deploy a project when standing in the root.
+```sh
+vercel
+```
+Link local directory to a Vercel project
+```sh
+vercel link
+```
+To download all environment variables from an existing deployment
+```sh
+vercel env pull
+```
 
 ## UI
 This project utilises the [Tailwind CSS](https://v2.tailwindcss.com/docs) framework to style the application.
