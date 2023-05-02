@@ -18,7 +18,7 @@ const ParkingListSlider = () => {
     window.open(`https://maps.google.com/?q=${lat},${lng}`);
   };
 
-  return !targetedParkingSpot && parkingSpots.length <= 10 ? (
+  return !targetedParkingSpot && parkingSpots?.length <= 10 ? (
     <>
       <div className="relative w-full overflow-x-scroll touch-pan-x z-[100] pointer-events-auto pl-md pr-md md:pl-[calc(50vw-204px)]">
         <ul className="flex gap-2 pointer-events-auto w-fit">
