@@ -78,7 +78,7 @@ To run scripts you can write `npm run <SCRIPT>`, e.g `npm run dev`
 - `lint` - Runs `next lint` to set up Next.js' built-in ESLint configuration
 
 ## Application structure
-This is a one page application so the app is rendered from the index page, `./pages/index`.
+This is a one page application so all the components are rendered from the index page, `./pages/index`.
 
 In the index page the main structure is prepared
 - `<Layout />` encapsulates the app which contains `<main />`.
@@ -90,7 +90,7 @@ The application utilises the next api to provide security for the api keys aswel
 This is a diagram of the application structure.
 <img src="components/assets/images/app-diagram.svg" alt="application diagram" width="100%" height="auto" />
 
-### Context
+### `./context`
 All context providers are rendered through `./context/index`.
 
 The following are provided:
@@ -99,8 +99,9 @@ The following are provided:
 - `ParkingContext` - Parkingspot aswell as location states and a reset function to reset to all parkingspots.
 - `MapContext` - Map setting states and a reset function to reset map to initial center position.
 
-### Components
+### `./components`
 All components are found in the `./components` folder, the main components are found in it's root, eg. `<MapNavigation />` and `<TopNavigation />`, the rest are in `./library`.
+
 
 Components in the library folder are grouped based on similarity, like `/library/buttons`, or on relation like `/library/map` which contains `<Map />` that renders `<ParkingLocations />` which is a one-time-use-component but they are split up to help with readability.
 
@@ -111,310 +112,49 @@ Components in the library folder are grouped based on similarity, like `/library
 - `<Modal />` - This is a container for prompt or information that should grab the users attention.
 - `<LoadingModal />` - Whenever data is being fetched, this should be shown to inform the user, it triggers by setting `isLoading` to `true`.
 
-### Types
+In the components folder you'll also find `api.ts` which is where all the calls to the api are gathered to be able to be reused.
+
+### `./types`
 All custom types are found here. Import them through the index, like so:
 ```javascript
 import { FeatureItem } from "../types";
 ```
 
-### API
-The API is found in `./pages/api`.
-Client side calls are made through `./components/api.ts`.
+### `./utils`
+Reused function and other utilities are kept in `./utils`.
+- `getHexColor` - converts the tailwind color classes to hex code, eg. used for icon colors.
+- `getParkingRates` - contains all the parking rates and should be updated on changes.
 
-**Base URL** https://sthlm-mc-parking-pwa.vercel.app/api/ 
+### `./pages`
+Contains the pages and the next api.
 
-### Parking spot(s)
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| GET | /parking | Get all parking spots | 
-| POST | /parking/nearby | Get nearby parking spots |  
-| GET | /parking/street | Search parking spot streets |  
+Link to the [API docs](https://github.com/1Tolv2/sthlm-mc-parking-pwa/blob/main/pages/api/README.md)
 
-This endpoint makes calls to [Stockholm Open Parkering API](https://openstreetgs.stockholm.se/Home/Parking)
-
-
-#### **Examples**
-
-<details>
-<summary> GET /parking </summary>
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/parking
-Method: "GET"
-Headers: {
-    "Content-Type": "application/json"
-}
-```
-Status: 200
-
-```json
-{
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature",
-            "id": "LTFR_P_MOTORCYKEL.2262273",
-            "geometry": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        18.064212,
-                        59.340714
-                    ],
-                    [
-                        18.064264,
-                        59.340755
-                    ]
-                ],
-                "geometry_name": "GEOMETRY",
-                "properties": {
-                    "FID": 2262273,
-                    "FEATURE_OBJECT_ID": 16634259,
-                    "FEATURE_VERSION_ID": 1,
-                    "EXTENT_NO": 1,
-                    "VALID_FROM": "2019-05-31T22:00:00Z",
-                    "START_TIME": 600,
-                    "END_TIME": 0,
-                    "START_WEEKDAY": "onsdag",
-                    "CITATION": "0180 2019-01593",
-                    "STREET_NAME": "Tegnérgatan",
-                    "CITY_DISTRICT": "Vasastaden",
-                    "PARKING_DISTRICT": "City",
-                    "ADDRESS": "Tegnérgatan 2C",
-                    "VF_METER": 5,
-                    "VF_PLATS_TYP": "Reserverad p-plats motorcykel",
-                    "OTHER_INFO": "Servicetid onsdag 00:00-06:00",
-                    "RDT_URL": "https://rdt.transportstyrelsen.se/rdt/AF06_View.aspx?BeslutsMyndighetKod=0180&BeslutadAr=2019&LopNr=01593",
-                    "PARKING_RATE": "taxa 12: Vardagar utom vardag före sön- och helgdag klockan 07.00 - 21.00, vardag före sön- och helgdag klockan 9.00 - 19.00 och sön- och helgdag klockan 9.00 - 19.00, 7,75 kr/tim. Övrig tid 5 kr/tim."
-                },
-                "bbox": [
-                    18.064212,
-                    59.340714,
-                    18.064264,
-                    59.340755
-                ]
-            },
-        }, 
-        { ... }]
-}
-```
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/parking/nearby
-Method: "POST",
-Headers: {
-    "Content-Type": "application/json"
-}
-Body: {
-  "coordinates": {
-    "longitude": 18.064212,
-    "latitude": 59.340714,
-  }
-}
-```
-Status: 404
-```json
-{
-    "type": "FeatureCollection",
-    "features": [],
-    "totalFeatures": 0,
-    "numberMatched": 0,
-    "numberReturned": 0,
-    "timeStamp": "2023-05-02T10:56:02.296Z"
-}
-```
-
-</details>
-<details>
-<summary> POST /parking/nearby </summary>
-The response looks the same as the index endpoint but the features array contains nearby locations based on the coordinates provided.
-
-
-This endpoint initially searches for locations within 100 meter, but in case none are found it makes a second search for locations within 300 meter if there still aren't any it returns an empty features array.
-
-**Body**:
-- `coordinates` - an object containing the properties `longitude` and `latitude` with number values
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/parking/nearby
-Method: "GET"
-Headers: {
-    "Content-Type": "application/json"
-}
-Body: "coordinates": {
-    "longitude": 18.07502720995736,
-    "latitude": 59.31323345086049,
-}
-```
-
-</details>
-<details>
-<summary> GET /parking/street </summary>
-The response looks the same as the index endpoint but the features array contains locations found based on the search term provided.
-
-**Params**:
-- `search` - full street name
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/parking/street?search=Hantverkargatan
-Method: "GET"
-Headers: {
-    "Content-Type": "application/json"
-}
-```
-</details>
-
-### Street(s)
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| GET | /streets | Get all streetnames | 
-| GET | /streets/streetLocation | Get addresses on a street |  
-| GET | /streets/streetNames | Search streetnames |  
-
-This endpoint makes calls to [Stockholm Open LvWS 4 API](https://openstreetgs.stockholm.se/Home/Ws)
-
-#### **Examples**
-
-<details>
-<summary> GET /streets </summary>
-Get all street locations or filter by searching.
-
-**Params**:
-- `search` - street name
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/streets?search=Hantverkargatan
-Method: "GET"
-Headers: {
-    "Content-Type": "application/json"
-}
-```
-
-Status: 200
-```json
-{
-    "type": "Feature",
-    "id": "LTFR_P_MOTORCYKEL.2262389",
-    "geometry": {
-        "type": "LineString",
-        "coordinates": [
-            [
-              18.075074,
-              59.313121
-            ],
-            [
-              18.07515,
-              59.31313
-            ]
-        ]
-    },
-    "geometry_name": "GEOMETRY",
-    "properties": {
-        "FID": 2262389,
-        "FEATURE_OBJECT_ID": 16652620,
-        "FEATURE_VERSION_ID": 1,
-        "EXTENT_NO": 1,
-        "VALID_FROM": "2019-05-31T22:00:00Z",
-        "START_MONTH": 6,
-        "END_MONTH": 8,
-        "START_DAY": 15,
-        "END_DAY": 15,
-        "CITATION": "0180 2019-02190",
-        "STREET_NAME": "Åsögatan",
-        "CITY_DISTRICT": "Södermalm",
-        "PARKING_DISTRICT": "Södermalm",
-        "ADDRESS": "Åsögatan 113",
-        "VF_METER": 4,
-        "VF_PLATS_TYP": "Reserverad p-plats motorcykel",
-        "OTHER_INFO": "Servicetid fredag 00:00 - 06:00 utom under tiden 15 juni - 15 augusti",
-        "RDT_URL": "https://rdt.transportstyrelsen.se/rdt/AF06_View.aspx?BeslutsMyndighetKod=0180&BeslutadAr=2019&LopNr=02190",
-        "PARKING_RATE": "taxa 13: Vardagar utom vardag före sön- och helgdag klockan 7.00 - 19.00, 5 kr/tim. Vardag före sön- och helgdag klockan 11.00 - 17.00, 3,75 kr/tim."
-    },
-    "bbox": [
-        18.075074,
-        59.313121,
-        18.07515,
-        59.31313
-    ]
-  },
-  { ... }
-}
-```
-
-</details>
-
-<details>
-<summary> GET /streets/streetNames </summary>
-This endpoint returns an array of streetnames based on the search provided. It has a fuzziness of 3, allowing names with a difference of 3 characters to be found in case of error in spelling.
-
-**Params**:
-- `search` - full or partial street name
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/streets/streetNames?search=Åsö
-Method: "GET"
-Headers: {
-    "Content-Type": "application/json"
-}
-```
-Status: 200
-```json
-[
-    {
-        "Name": "Stockholm",
-        "StreetNames": [
-            "Åsögatan",
-            "Åsötorget"
-        ]
-    }
-]`
-```
-</details>
-
-<details>
-<summary> GET /streets/streetLocation </summary>
-This returns center coordinates of a street.
-
-**Params**:
-- `streetName` - Full street name
-- `streetNumber` - Optional, provide street number
-
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/streets/streetLocation?streetName=Åsögatan&streetNumber=115
-Method: "GET"
-Headers: {
-    "Content-Type": "application/json"
-}
-```
-Status: 200
-```json
-[
-    {
-        "Municipality": "Stockholm",
-        "PostalArea": "Stockholm",
-        "PostalCode": 11221,
-        "StreetName": "Hantverkargatan",
-        "StreetNum": "1",
-        "Wkt": "POINT (18.0551406 59.3278249)"
-    },
-    { ... }
-]
-```
-</details>
-
-## Lint
-To be filled out
+## Code rules
+This application uses the following to enforce code rules and 
+- ESLint - Lints code to find errors [ESLint docs](https://eslint.org/docs/latest/)
+    ```sh
+    npm run lint 
+    #  Lints all files
+    ```
+- Prettier - Code formatter, [Prettier docs](https://prettier.io/docs/en/)
+    ```sh
+    npx prettier -c <file/dir/glob>
+    #  Checks if files follow the format
+    ```
+- Stylelint - CSS formatter [Stylelint docs](https://stylelint.io/)
+    ```sh
+    npx stylelint "**/*.css"
+    #  Checks if css files follow the format
+    ```
 
 ## Deploy
 To be filled out
 
-## UI Design
-To be filled out
+## UI
+This project utilises the [Tailwind CSS](https://v2.tailwindcss.com/docs) framework to style the application.
+
+Colors and spacings have been changed to custom ones, check `./tailwind.config.js` where configurations are made.
+
+In `./styles/global.css` you'll find custom classes added to tailwind.
+- `.font-tratex` - custom added font that is the official road sign font in Sweden. [Link to the font](https://www.transportstyrelsen.se/sv/vagtrafik/Trafikregler/Om-vagmarken/Teckensnitt/).
