@@ -25,7 +25,7 @@ const ParkingListSlider = () => {
           {parkingSpots.map((parkingSpot) => (
             <li
               key={"list-item-" + parkingSpot.id}
-              className="block relative bg-parkingBlue w-[330px] md:w-[400px] rounded-xl z-[52]"
+              className="block relative bg-primary w-[330px] md:w-[400px] rounded-xl z-[52]"
             >
               <h3 className="text-xl md:text-2xl font-medium text-white px-md py-2 md:py-3 w-full">
                 {parkingSpot.properties.ADDRESS}
@@ -40,7 +40,7 @@ const ParkingListSlider = () => {
                     <Icons icon="direction" />
                   </div>
                   <div
-                    className="flex md:hidden justify-center gap-3 w-full h-fit p-2.5 rounded-xl bg-parkingBlue text-white cursor-pointer"
+                    className="flex md:hidden justify-center gap-3 w-full h-fit p-2.5 rounded-xl bg-primary text-white cursor-pointer"
                     onClick={() => handleOpenDirections(parkingSpot)}
                   >
                     <div className="relative h-8">
