@@ -11,6 +11,7 @@ import ExitButton from "./buttons/ExitButton";
 import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
+import { useAppContext } from "../../context/AppContext";
 
 type Props = {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +23,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
   const { setZoom, setCenter } = useMapContext();
   const { setParkingSpots } = useParkingContext();
   const { setModalContent } = useModalContext();
+  const { setIsLoading } = useAppContext();
 
   const fetchParkingSpots = async (address: string) => {
     const streetName = address;
@@ -86,8 +88,9 @@ const AddressSearch = ({ setIsSearching }: Props) => {
   };
 
   const handleOnSearchResultClick = (result: string) => {
+    setIsLoading(true);
     setAddress(result);
-    fetchParkingSpots(result);
+    fetchParkingSpots(result).then(() => setIsLoading(false));
     setSearchResults([]);
   };
 

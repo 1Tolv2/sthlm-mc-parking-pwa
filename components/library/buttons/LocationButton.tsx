@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useMapContext } from "../../../context/MapContext";
 import { useAppContext } from "../../../context/AppContext";
 import { useParkingContext } from "../../../context/ParkingContext";
 import { useModalContext } from "../../../context/ModalContext";
@@ -16,6 +17,7 @@ export default function LocationButton() {
     useParkingContext();
   const { isLoading, setIsLoading } = useAppContext();
   const { setModalContent } = useModalContext();
+  const { resetMap } = useMapContext();
 
   const handleNearbyParkingSpots = async (
     position: GeolocationPosition
@@ -28,13 +30,13 @@ export default function LocationButton() {
       lat: position.coords.latitude || 0,
       lng: position.coords.longitude || 0,
     });
-    if (data.features?.length !== 0) {
+    if (data.features && data.features.length !== 0) {
       setParkingSpots(data.features);
     } else {
-      setIsLoading(false);
       setModalContent("Inga parkeringar hittades");
       console.log("NO DATA FOUND");
     }
+    setIsLoading(false);
   };
 
   const handleLocation = async (): Promise<void> => {
@@ -45,8 +47,9 @@ export default function LocationButton() {
     } else {
       setIcon("locationOff");
       setCurrentLocation(null);
+      resetMap();
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
