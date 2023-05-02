@@ -19,9 +19,7 @@ plugins:
   - '@typescript-eslint'
   - prettier
 rules: {
-  quotes: ['error', 'double'],
-  'react/react-in-jsx-scope': 'off',
-  'ban-types': 'off',
-  "no-empty-pattern": 'off',
-  "@typescript-eslint/ban-types": "warn"
+  quotes: ['error', 'double'], # double quotes are used or else error is shown
+  'react/react-in-jsx-scope': 'off', # allows to use jsx without importing React
+  "@typescript-eslint/ban-types": "warn" # warns when using not allowed types or incorrect syntax
   }
