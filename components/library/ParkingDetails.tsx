@@ -43,7 +43,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
   const formatRateFee = (fee: number, isCurrent: boolean) => {
     return (
       fee >= 0 && (
-        <span className={`${isCurrent ? "" : "text-gray-500"}`}>
+        <span className={`${isCurrent ? "text-lg" : "text-gray-500"}`}>
           {fee.toString().replace(".", ",") + " kr/tim"}
         </span>
       )
@@ -63,7 +63,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
           </span>
         )}
         {formatRateFee(rate.fee, true)}
-        {rate.note && <span>{rate.note}</span>}
+        {rate.note && <span>{`, ${rate.note}`}</span>}
       </div>
     );
   };
@@ -93,7 +93,9 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
               </span>
             )}
             {formatRateFee(rate.fee, false)}
-            {rate.note && <span className={"text-gray-500"}>{rate.note}</span>}
+            {rate.note && (
+              <span className={"text-gray-500"}>{`, ${rate.note}`}</span>
+            )}
           </>
         )}
       </li>
@@ -108,6 +110,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
           return formatRates(key, value as Rate);
         })}
       </ul>
+      <span>{parkingDetails.properties.OTHER_INFO}</span>
       <span className="italic text-gray-500 text-center text-xs md:text-sm">
         Avvikelser kan förekomma, kontrollera alltid föreskrifterna på plats
       </span>
