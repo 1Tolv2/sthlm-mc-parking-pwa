@@ -11,10 +11,6 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
   const [currentRate, setCurrentRate] = useState<string | null>(null);
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentDate(new Date()), 60000);
-    return () => clearInterval(timer);
-  });
   type Rates = { sundays: Rate; weekdays: Rate; saturdays: Rate };
   type Rate = { time: string[]; fee: number; note: string };
 
@@ -35,7 +31,6 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
         currentHour >= Number(rates[currentRateDay].time?.[0]) &&
         currentHour < Number(rates[currentRateDay].time?.[1]);
     }
-
     setCurrentRate(currentRateTime ? currentRateDay : "rest");
   };
 
@@ -43,7 +38,10 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
     checkCurrentRate(
       getParkingRates(parkingDetails?.properties?.PARKING_RATE || "") as Rates
     );
-  }, []);
+    const timer = setInterval(() => setCurrentDate(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, [parkingDetails]);
+
   const formatRateFee = (fee: number, isCurrent: boolean) => {
     return (
       fee >= 0 && (
