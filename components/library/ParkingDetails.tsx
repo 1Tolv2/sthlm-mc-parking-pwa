@@ -9,14 +9,14 @@ type Props = {
 
 const ParkingDetails = ({ parkingDetails }: Props) => {
   const [currentRate, setCurrentRate] = useState<string | null>(null);
+  const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
   type Rates = { sundays: Rate; weekdays: Rate; saturdays: Rate };
   type Rate = { time: string[]; fee: number; note: string };
 
   const checkCurrentRate = (rates: Rates): void => {
-    const currentDate = new Date();
-    const currentHour = currentDate.getHours();
-    const currentWeekday = currentDate.getDay();
+    const currentHour = (currentDate || new Date()).getHours();
+    const currentWeekday = (currentDate || new Date()).getDay();
 
     const currentRateDay =
       currentWeekday === 0
@@ -31,7 +31,6 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
         currentHour >= Number(rates[currentRateDay].time?.[0]) &&
         currentHour < Number(rates[currentRateDay].time?.[1]);
     }
-
     setCurrentRate(currentRateTime ? currentRateDay : "rest");
   };
 
@@ -39,11 +38,14 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
     checkCurrentRate(
       getParkingRates(parkingDetails?.properties?.PARKING_RATE || "") as Rates
     );
-  }, []);
+    const timer = setInterval(() => setCurrentDate(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, [parkingDetails]);
+
   const formatRateFee = (fee: number, isCurrent: boolean) => {
     return (
       fee >= 0 && (
-        <span className={`${isCurrent ? "" : "text-gray-500"}`}>
+        <span className={`${isCurrent ? "text-lg" : "text-gray-500"}`}>
           {fee.toString().replace(".", ",") + " kr/tim"}
         </span>
       )
@@ -63,7 +65,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
           </span>
         )}
         {formatRateFee(rate.fee, true)}
-        {rate.note && <span>{rate.note}</span>}
+        {rate.note && <span>{`, ${rate.note}`}</span>}
       </div>
     );
   };
@@ -93,7 +95,9 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
               </span>
             )}
             {formatRateFee(rate.fee, false)}
-            {rate.note && <span className={"text-gray-500"}>{rate.note}</span>}
+            {rate.note && (
+              <span className={"text-gray-500"}>{`, ${rate.note}`}</span>
+            )}
           </>
         )}
       </li>
@@ -102,13 +106,14 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
 
   const rates = getParkingRates(parkingDetails?.properties?.PARKING_RATE || "");
   return (
-    <div className="flex flex-col gap-sm md:gap-md pl-[10px]">
+    <div className="flex flex-col gap-sm md:gap-sm pl-[10px]">
       <ul>
         {Object.entries(rates).map(([key, value]) => {
           return formatRates(key, value as Rate);
         })}
       </ul>
-      <span className="italic text-gray-500 text-center text-xs md:text-sm">
+      <span>{parkingDetails.properties.OTHER_INFO}</span>
+      <span className="italic text-gray-500 text-center text-xs md:text-sm mt-sm md:mt-md">
         Avvikelser kan förekomma, kontrollera alltid föreskrifterna på plats
       </span>
     </div>

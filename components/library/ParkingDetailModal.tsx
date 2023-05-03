@@ -44,7 +44,7 @@ const ParkingDetailModal = () => {
               }}
             />
           </div>
-          <div className="w-full text-left mb-md p-md">
+          <div className="w-full text-left md:mb-md p-md">
             <h2 className="text-2xl font-semibold break-words mb-md w-[90%]">
               {targetedParkingSpot?.properties?.ADDRESS}
             </h2>
