@@ -11,8 +11,8 @@ export const getNearbyParkingSpots = async (
 ): Promise<ParkingResponse> => {
   const { data } = await axios.post("/api/parking/nearby", {
     coordinates: {
-      longitude: coordinates.longitude,
-      latitude: coordinates.latitude,
+      longitude: coordinates.lng,
+      latitude: coordinates.lat,
     },
   });
   return data as unknown as ParkingResponse;

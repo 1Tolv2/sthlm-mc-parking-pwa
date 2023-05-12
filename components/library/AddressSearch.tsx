@@ -45,8 +45,8 @@ const AddressSearch = ({ setIsSearching }: Props) => {
       try {
         const coordinates = await getStreetLocation(streetName);
         const proximityData = await getNearbyParkingSpots({
-          longitude: coordinates.longitude,
-          latitude: coordinates.latitude,
+          lng: coordinates.lng,
+          lat: coordinates.lat,
         });
         if (proximityData.features?.length !== 0) {
           setParkingSpots(data.features);
