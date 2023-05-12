@@ -24,7 +24,7 @@ const MapContextProvider = ({ children }: Props) => {
   });
 
   const resetMap = () => {
-    setZoom(11);
+    setZoom(12);
     setCenter({ lat: 59.31323345086049, lng: 18.07502720995736 });
   };
 

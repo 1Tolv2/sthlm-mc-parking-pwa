@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { useAppContext } from "../context/AppContext";
 import { useParkingContext } from "../context/ParkingContext";
 import { FeatureItem } from "../types";
@@ -14,6 +15,7 @@ type Props = {
 
 const Content = ({ data }: Props) => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
+
   const { isInitialLoading, isLoading } = useAppContext();
   const { setParkingSpots } = useParkingContext();
 
@@ -21,16 +23,20 @@ const Content = ({ data }: Props) => {
     if (data && data.length > 0) setParkingSpots(data);
   }, []);
 
+  const DynamicMap = dynamic(() => import("./library/map/Map"), { ssr: false });
+
   return (
     <>
       {isLoading && isInitialLoading && <LoadingScreen />}
       <TopNavigation setIsSearching={setIsSearching} />
-      <Map>
+
+      <DynamicMap>
         <MapNavigation
           isSearching={isSearching}
           setIsSearching={setIsSearching}
         />
-      </Map>
+      </DynamicMap>
+
       <ParkingDetailModal />
     </>
   );

@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+// import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { MapContainer, Popup, TileLayer, Marker, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+// import L from "leaflet";
 import { useMapContext } from "../../../context/MapContext";
 import ParkingLocations from "./ParkingLocations";
 import { useParkingContext } from "../../../context/ParkingContext";
@@ -12,12 +15,8 @@ type Props = {
 const Map = ({ children }: Props) => {
   const { zoom, setZoom, center, setCenter } = useMapContext();
   const { currentLocation } = useParkingContext();
-  const { isLoading, isInitialLoading } = useAppContext();
-
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
-  });
+  const { isLoading, isInitialLoading, setIsLoading, setIsInitialLoading } =
+    useAppContext();
 
   useEffect(() => {
     if (currentLocation) {
@@ -27,13 +26,29 @@ const Map = ({ children }: Props) => {
       });
       setZoom(16);
     }
+    setIsLoading(false);
+    setIsInitialLoading(false);
   }, [currentLocation]);
 
   return (
     <div className="relative w-full h-full rounded-xl overflow-hidden bg-white">
       {isLoading && !isInitialLoading && <LoadingModal />}
+      <MapContainer
+        className="map w-full h-full"
+        center={[center.lat || 0, center.lng || 0]}
+        zoom={zoom}
+        scrollWheelZoom={false}
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>
+          contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {/* <Marker position={[center.lat || 0, center.lng || 0]}></Marker> */}
+        {/* <MapView /> */}
+      </MapContainer>
 
-      {isLoaded && (
+      {/* {isLoaded && (
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
           center={center as google.maps.LatLngLiteral}
@@ -42,7 +57,7 @@ const Map = ({ children }: Props) => {
         >
           <ParkingLocations />
         </GoogleMap>
-      )}
+      )} */}
       {children}
     </div>
   );
