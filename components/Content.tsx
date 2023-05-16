@@ -18,12 +18,14 @@ type Props = {
   data: FeatureItem[];
 };
 
+const DynamicMap = dynamic(() => import("./library/map/Map"), { ssr: false });
+
 const Content = ({ data }: Props) => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const { isInitialLoading, isLoading, setIsLoading, setIsInitialLoading } =
     useAppContext();
-  const { setMapView, mapView } = useMapContext();
+  const { setMapView } = useMapContext();
   const { setParkingSpots, setCurrentLocation } = useParkingContext();
   const { setModalContent } = useModalContext();
 
@@ -68,8 +70,6 @@ const Content = ({ data }: Props) => {
       setIsInitialLoading(false);
     });
   }, []);
-
-  const DynamicMap = dynamic(() => import("./library/map/Map"), { ssr: false });
 
   return (
     <>
