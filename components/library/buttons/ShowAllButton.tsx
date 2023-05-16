@@ -1,7 +1,9 @@
 import React from "react";
-import { useMapContext } from "../../../context/MapContext";
+
 import { useParkingContext } from "../../../context/ParkingContext";
 import { useAppContext } from "../../../context/AppContext";
+import { useMapContext } from "../../../context/MapContext";
+
 import StandardContainer from "../StandardContainer";
 
 type Props = {
@@ -15,8 +17,8 @@ const ShowAllButton = ({ setIsSearching }: Props) => {
 
   const handleParkingSpots = async (): Promise<void> => {
     setIsLoading(true);
-    resetParking();
     resetMap();
+    resetParking();
     setIsLoading(false);
     setIsSearching(false);
   };

@@ -17,24 +17,32 @@ export default function LocationButton() {
     useParkingContext();
   const { isLoading, setIsLoading } = useAppContext();
   const { setModalContent } = useModalContext();
-  const { resetMap } = useMapContext();
+  const { mapView, setMapView } = useMapContext();
 
   const handleNearbyParkingSpots = async (
     position: GeolocationPosition
   ): Promise<void> => {
-    const data = await getNearbyParkingSpots(
-      position.coords as unknown as CoordinateItem
-    );
+    const data = await getNearbyParkingSpots({
+      lat: position.coords.latitude || 0,
+      lng: position.coords.longitude || 0,
+    } as unknown as CoordinateItem);
 
     setCurrentLocation({
       lat: position.coords.latitude || 0,
       lng: position.coords.longitude || 0,
     });
+    setMapView({
+      ...mapView,
+      center: {
+        lat: position.coords.latitude || 0,
+        lng: position.coords.longitude || 0,
+      },
+    });
+
     if (data.features && data.features.length !== 0) {
       setParkingSpots(data.features);
     } else {
       setModalContent("Inga parkeringar hittades");
-      console.log("NO DATA FOUND");
     }
     setIsLoading(false);
   };
@@ -47,7 +55,6 @@ export default function LocationButton() {
     } else {
       setIcon("locationOff");
       setCurrentLocation(null);
-      resetMap();
       setIsLoading(false);
     }
   };
