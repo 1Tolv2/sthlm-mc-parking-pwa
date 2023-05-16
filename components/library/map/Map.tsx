@@ -29,9 +29,11 @@ const ChangeMapView = () => {
 const Map = ({ children }: Props) => {
   const { isLoading, isInitialLoading } = useAppContext();
   const { currentLocation } = useParkingContext();
+
   useEffect(() => {
     console.log("RE-render");
   }, []);
+
   return (
     <div className="relative w-full h-full rounded-xl overflow-hidden bg-white">
       {isLoading && !isInitialLoading && <LoadingModal />}
