@@ -5,16 +5,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { coordinates } = req.body;
+  const { coordinates } = req.body;
 
+  if (!coordinates.lat && !coordinates.lng)
+    return res.status(400).json({ message: "No coordinates provided" });
+
+  if (req.method === "POST") {
     const radius = "&radius=100";
-    const url = `${process.env.NEXT_APP_OPEN_PARKING_API_URL}/within?lat=${coordinates.latitude}&lng=${coordinates.longitude}&outputFormat=json&apiKey=${process.env.NEXT_APP_OPEN_PARKING_API_KEY}`;
+    const url = `${process.env.NEXT_APP_OPEN_PARKING_API_URL}/within?lat=${coordinates.lat}&lng=${coordinates.lng}&outputFormat=json&apiKey=${process.env.NEXT_APP_OPEN_PARKING_API_KEY}`;
 
     const response = await axios.get(url + radius);
     const { data } = response;
-
     if (data.features?.length > 0) {
       return res.status(200).json(data);
     } else {
