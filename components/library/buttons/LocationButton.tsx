@@ -17,7 +17,7 @@ export default function LocationButton() {
     useParkingContext();
   const { isLoading, setIsLoading } = useAppContext();
   const { setModalContent } = useModalContext();
-  const { mapView, setMapView } = useMapContext();
+  const { setMapView } = useMapContext();
 
   const handleNearbyParkingSpots = async (
     position: GeolocationPosition
@@ -32,7 +32,7 @@ export default function LocationButton() {
       lng: position.coords.longitude || 0,
     });
     setMapView({
-      ...mapView,
+      zoom: 16,
       center: {
         lat: position.coords.latitude || 0,
         lng: position.coords.longitude || 0,
