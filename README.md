@@ -25,7 +25,7 @@
 # About The Project
 
 This application lets you search or use your current location to find parking spots in the Stockholm City area. It utilises the local traffic offices road database through the Open Stockholm API to get all registered locations of motorcycle parking spots.
-To display the map and location markers, the google Maps JavaScript API is used.
+The map is a OpenStreetMap rendered through leaflet.
 
 ## Built with
 * [<img alt="TypeScript" src="https://img.shields.io/static/v1?style=flat&logo=typescript&label=&message=TypeScript&color=white"/>](https://www.typescriptlang.org/)
@@ -51,9 +51,7 @@ To setup a local copy follow the steps below
    npm install
    ```
 3. Set up your env variables
-You need to get 2 keys
-- A google maps JavaScript API key at: https://console.cloud.google.com/
-- A Open Stockholm key at: https://openstreetgs.stockholm.se/Home/News
+You need to get an API key from [Open Stockholm](https://openstreetgs.stockholm.se/Home/News)
 
 Rename the `./.env.example` file to `.env` and fill out the empty variables with your keys
 
@@ -148,8 +146,6 @@ This application uses the following to enforce code rules and
 ## CI/CD
 ### Deployment
 The application is deployed to [Vercel](https://vercel.com/docs). It redeploys when pushes are made to github. 
-
-*The application will only work on localhost:3000 and the main vercel domain due to the google API key being restricted, this will be fixed upon release so that there is a dev key.*
 
 ### Tests
 There aren't currently any tests on the application but testing libraries are pre-installed with `create-next-app`
