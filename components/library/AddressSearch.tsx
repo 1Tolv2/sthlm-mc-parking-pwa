@@ -20,7 +20,7 @@ type Props = {
 const AddressSearch = ({ setIsSearching }: Props) => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
-  const { setZoom, setCenter } = useMapContext();
+  const { setMapView } = useMapContext();
   const { setParkingSpots } = useParkingContext();
   const { setModalContent } = useModalContext();
   const { setIsLoading } = useAppContext();
@@ -31,34 +31,39 @@ const AddressSearch = ({ setIsSearching }: Props) => {
     const data = await searchParkingSpots(streetName);
     if (data.features?.length > 0) {
       setParkingSpots(data.features);
-      setCenter({
-        lat:
-          (data.features[0].geometry.coordinates[0][1] as unknown as number) ||
-          0,
-        lng:
-          (data.features[0].geometry.coordinates[0][0] as unknown as number) ||
-          0,
-      } as CoordinateItem);
-      setZoom(14);
+      setMapView({
+        zoom: 14,
+        center: {
+          lat:
+            (data.features[0].geometry
+              .coordinates[0][1] as unknown as number) || 0,
+          lng:
+            (data.features[0].geometry
+              .coordinates[0][0] as unknown as number) || 0,
+        } as CoordinateItem,
+      });
       setIsSearching(true);
     } else if (data.features?.length === 0) {
       try {
         const coordinates = await getStreetLocation(streetName);
         const proximityData = await getNearbyParkingSpots({
-          longitude: coordinates.longitude,
-          latitude: coordinates.latitude,
+          lng: coordinates.lng,
+          lat: coordinates.lat,
         });
         if (proximityData.features?.length !== 0) {
           setParkingSpots(data.features);
-          setCenter({
-            lat:
-              (data.features[0].geometry
-                .coordinates[0][1] as unknown as number) || 0,
-            lng:
-              (data.features[0].geometry
-                .coordinates[0][0] as unknown as number) || 0,
-          } as CoordinateItem);
-          setZoom(14);
+          setMapView({
+            zoom: 14,
+            center: {
+              lat:
+                (data.features[0].geometry
+                  .coordinates[0][1] as unknown as number) || 0,
+              lng:
+                (data.features[0].geometry
+                  .coordinates[0][0] as unknown as number) || 0,
+            } as CoordinateItem,
+          });
+
           setAddress("");
         }
       } catch (err) {

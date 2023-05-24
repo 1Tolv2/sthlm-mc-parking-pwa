@@ -106,7 +106,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
 
   const rates = getParkingRates(parkingDetails?.properties?.PARKING_RATE || "");
   return (
-    <div className="flex flex-col gap-sm md:gap-sm pl-[10px]">
+    <div className="flex flex-col pl-[10px] gap-sm">
       <ul>
         {Object.entries(rates).map(([key, value]) => {
           return formatRates(key, value as Rate);

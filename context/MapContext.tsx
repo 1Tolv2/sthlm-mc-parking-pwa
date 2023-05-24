@@ -3,12 +3,15 @@ import { CoordinateItem } from "../types";
 
 export const useMapContext = () => useContext(MapContext);
 
-interface MapCtx {
+type MapView = {
   zoom: number;
-  setZoom: React.Dispatch<React.SetStateAction<number>>;
   center: CoordinateItem;
-  setCenter: React.Dispatch<React.SetStateAction<CoordinateItem>>;
+};
+
+interface MapCtx {
   resetMap: () => void;
+  mapView: MapView;
+  setMapView: React.Dispatch<React.SetStateAction<MapView>>;
 }
 const MapContext = createContext({} as MapCtx);
 
@@ -17,19 +20,26 @@ type Props = {
 };
 
 const MapContextProvider = ({ children }: Props) => {
-  const [zoom, setZoom] = useState<number>(11);
-  const [center, setCenter] = useState<CoordinateItem>({
-    lat: 59.31323345086049,
-    lng: 18.07502720995736,
+  const [mapView, setMapView] = useState<MapView>({
+    zoom: 11,
+    center: { lat: 59.31323345086049, lng: 18.07502720995736 },
   });
 
   const resetMap = () => {
-    setZoom(11);
-    setCenter({ lat: 59.31323345086049, lng: 18.07502720995736 });
+    setMapView({
+      zoom: 11,
+      center: { lat: 59.31323345086049, lng: 18.07502720995736 },
+    });
   };
 
   return (
-    <MapContext.Provider value={{ zoom, setZoom, center, setCenter, resetMap }}>
+    <MapContext.Provider
+      value={{
+        resetMap,
+        mapView,
+        setMapView,
+      }}
+    >
       {children}
     </MapContext.Provider>
   );
