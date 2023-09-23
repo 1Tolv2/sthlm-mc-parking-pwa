@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FeatureItem } from "../../../types";
 import Icons from "../Icons";
 import getParkingRates from "../../../utils/getParkingRates";
+import { getCurrentRate } from "./getCurrentRate";
 
 type Props = { target: FeatureItem | null };
 
@@ -12,29 +13,12 @@ const Description = ({ target }: Props) => {
   type Rates = { sundays: Rate; weekdays: Rate; saturdays: Rate };
   type Rate = { time: string[]; fee: number; note: string };
 
-  const checkCurrentRate = (rates: Rates): void => {
-    const currentHour = (currentDate || new Date()).getHours();
-    const currentWeekday = (currentDate || new Date()).getDay();
-
-    const currentRateDay =
-      currentWeekday === 0
-        ? "sundays"
-        : currentWeekday === 6
-        ? "saturdays"
-        : "weekdays";
-
-    let currentRateTime = false;
-    if (rates[currentRateDay]) {
-      currentRateTime =
-        currentHour >= Number(rates[currentRateDay].time?.[0]) &&
-        currentHour < Number(rates[currentRateDay].time?.[1]);
-    }
-    setCurrentRate(currentRateTime ? currentRateDay : "rest");
-  };
-
   useEffect(() => {
-    checkCurrentRate(
-      getParkingRates(target?.properties?.PARKING_RATE || "") as Rates
+    setCurrentRate(
+      getCurrentRate(
+        currentDate,
+        getParkingRates(target?.properties?.PARKING_RATE || "") as Rates
+      )
     );
     const timer = setInterval(() => setCurrentDate(new Date()), 60000);
     return () => clearInterval(timer);
