@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
+import "@christopherpickering/react-leaflet-markercluster/dist/styles.min.css";
 import { useAppContext } from "../../../context/AppContext";
 import { useParkingContext } from "../../../context/ParkingContext";
 import { useMapContext } from "../../../context/MapContext";
