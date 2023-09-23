@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParkingContext } from "../../../context/ParkingContext";
 import Modal from "./Modal";
-import Description from "./Description";
 
 const ParkingDetailModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -41,9 +40,7 @@ const ParkingDetailModal = () => {
             setIsModalOpen(false);
             setTargetedParkingSpot(null);
           }}
-        >
-          <Description target={targetedParkingSpot} />
-        </Modal>
+        />
       )}
     </>
   );

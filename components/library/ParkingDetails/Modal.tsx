@@ -2,14 +2,14 @@ import React from "react";
 import ExitButton from "../buttons/ExitButton";
 import Icons from "../Icons";
 import { FeatureItem } from "../../../types";
+import Description from "./Description";
 type Props = {
   openDirections: () => void;
   closeModal: () => void;
   target: FeatureItem | null;
-  children?: React.ReactNode;
 };
 
-const Modal = ({ target, openDirections, closeModal, children }: Props) => {
+const Modal = ({ target, openDirections, closeModal }: Props) => {
   return (
     <div
       id={`detail-${target?.id}`}
@@ -22,7 +22,7 @@ const Modal = ({ target, openDirections, closeModal, children }: Props) => {
         <h2 className="text-2xl font-semibold break-words mb-md w-[90%]">
           {target?.properties?.ADDRESS}
         </h2>
-        {target && children}
+        {target && <Description target={target} />}
       </div>
       <div
         className="flex justify-center gap-3 w-full h-fit p-md rounded-xl bg-primary text-white cursor-pointer"
