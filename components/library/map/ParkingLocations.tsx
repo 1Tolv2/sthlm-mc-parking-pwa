@@ -9,8 +9,8 @@ const ParkingLocations = () => {
   const parkingIcon = new L.Icon({
     iconUrl: "./marker.png",
     iconSize: new L.Point(30, 37.5),
-    iconAnchor: [22, 94],
-    className: "leaflet-div-icon !bg-transparent",
+    iconAnchor: [15, 37.5],
+    className: "leaflet-div-icon",
   });
   return (
     <>
