@@ -75,13 +75,13 @@ const Content = ({ data }: Props) => {
     <>
       {isLoading && isInitialLoading && <LoadingScreen />}
       <TopNavigation setIsSearching={setIsSearching} />
-      <ParkingDetailModal />
       <DynamicMap>
         <MapNavigation
           isSearching={isSearching}
           setIsSearching={setIsSearching}
         />
       </DynamicMap>
+      <ParkingDetailModal />
     </>
   );
 };
