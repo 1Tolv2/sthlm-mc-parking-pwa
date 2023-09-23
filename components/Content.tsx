@@ -11,7 +11,7 @@ import { FeatureItem, CoordinateItem } from "../types";
 import TopNavigation from "./TopNavigation";
 import MapNavigation from "./MapNavigation";
 import LoadingScreen from "./library/loading/LoadingScreen";
-import ParkingDetailModal from "./library/ParkingDetailModal";
+import ParkingDetails from "./library/ParkingDetails/index";
 import { useMapContext } from "../context/MapContext";
 
 type Props = {
@@ -81,7 +81,7 @@ const Content = ({ data }: Props) => {
           setIsSearching={setIsSearching}
         />
       </DynamicMap>
-      <ParkingDetailModal />
+      <ParkingDetails />
     </>
   );
 };
