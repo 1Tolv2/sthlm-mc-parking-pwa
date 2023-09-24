@@ -2,16 +2,17 @@ name: STHLM Mc Parking tests
 run-name: ${{github.actor}} is running actions 🚀
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
-  
-unit_test_job:
-  runs-on: ubuntu-latest
-  steps: 
-    - name: Checking out repository code
-      uses: actions/checkout@v3
-    - name: Installing dependencies
-      run: npm ci
-    - name: Running unit tests
-      run: npm run test
+    branches: ["main"]
+
+jobs:
+  unit_test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out repository code
+        uses: actions/checkout@v3
+      - name: Installing dependencies
+        run: npm ci
+      - name: Running unit tests
+        run: npm run test
