@@ -1,46 +1,28 @@
 import React, { useEffect, useState } from "react";
-import Icons from "./Icons";
-import getParkingRates from "../../utils/getParkingRates";
-import { FeatureItem } from "../../types";
+import { FeatureItem } from "../../../types";
+import Icons from "../Icons";
+import getParkingRates from "../../../utils/getParkingRates";
+import { getCurrentRate } from "./getCurrentRate";
 
-type Props = {
-  parkingDetails: FeatureItem;
-};
+type Props = { target: FeatureItem | null };
 
-const ParkingDetails = ({ parkingDetails }: Props) => {
+const Description = ({ target }: Props) => {
   const [currentRate, setCurrentRate] = useState<string | null>(null);
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
   type Rates = { sundays: Rate; weekdays: Rate; saturdays: Rate };
   type Rate = { time: string[]; fee: number; note: string };
 
-  const checkCurrentRate = (rates: Rates): void => {
-    const currentHour = (currentDate || new Date()).getHours();
-    const currentWeekday = (currentDate || new Date()).getDay();
-
-    const currentRateDay =
-      currentWeekday === 0
-        ? "sundays"
-        : currentWeekday === 6
-        ? "saturdays"
-        : "weekdays";
-
-    let currentRateTime = false;
-    if (rates[currentRateDay]) {
-      currentRateTime =
-        currentHour >= Number(rates[currentRateDay].time?.[0]) &&
-        currentHour < Number(rates[currentRateDay].time?.[1]);
-    }
-    setCurrentRate(currentRateTime ? currentRateDay : "rest");
-  };
-
   useEffect(() => {
-    checkCurrentRate(
-      getParkingRates(parkingDetails?.properties?.PARKING_RATE || "") as Rates
+    setCurrentRate(
+      getCurrentRate(
+        currentDate,
+        getParkingRates(target?.properties?.PARKING_RATE || "") as Rates
+      )
     );
     const timer = setInterval(() => setCurrentDate(new Date()), 60000);
     return () => clearInterval(timer);
-  }, [parkingDetails]);
+  }, [target]);
 
   const formatRateFee = (fee: number, isCurrent: boolean) => {
     return (
@@ -80,10 +62,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
         ? "Helgdagar: "
         : "Övrig tid";
     return (
-      <li
-        className="mb-sm"
-        key={parkingDetails?.properties?.ADDRESS + "-" + taxDay}
-      >
+      <li className="mb-sm" key={target?.properties?.ADDRESS + "-" + taxDay}>
         {currentRate === taxDay ? (
           renderCurrentRate(title, rate)
         ) : (
@@ -104,7 +83,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
     );
   };
 
-  const rates = getParkingRates(parkingDetails?.properties?.PARKING_RATE || "");
+  const rates = getParkingRates(target?.properties?.PARKING_RATE || "");
   return (
     <div className="flex flex-col pl-[10px] gap-sm">
       <ul>
@@ -112,7 +91,7 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
           return formatRates(key, value as Rate);
         })}
       </ul>
-      <span>{parkingDetails.properties.OTHER_INFO}</span>
+      <span>{target?.properties.OTHER_INFO}</span>
       <span className="italic text-gray-500 text-center text-xs md:text-sm mt-sm md:mt-md">
         Avvikelser kan förekomma, kontrollera alltid föreskrifterna på plats
       </span>
@@ -120,4 +99,4 @@ const ParkingDetails = ({ parkingDetails }: Props) => {
   );
 };
 
-export default ParkingDetails;
+export default Description;
