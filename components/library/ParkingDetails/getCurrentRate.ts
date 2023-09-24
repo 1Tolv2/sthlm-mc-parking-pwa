@@ -13,9 +13,8 @@ export const getCurrentRate = (
   const currentHour = (currentDate || new Date()).getHours();
   const currentWeekday = (currentDate || new Date()).getDay();
 
-  let currentRateDay = "weekdays";
-
   // checks what type of day it is
+  let currentRateDay = "weekdays";
   switch (currentWeekday) {
     case 0:
       currentRateDay = "sundays";
