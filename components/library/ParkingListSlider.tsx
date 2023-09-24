@@ -5,6 +5,7 @@ import { useParkingContext } from "../../context/ParkingContext";
 import StandardContainer from "./StandardContainer";
 import ParkingDetails from "./ParkingDetails";
 import Icons from "./Icons";
+import Description from "./ParkingDetails/Description";
 
 const ParkingListSlider = () => {
   const { parkingSpots, targetedParkingSpot } = useParkingContext();
@@ -32,7 +33,7 @@ const ParkingListSlider = () => {
               </h3>
               <StandardContainer className="!items-start grow" width="w-full">
                 <div className="flex flex-col md:flex-row gap-md">
-                  <ParkingDetails parkingDetails={parkingSpot} />
+                  <Description target={parkingSpot} />
                   <div
                     className="hidden md:block h-16 cursor-pointer mt-auto"
                     onClick={() => handleOpenDirections(parkingSpot)}
