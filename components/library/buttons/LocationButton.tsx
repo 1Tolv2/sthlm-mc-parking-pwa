@@ -44,14 +44,25 @@ export default function LocationButton() {
     } else {
       setModalContent("Inga parkeringar hittades");
     }
+    setIcon("locationOn");
     setIsLoading(false);
+  };
+
+  const handleDeniedLocation = (): void => {
+    setIsLoading(false);
+    setModalContent(
+      "Du måste tillåta platsdelning för att kunna använda den här funktionen"
+    );
+    setIcon("locationOff");
   };
 
   const handleLocation = async (): Promise<void> => {
     setIsLoading(true);
     if (icon === "locationOff") {
-      setIcon("locationOn");
-      navigator.geolocation.getCurrentPosition(handleNearbyParkingSpots);
+      navigator.geolocation.getCurrentPosition(
+        handleNearbyParkingSpots,
+        handleDeniedLocation
+      );
     } else {
       setIcon("locationOff");
       setCurrentLocation(null);
