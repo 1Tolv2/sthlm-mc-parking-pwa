@@ -124,7 +124,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
             onChange={handleOnChange}
             value={address}
             autoComplete="off"
-            placeholder="Hitta parkering"
+            placeholder="Sök på gatunamn"
             className="w-full h-full outline-transparent focus:outline-transparent"
           />
           <input type="submit" hidden title="submit" />
