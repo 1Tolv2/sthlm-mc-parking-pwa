@@ -52,7 +52,6 @@ export async function getStaticProps(): Promise<
       modifiedData.push(feature);
     }
   });
-  console.log(modifiedData.length, data.features.length);
   data.features = modifiedData;
 
   return {
