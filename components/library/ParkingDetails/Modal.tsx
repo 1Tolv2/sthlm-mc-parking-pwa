@@ -3,17 +3,24 @@ import ExitButton from "../buttons/ExitButton";
 import Icons from "../Icons";
 import { FeatureItem } from "../../../types";
 import Description from "./Description";
+
 type Props = {
   openDirections: () => void;
   closeModal: () => void;
   target: FeatureItem | null;
 };
 
+/**
+ *
+ * @param param0 target - targeted parking spot
+ * @param param1 openDirections - navigation link function
+ * @param param2 closeModal - closing modal function
+ */
 const Modal = ({ target, openDirections, closeModal }: Props) => {
   return (
     <div
       id={`detail-${target?.id}`}
-      className="relative lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 w-full max-w-[500px] mx-auto px-sm lg:px-0 h-fit bg-white rounded-xl lg:p-md lg:drop-shadow-2xl z-20"
+      className="relative lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 w-full max-w-[500px] mx-auto px-md h-fit bg-white rounded-xl lg:p-md lg:drop-shadow-2xl z-20"
     >
       <div className="absolute top-md right-md w-fit mx-auto">
         <ExitButton handleOnClick={closeModal} />
@@ -25,7 +32,7 @@ const Modal = ({ target, openDirections, closeModal }: Props) => {
         {target && <Description target={target} />}
       </div>
       <div
-        className="flex justify-center gap-3 w-full h-fit p-md rounded-xl bg-primary text-white cursor-pointer"
+        className="flex justify-center gap-3 w-full h-fit p-md mb-sm lg:mb-0 rounded-xl bg-primary text-white cursor-pointer"
         onClick={openDirections}
       >
         <div className="relative h-8">

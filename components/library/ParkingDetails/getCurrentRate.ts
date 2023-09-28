@@ -2,7 +2,7 @@ type Rates = { sundays: Rate; weekdays: Rate; saturdays: Rate };
 type Rate = { time: string[]; fee: number; note: string };
 
 /**
- * Returns what is the current rate based on what day it is and if it's within the rate time or considered "Övrig tid" aka rest
+ * @description Returns what is the current rate based on what day it is and if it's within the rate time or considered "Övrig tid" aka rest.
  * In Sweden days before red days (sundays and specific holidays) are considered saturdays
  * and red days are considered sundays but this is not taken in to account in the algorithm
  */
