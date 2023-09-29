@@ -27,12 +27,7 @@ const ShowAllButton = ({ setIsSearching }: Props) => {
   };
 
   return (
-    <StandardContainer
-      padding="0"
-      width="w-fit"
-      height="h-[54px]"
-      className="drop-shadow md:drop-shadow-2xl"
-    >
+    <StandardContainer shadow padding="0" width="w-fit" height="h-[54px]">
       <button
         className="w-max h-full font-semibold pointer-events-auto p-md"
         onClick={handleParkingSpots}

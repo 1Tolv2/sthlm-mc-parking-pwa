@@ -6,6 +6,8 @@ type props = {
   height?: string;
   padding?: string;
   className?: string;
+  onClick?: () => void;
+  shadow?: boolean;
 };
 
 export default function StandardContainer({
@@ -14,10 +16,15 @@ export default function StandardContainer({
   width = "w-full",
   padding = "md",
   className = "",
+  shadow = false,
+  onClick,
 }: props) {
   return (
     <div
-      className={`flex items-center bg-white p-${padding} rounded-xl ${width} ${height} ${className}`}
+      onClick={onClick}
+      className={`flex items-center bg-white p-${padding} rounded-xl ${
+        shadow ? "drop-shadow md:drop-shadow-2xl" : ""
+      } ${width} ${height} ${className}`}
     >
       {children}
     </div>
