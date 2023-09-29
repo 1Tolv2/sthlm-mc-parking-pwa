@@ -52,7 +52,9 @@ const InfoButton = () => {
             <p className={styles.paragraph}>
               Hittat en bugg?
               <br />
-              {"Maila mig på "}
+              {
+                "Maila en beskrivning på felet och en bild om det är visuellt till "
+              }
               <a
                 href="mailto:sofiaq1+sthlmMcParking@gmail.com"
                 className={styles.link}
