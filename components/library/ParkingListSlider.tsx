@@ -3,7 +3,6 @@ import { FeatureItem } from "../../types";
 import { useParkingContext } from "../../context/ParkingContext";
 
 import StandardContainer from "./StandardContainer";
-import ParkingDetails from "./ParkingDetails";
 import Icons from "./Icons";
 import Description from "./ParkingDetails/Description";
 
@@ -32,7 +31,7 @@ const ParkingListSlider = () => {
                 {parkingSpot.properties.ADDRESS}
               </h3>
               <StandardContainer className="!items-start grow" width="w-full">
-                <div className="flex flex-col md:flex-row gap-md">
+                <div className="flex flex-col md:flex-row gap-md h-full">
                   <Description target={parkingSpot} />
                   <div
                     className="hidden md:block h-16 cursor-pointer mt-auto"

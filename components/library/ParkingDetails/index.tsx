@@ -6,21 +6,15 @@ const ParkingDetailModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { targetedParkingSpot, setTargetedParkingSpot } = useParkingContext();
-  const handleModal = () => {
-    if (document.getElementById("parking-detail-modal")) {
-      setIsModalOpen(false);
-    }
-  };
 
-  useEffect(() => {
-    document.addEventListener("click", handleModal);
-    return document.removeEventListener("click", handleModal);
-  }, []);
-
+  // checks if feature is targeted and opens and closes modal
   useEffect(() => {
     setIsModalOpen(!!targetedParkingSpot);
   }, [targetedParkingSpot]);
 
+  /**
+   * @description Links to location on google maps for navigation
+   */
   const handleOpenDirections = () => {
     const lng: string =
       targetedParkingSpot?.geometry.coordinates[0][0].toString() || "";

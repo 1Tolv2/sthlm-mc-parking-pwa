@@ -12,6 +12,7 @@ import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
 import { useAppContext } from "../../context/AppContext";
+import { pruneFeatures } from "../../utils/pruneFeatures";
 
 type Props = {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,7 +22,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setMapView } = useMapContext();
-  const { setParkingSpots } = useParkingContext();
+  const { setParkingSpots, resetParking } = useParkingContext();
   const { setModalContent } = useModalContext();
   const { setIsLoading } = useAppContext();
 
@@ -30,7 +31,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
 
     const data = await searchParkingSpots(streetName);
     if (data.features?.length > 0) {
-      setParkingSpots(data.features);
+      setParkingSpots(pruneFeatures(data.features));
       setMapView({
         zoom: 14,
         center: {
@@ -51,7 +52,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
           lat: coordinates.lat,
         });
         if (proximityData.features?.length !== 0) {
-          setParkingSpots(data.features);
+          setParkingSpots(pruneFeatures(data.features));
           setMapView({
             zoom: 14,
             center: {
@@ -124,7 +125,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
             onChange={handleOnChange}
             value={address}
             autoComplete="off"
-            placeholder="Hitta parkering"
+            placeholder="Sök på gatunamn"
             className="w-full h-full outline-transparent focus:outline-transparent"
           />
           <input type="submit" hidden title="submit" />
@@ -132,7 +133,9 @@ const AddressSearch = ({ setIsSearching }: Props) => {
         {address && (
           <ExitButton
             handleOnClick={() => {
+              setIsLoading(true);
               setAddress("");
+              resetParking();
               setIsSearching(false);
               setSearchResults([]);
             }}

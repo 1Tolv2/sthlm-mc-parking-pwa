@@ -2,10 +2,13 @@ import React from "react";
 import { GetStaticPropsResult } from "next";
 import Head from "next/head";
 import axios from "axios";
+
+import { FeatureItem } from "../types";
+import { pruneFeatures } from "../utils/pruneFeatures";
 import AppProvider from "../context/index";
+
 import Layout from "../components/Layout/Layout";
 import Content from "../components/Content";
-import { FeatureItem } from "../types";
 
 type Props = {
   data: FeatureItem[] | null;
@@ -40,20 +43,7 @@ export async function getStaticProps(): Promise<
   const url = `${process.env.NEXT_APP_OPEN_PARKING_API_URL}/all?outputFormat=json&apiKey=${process.env.NEXT_APP_OPEN_PARKING_API_KEY}`;
   const { data } = await axios.get(url);
 
-  const modifiedData: any[] = [];
-  data.features.forEach((feature: any) => {
-    if (
-      !modifiedData.find(
-        (item) => item.properties.ADDRESS === feature.properties.ADDRESS
-      )
-    ) {
-      modifiedData.push(feature);
-    } else if (feature.properties.ADDRESS === "<Adress saknas>") {
-      modifiedData.push(feature);
-    }
-  });
-  console.log(modifiedData.length, data.features.length);
-  data.features = modifiedData;
+  data.features = pruneFeatures(data.features);
 
   return {
     props: { data: data.features } as unknown as FeatureItem[] | null,
