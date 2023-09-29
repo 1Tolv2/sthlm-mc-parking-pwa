@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { FeatureItem } from "../../../types";
+import { pruneFeatures } from "../../../utils/pruneFeatures";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,19 +11,7 @@ export default async function handler(
     const response = await axios.get(url);
     const { data } = response;
 
-    const modifiedData: FeatureItem[] = [];
-    data.features.forEach((feature: FeatureItem) => {
-      if (
-        !modifiedData.find(
-          (item) => item.properties.ADDRESS === feature.properties.ADDRESS
-        )
-      ) {
-        modifiedData.push(feature);
-      } else if (feature.properties.ADDRESS === "<Adress saknas>") {
-        modifiedData.push(feature);
-      }
-    });
-    data.features = modifiedData;
+    data.features = pruneFeatures(data.features);
 
     return res.status(200).json(data);
   } else {

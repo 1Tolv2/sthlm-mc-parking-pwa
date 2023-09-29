@@ -12,6 +12,7 @@ import { useMapContext } from "../../context/MapContext";
 import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
 import { useAppContext } from "../../context/AppContext";
+import { pruneFeatures } from "../../utils/pruneFeatures";
 
 type Props = {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,7 +31,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
 
     const data = await searchParkingSpots(streetName);
     if (data.features?.length > 0) {
-      setParkingSpots(data.features);
+      setParkingSpots(pruneFeatures(data.features));
       setMapView({
         zoom: 14,
         center: {
@@ -51,7 +52,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
           lat: coordinates.lat,
         });
         if (proximityData.features?.length !== 0) {
-          setParkingSpots(data.features);
+          setParkingSpots(pruneFeatures(data.features));
           setMapView({
             zoom: 14,
             center: {

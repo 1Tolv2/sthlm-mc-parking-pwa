@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
+import { pruneFeatures } from "../../../utils/pruneFeatures";
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,6 +17,9 @@ export default async function handler(
 
     const response = await axios.get(url + radius);
     const { data } = response;
+
+    data.features = pruneFeatures(data.features);
+
     if (data.features?.length > 0) {
       return res.status(200).json(data);
     } else {
