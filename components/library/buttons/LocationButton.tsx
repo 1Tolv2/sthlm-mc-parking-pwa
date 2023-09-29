@@ -81,10 +81,11 @@ export default function LocationButton() {
   return (
     <div className="flex justify-end mx-auto w-full">
       <StandardContainer
+        shadow
         padding="none"
         height=""
         width=""
-        className="w-[54px] h-[54px] drop-shadow-lg md:drop-shadow-2xl"
+        className="w-[54px] h-[54px]"
       >
         <div
           onClick={isLoading ? undefined : handleLocation}
