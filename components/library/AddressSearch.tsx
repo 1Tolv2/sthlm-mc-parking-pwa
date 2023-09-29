@@ -132,6 +132,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
         {address && (
           <ExitButton
             handleOnClick={() => {
+              setIsLoading(true);
               setAddress("");
               resetParking();
               setIsSearching(false);

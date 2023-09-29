@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { getParkingSpots } from "../components/api";
 import { CoordinateItem, FeatureItem } from "../types";
+import { useAppContext } from "./AppContext";
 
 export const useParkingContext = () => useContext(ParkingContext);
 
@@ -32,11 +33,14 @@ const ParkingContextProvider = ({ children }: Props) => {
     null
   );
 
+  const { setIsLoading } = useAppContext();
+
   const resetParking = async () => {
     const data = await getParkingSpots();
     if (data.features?.length > 0) setParkingSpots(data.features);
     setTargetedParkingSpot(null);
     setCurrentLocation(null);
+    setIsLoading(false);
   };
   return (
     <ParkingContext.Provider
