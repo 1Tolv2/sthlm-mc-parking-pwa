@@ -110,22 +110,21 @@ describe("Parking detail modal", () => {
       render(<Description target={mockTargetedParkingSpot} />);
 
       const list = screen.queryAllByRole("listitem");
-      expect(list[0]).toHaveTextContent("Vardagar: 07.00 - 19.002,5 kr/tim");
+      expect(list[0]).toHaveTextContent("Vardagar: 07.00 - 19.00 2,5 kr/tim");
     });
 
     it("should format rate with no time as x kr/tim", () => {
       render(<Description target={mockTargetedParkingSpot} />);
 
       const list = screen.queryAllByRole("listitem");
-      expect(list[2]).toHaveTextContent("Övrig tid0 kr/tim");
+      expect(list[2]).toHaveTextContent("Övrig tid 0 kr/tim");
     });
 
-    // it("should hightlight current rate cost", () => {
-    //   render(<Description target={mockTargetedParkingSpot} />);
+    it("should hightlight current rate cost", () => {
+      render(<Description target={mockTargetedParkingSpot} />);
 
-    //   const list = screen.queryAllByRole("listitem");
-    //   // screen.class;
-    // });
+      expect(screen.queryAllByTestId("highlighted-rate")).toHaveLength(1);
+    });
   });
 
   describe("Current rate logic", () => {
