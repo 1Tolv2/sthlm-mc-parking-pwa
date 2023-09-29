@@ -15,6 +15,9 @@ const ShowAllButton = ({ setIsSearching }: Props) => {
   const { resetParking } = useParkingContext();
   const { resetMap } = useMapContext();
 
+  /**
+   * @description Resets the map to overview and all features are displayed
+   */
   const handleParkingSpots = async (): Promise<void> => {
     setIsLoading(true);
     resetMap();

@@ -21,7 +21,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
   const [address, setAddress] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setMapView } = useMapContext();
-  const { setParkingSpots } = useParkingContext();
+  const { setParkingSpots, resetParking } = useParkingContext();
   const { setModalContent } = useModalContext();
   const { setIsLoading } = useAppContext();
 
@@ -132,7 +132,9 @@ const AddressSearch = ({ setIsSearching }: Props) => {
         {address && (
           <ExitButton
             handleOnClick={() => {
+              setIsLoading(true);
               setAddress("");
+              resetParking();
               setIsSearching(false);
               setSearchResults([]);
             }}

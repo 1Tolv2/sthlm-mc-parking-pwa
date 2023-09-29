@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import getConfig from "next/config";
 
 import StandardContainer from "../StandardContainer";
 import Icons from "../Icons";
+
+const { publicRuntimeConfig } = getConfig();
 
 const InfoButton = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -29,7 +32,7 @@ const InfoButton = () => {
         >
           <div className="w-full">
             <p className={styles.paragraph + " text-center text-neutral-600"}>
-              <i className="text-gray ">Version 1.1.0</i>
+              <i className="text-gray ">v{publicRuntimeConfig?.version}</i>
             </p>
             <p className={styles.paragraph}>
               STHLM MC Parking utvecklas och underhålls av Sofia Johnsson.
