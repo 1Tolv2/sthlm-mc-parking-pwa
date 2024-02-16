@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { pruneFeatures } from "../../../utils/pruneFeatures";
+import { pruneFeatures } from "../../../../utils/pruneFeatures";
 
 export default async function handler(
   req: NextApiRequest,

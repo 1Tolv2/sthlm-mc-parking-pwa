@@ -2,14 +2,14 @@ import axios from "axios";
 import { CoordinateItem, ParkingResponse } from "../types";
 
 export const getParkingSpots = async (): Promise<ParkingResponse> => {
-  const { data } = await axios.get("/api/parking");
+  const { data } = await axios.get("/v1/api/parking");
   return data as unknown as ParkingResponse;
 };
 
 export const getNearbyParkingSpots = async (
   coordinates: CoordinateItem
 ): Promise<ParkingResponse> => {
-  const { data } = await axios.post("/api/parking/nearby", {
+  const { data } = await axios.post("/v1/api/parking/nearby", {
     coordinates,
   });
   return data as unknown as ParkingResponse;
@@ -18,7 +18,7 @@ export const getNearbyParkingSpots = async (
 export const searchParkingSpots = async (
   search: string
 ): Promise<ParkingResponse> => {
-  const { data } = await axios.get(`/api/parking/street?search=${search}`);
+  const { data } = await axios.get(`/v1/api/parking/street?search=${search}`);
   return data as unknown as ParkingResponse;
 };
 
@@ -27,7 +27,7 @@ export const getStreets = async (
   streetNumber?: string
 ): Promise<CoordinateItem> => {
   const { data } = await axios.get(
-    `/api/streets?streetName=${streetName}${
+    `/v1/api/streets?streetName=${streetName}${
       streetNumber ? "&streetNumber=${streetNumber}" : ""
     }`
   );
@@ -35,7 +35,9 @@ export const getStreets = async (
 };
 
 export const searchStreetName = async (search: string): Promise<string[]> => {
-  const { data } = await axios.get(`/api/streets/streetNames?search=${search}`);
+  const { data } = await axios.get(
+    `/v1/api/streets/streetNames?search=${search}`
+  );
   return data[0]?.StreetNames as unknown as string[];
 };
 
@@ -44,7 +46,7 @@ export const getStreetLocation = async (
   streetNumber?: string
 ): Promise<CoordinateItem> => {
   const { data } = await axios.get(
-    `/api/streets/streetLocation?streetName=${streetName}${
+    `/v1/api/streets/streetLocation?streetName=${streetName}${
       streetNumber ? "&streetNumber=${streetNumber}" : ""
     }`
   );
