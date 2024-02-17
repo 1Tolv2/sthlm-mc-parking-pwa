@@ -27,14 +27,17 @@ const index = () => {
   return (
     <>
       {isModalOpen && (
-        <Card
-          target={targetedParkingSpot}
-          openDirections={handleOpenDirections}
-          closeModal={() => {
-            setIsModalOpen(false);
-            setTargetedParkingSpot(null);
-          }}
-        />
+        <>
+          <Card
+            target={targetedParkingSpot}
+            openDirections={handleOpenDirections}
+            closeModal={() => {
+              setIsModalOpen(false);
+              setTargetedParkingSpot(null);
+            }}
+          />
+          <div className="h-[calc(35px-8px)]" />
+        </>
       )}
     </>
   );
