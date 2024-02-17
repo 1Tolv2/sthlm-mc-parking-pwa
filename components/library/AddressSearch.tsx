@@ -103,7 +103,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
   };
   return (
     <div className="relative w-full ">
-      <StandardContainer width="w-full" className="mx-auto w-full">
+      <StandardContainer width="w-full" className="mx-auto w-full" round>
         <div className="w-[39px] border-r-2 border-neutral mr-md">
           {renderSearchIcon()}
         </div>
