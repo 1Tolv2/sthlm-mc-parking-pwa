@@ -3,9 +3,10 @@ This is the documentation specific for the API.
 
 Client side calls to the api are made through `./components/api.ts`.
 
-**Base URL** https://sthlm-mc-parking-pwa.vercel.app/api/ 
+**Base URL** https://sthlm-mc-parking-pwa.vercel.app/api/v1/ 
 
-## Parking spot(s)
+## V1
+### Parking spot(s)
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | GET | /parking | Get all parking spots | 
@@ -15,14 +16,14 @@ Client side calls to the api are made through `./components/api.ts`.
 This endpoint makes calls to [Stockholm Open Parkering API](https://openstreetgs.stockholm.se/Home/Parking)
 
 
-### **Examples**
+#### **Examples**
 
 <details>
 <summary> GET /parking </summary>
 
 **Request:**
 ```sh
-URL: http://localhost:3000/api/parking
+URL: http://localhost:3000/api/v1/parking
 Method: "GET"
 Headers: {
     "Content-Type": "application/json"
@@ -82,20 +83,7 @@ Status: 200
 }
 ```
 
-**Request:**
-```sh
-URL: http://localhost:3000/api/parking/nearby
-Method: "POST",
-Headers: {
-    "Content-Type": "application/json"
-}
-Body: {
-  "coordinates": {
-    "longitude": 18.064212,
-    "latitude": 59.340714,
-  }
-}
-```
+
 Status: 404
 ```json
 {
@@ -121,7 +109,7 @@ This endpoint initially searches for locations within 100 meter, but in case non
 
 **Request:**
 ```sh
-URL: http://localhost:3000/api/parking/nearby
+URL: http://localhost:3000/api/v1/parking/nearby
 Method: "GET"
 Headers: {
     "Content-Type": "application/json"
@@ -142,7 +130,7 @@ The response looks the same as the index endpoint but the features array contain
 
 **Request:**
 ```sh
-URL: http://localhost:3000/api/parking/street?search=Hantverkargatan
+URL: http://localhost:3000/api/v1/parking/street?search=Hantverkargatan
 Method: "GET"
 Headers: {
     "Content-Type": "application/json"
@@ -150,7 +138,7 @@ Headers: {
 ```
 </details>
 
-## Street(s)
+### Street(s)
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | GET | /streets | Get all streetnames | 
@@ -159,7 +147,7 @@ Headers: {
 
 This endpoint makes calls to [Stockholm Open LvWS 4 API](https://openstreetgs.stockholm.se/Home/Ws)
 
-### **Examples**
+#### **Examples**
 
 <details>
 <summary> GET /streets </summary>
@@ -170,7 +158,7 @@ Get all street locations or filter by searching.
 
 **Request:**
 ```sh
-URL: http://localhost:3000/api/streets?search=Hantverkargatan
+URL: http://localhost:3000/api/v1/streets?search=Hantverkargatan
 Method: "GET"
 Headers: {
     "Content-Type": "application/json"
@@ -239,7 +227,7 @@ This endpoint returns an array of streetnames based on the search provided. It h
 
 **Request:**
 ```sh
-URL: http://localhost:3000/api/streets/streetNames?search=Åsö
+URL: http://localhost:3000/api/v1/streets/streetNames?search=Åsö
 Method: "GET"
 Headers: {
     "Content-Type": "application/json"
@@ -270,7 +258,7 @@ This returns center coordinates of a street.
 
 **Request:**
 ```sh
-URL: http://localhost:3000/api/streets/streetLocation?streetName=Åsögatan&streetNumber=115
+URL: http://localhost:3000/api/v1/streets/streetLocation?streetName=Åsögatan&streetNumber=115
 Method: "GET"
 Headers: {
     "Content-Type": "application/json"
@@ -290,4 +278,90 @@ Status: 200
     { ... }
 ]
 ```
+</details>
+
+## V2
+### Parking spot(s)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| GET | /nearby | Get nearby parking spots |
+
+This endpoint makes calls to [Stockholm Open Parkering API](https://openstreetgs.stockholm.se/Home/Parking)
+
+
+#### **Examples**
+
+<details>
+<summary> GET /nearby </summary>
+
+**Query parameters**
+- `lat` - latitude coordinate
+- `lng` - longitude coordinate
+
+**Request:**
+```sh
+URL: http://localhost:3000/api/v2/nearby?lat=59.340714&lng=18.064212
+Method: "GET"
+Headers: {
+    "Content-Type": "application/json"
+}
+```
+- **Status: 200**
+
+```json
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "LTFR_P_MOTORCYKEL.2262273",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        18.064212,
+                        59.340714
+                    ],
+                    [
+                        18.064264,
+                        59.340755
+                    ]
+                ],
+                "geometry_name": "GEOMETRY",
+                "properties": {
+                    "FID": 2262273,
+                    "FEATURE_OBJECT_ID": 16634259,
+                    "FEATURE_VERSION_ID": 1,
+                    "EXTENT_NO": 1,
+                    "VALID_FROM": "2019-05-31T22:00:00Z",
+                    "START_TIME": 600,
+                    "END_TIME": 0,
+                    "START_WEEKDAY": "onsdag",
+                    "CITATION": "0180 2019-01593",
+                    "STREET_NAME": "Tegnérgatan",
+                    "CITY_DISTRICT": "Vasastaden",
+                    "PARKING_DISTRICT": "City",
+                    "ADDRESS": "Tegnérgatan 2C",
+                    "VF_METER": 5,
+                    "VF_PLATS_TYP": "Reserverad p-plats motorcykel",
+                    "OTHER_INFO": "Servicetid onsdag 00:00-06:00",
+                    "RDT_URL": "https://rdt.transportstyrelsen.se/rdt/AF06_View.aspx?BeslutsMyndighetKod=0180&BeslutadAr=2019&LopNr=01593",
+                    "PARKING_RATE": "taxa 12: Vardagar utom vardag före sön- och helgdag klockan 07.00 - 21.00, vardag före sön- och helgdag klockan 9.00 - 19.00 och sön- och helgdag klockan 9.00 - 19.00, 7,75 kr/tim. Övrig tid 5 kr/tim."
+                },
+                "bbox": [
+                    18.064212,
+                    59.340714,
+                    18.064264,
+                    59.340755
+                ]
+            },
+        }, 
+        { ... }]
+}
+```
+
+- **Status: 400** - Missing lng/la
+- **Status: 404** - No data found
+- **Status: 500** - Couldn't reach Parking API
+
 </details>
