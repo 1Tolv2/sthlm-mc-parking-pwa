@@ -8,10 +8,8 @@ import { useModalContext } from "../context/ModalContext";
 
 import { FeatureItem, CoordinateItem } from "../types";
 
-import TopNavigation from "./TopNavigation";
 import MapNavigation from "./MapNavigation";
 import LoadingScreen from "./library/loading/LoadingScreen";
-import ParkingDetails from "./library/ParkingDetails/index";
 import { useMapContext } from "../context/MapContext";
 
 type Props = {
