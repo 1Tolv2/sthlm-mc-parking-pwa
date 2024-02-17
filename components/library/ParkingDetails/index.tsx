@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParkingContext } from "../../../context/ParkingContext";
 import Modal from "./Modal";
+import DetailCard from "../DetailCard";
 
 const ParkingDetailModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -27,7 +28,7 @@ const ParkingDetailModal = () => {
   return (
     <>
       {isModalOpen && (
-        <Modal
+        <DetailCard
           target={targetedParkingSpot}
           openDirections={handleOpenDirections}
           closeModal={() => {

@@ -48,9 +48,6 @@ const Description = ({ target }: Props) => {
         })}
       </ul>
       <span>{target?.properties.OTHER_INFO}</span>
-      <span className="italic text-gray-500 text-center text-xs md:text-sm mt-sm md:mt-md">
-        Avvikelser kan förekomma, kontrollera alltid föreskrifterna på plats
-      </span>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import Icons from "../Icons";
+import getHexColor from "../../../utils/getHexColor";
 
 type Props = {
   type: "highlighted" | "regular" | "noFee";
@@ -65,7 +66,7 @@ const HighlightedRate = ({ heading, rate }: ItemProps) => {
   return (
     <div className="relative pl-4" data-testid={"highlighted-rate"}>
       <span className="absolute -left-5 top-1/2 -translate-y-1/2 h-10">
-        <Icons icon="rightArrow" />
+        <Icons icon="rightArrow" color={getHexColor("primary") ?? undefined} />
       </span>
       {heading && <h3 className="font-medium text-lg md:text-xl">{heading}</h3>}
       {rate.time && (
