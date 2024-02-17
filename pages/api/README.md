@@ -29,7 +29,7 @@ Headers: {
     "Content-Type": "application/json"
 }
 ```
-Status: 200
+- **Status: 200**
 
 ```json
 {
@@ -84,17 +84,8 @@ Status: 200
 ```
 
 
-Status: 404
-```json
-{
-    "type": "FeatureCollection",
-    "features": [],
-    "totalFeatures": 0,
-    "numberMatched": 0,
-    "numberReturned": 0,
-    "timeStamp": "2023-05-02T10:56:02.296Z"
-}
-```
+- **Status: 404** - No data found
+- **Status: 500** - Couldn't reach Parking API
 
 </details>
 <details>
@@ -141,82 +132,12 @@ Headers: {
 ### Street(s)
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| GET | /streets | Get all streetnames | 
 | GET | /streets/streetLocation | Get addresses on a street |  
 | GET | /streets/streetNames | Search streetnames |  
 
 This endpoint makes calls to [Stockholm Open LvWS 4 API](https://openstreetgs.stockholm.se/Home/Ws)
 
 #### **Examples**
-
-<details>
-<summary> GET /streets </summary>
-Get all street locations or filter by searching.
-
-**Params**:
-- `search` - street name
-
-**Request:**
-```sh
-URL: http://localhost:3000/api/v1/streets?search=Hantverkargatan
-Method: "GET"
-Headers: {
-    "Content-Type": "application/json"
-}
-```
-
-Status: 200
-```json
-{
-    "type": "Feature",
-    "id": "LTFR_P_MOTORCYKEL.2262389",
-    "geometry": {
-        "type": "LineString",
-        "coordinates": [
-            [
-              18.075074,
-              59.313121
-            ],
-            [
-              18.07515,
-              59.31313
-            ]
-        ]
-    },
-    "geometry_name": "GEOMETRY",
-    "properties": {
-        "FID": 2262389,
-        "FEATURE_OBJECT_ID": 16652620,
-        "FEATURE_VERSION_ID": 1,
-        "EXTENT_NO": 1,
-        "VALID_FROM": "2019-05-31T22:00:00Z",
-        "START_MONTH": 6,
-        "END_MONTH": 8,
-        "START_DAY": 15,
-        "END_DAY": 15,
-        "CITATION": "0180 2019-02190",
-        "STREET_NAME": "Åsögatan",
-        "CITY_DISTRICT": "Södermalm",
-        "PARKING_DISTRICT": "Södermalm",
-        "ADDRESS": "Åsögatan 113",
-        "VF_METER": 4,
-        "VF_PLATS_TYP": "Reserverad p-plats motorcykel",
-        "OTHER_INFO": "Servicetid fredag 00:00 - 06:00 utom under tiden 15 juni - 15 augusti",
-        "RDT_URL": "https://rdt.transportstyrelsen.se/rdt/AF06_View.aspx?BeslutsMyndighetKod=0180&BeslutadAr=2019&LopNr=02190",
-        "PARKING_RATE": "taxa 13: Vardagar utom vardag före sön- och helgdag klockan 7.00 - 19.00, 5 kr/tim. Vardag före sön- och helgdag klockan 11.00 - 17.00, 3,75 kr/tim."
-    },
-    "bbox": [
-        18.075074,
-        59.313121,
-        18.07515,
-        59.31313
-    ]
-  },
-  { ... }
-}
-```
-
-</details>
 
 <details>
 <summary> GET /streets/streetNames </summary>
@@ -249,6 +170,7 @@ Status: 200
 
 <details>
 <summary> GET /streets/streetLocation </summary>
+DEPRECATED
 This returns center coordinates of a street.
 
 **Params**:
