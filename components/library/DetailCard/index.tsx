@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParkingContext } from "../../../context/ParkingContext";
 import Card from "./Card";
 
-const ParkingDetailModal = () => {
+const index = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { targetedParkingSpot, setTargetedParkingSpot } = useParkingContext();
@@ -40,4 +40,4 @@ const ParkingDetailModal = () => {
   );
 };
 
-export default ParkingDetailModal;
+export default index;

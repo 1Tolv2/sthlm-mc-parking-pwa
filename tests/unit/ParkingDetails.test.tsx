@@ -1,11 +1,11 @@
 import React from "react";
-import Modal from "../../components/library/ParkingDetails/Modal";
-import Description from "../../components/library/ParkingDetails/Description";
+import Description from "../../components/library/DetailCard/Description";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { CoordinateItem, FeatureItem } from "../../types";
-import { getCurrentRate } from "../../components/library/ParkingDetails/getCurrentRate";
+import { getCurrentRate } from "../../components/library/DetailCard/getCurrentRate";
 import getParkingRates from "../../utils/getParkingRates";
+import Card from "../../components/library/detailCard/Card";
 
 const mockTargetedParkingSpot: FeatureItem = {
   type: "Feature",
@@ -93,7 +93,7 @@ useStateSpy.mockImplementation(((initialState: FeatureItem) => [
 describe("Parking detail modal", () => {
   it("renders modal", () => {
     render(
-      <Modal
+      <Card
         target={mockTargetedParkingSpot}
         openDirections={jest.fn()}
         closeModal={jest.fn()}
