@@ -73,7 +73,7 @@ const Content = ({ data }: Props) => {
 
   return (
     <>
-      {isLoading && isInitialLoading && <LoadingScreen />}
+      {isLoading && isInitialLoading && <LoadingScreen withSilhouette={true} />}
       <TopNavigation setIsSearching={setIsSearching} />
       <DynamicMap>
         <MapNavigation

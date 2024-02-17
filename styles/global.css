@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
 @font-face {
     font-family: 'Tratex svart';
     src: local("TRATS"),
@@ -12,11 +14,17 @@
     src: local("TRATS"),
         url("../theme/fonts/TRATV___.TTF") format("truetype");
 }
+@font-face {
+    font-family: 'Josefin Sans';
+    src: local("TRATS"),
+        url("../theme/fonts/JosefinSans-VariableFont_wght.ttf") format("truetype");
+}
 
  * {
     -webkit-tap-highlight-color: transparent;
     box-sizing: border-box;
     scrollbar-width: 0;
+    font-family: 'Josefin Sans', sans-serif;
 }
  *::-webkit-scrollbar {
     display: none;
@@ -29,6 +37,10 @@
     }
     .font-tratex {
         font-family: 'Tratex vit', sans-serif;
+    }
+
+    .font-josefin {
+        font-family: 'Josefin Sans', sans-serif;
     }
 
     .animate-shake {

@@ -3,9 +3,14 @@ import React from "react";
 type Props = {
   primaryColor?: string;
   secondaryColor?: string;
+  withSilhouette?: boolean;
 };
 
-const LoadingAnimation = ({ primaryColor = "#FFF", secondaryColor }: Props) => {
+const LoadingAnimation = ({
+  primaryColor = "#FFF",
+  secondaryColor,
+  withSilhouette,
+}: Props) => {
   secondaryColor = secondaryColor ?? primaryColor;
   const icon = {
     motorcycle: () => (
@@ -30,14 +35,43 @@ const LoadingAnimation = ({ primaryColor = "#FFF", secondaryColor }: Props) => {
         <path d="M24 5H27V8H24V5Z" fill={secondaryColor} />
       </svg>
     ),
+    silhouette: () => (
+      <svg
+        viewBox="0 0 1019 1019"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g opacity="0.6">
+          <path
+            d="M0 280.5H52.5C52.5 222.51 99.5101 175.5 157.5 175.5H193.5C251.49 175.5 298.5 222.51 298.5 280.5H351V1018.5H0V280.5Z"
+            fill="#C6BDF9"
+          />
+          <path
+            d="M790.902 314.824C798.133 309.4 803.565 301.926 806.49 293.374L807.346 290.874C808.11 288.64 808.5 286.295 808.5 283.934V210.5H843.5V193C843.5 163.453 867.453 139.5 897 139.5C925.719 139.5 949 162.781 949 191.5V210.5H984V283.79C984 286.246 984.406 288.686 985.201 291.01L986.019 293.401C988.945 301.953 994.266 309.485 1001.35 315.098C1011.35 323.026 1017.73 334.8 1019 347.5V1018.5H773V347.5C773.634 334.829 779.871 323.097 790.02 315.485L790.902 314.824Z"
+            fill="#C6BDF9"
+          />
+          <path
+            d="M422 385L446.076 369.523C474.698 351.123 492 319.431 492 285.405V228L515.284 204.716C522.786 197.214 527 187.04 527 176.431V105C548.322 97.192 562.5 76.9012 562.5 54.1946V17.5L597 0L633 17.5V55.132C633 77.315 646.742 97.1781 667.5 105V176.6C667.5 187.109 671.636 197.196 679.013 204.68L702 228V284.987C702 319.242 719.533 351.113 748.466 369.451L773 385V1018.5H422V385Z"
+            fill="#C6BDF9"
+          />
+        </g>
+      </svg>
+    ),
   };
 
   return (
-    <div className="relative w-32 h-36 overflow-hidden">
-      <div className="animate-shake">{icon.motorcycle()}</div>
-      <div className="animate-marquee relative -top-4 w-[200%]">
-        <span className="float-left w-1/2">{icon.road()}</span>
-        <span className="float-left w-1/2">{icon.road()}</span>
+    <div className="relative w-40 h-48">
+      {withSilhouette && (
+        <div className="absolute w-[300px] h-[300px] bottom-1/2 left-1/2 -translate-x-1/2">
+          {icon.silhouette()}
+        </div>
+      )}
+      <div className="relative w-40 h-48 overflow-hidden">
+        <div className="animate-shake">{icon.motorcycle()}</div>
+        <div className="animate-marquee relative -top-4 w-[200%]">
+          <span className="float-left w-1/2">{icon.road()}</span>
+          <span className="float-left w-1/2">{icon.road()}</span>
+        </div>
       </div>
     </div>
   );
