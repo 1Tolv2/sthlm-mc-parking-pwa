@@ -39,6 +39,7 @@ const Map = ({ children }: Props) => {
         center={[currentLocation?.lat || 0, currentLocation?.lng || 0]}
         zoom={11}
         scrollWheelZoom={true}
+        zoomControl={false}
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>
