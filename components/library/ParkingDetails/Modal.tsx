@@ -20,7 +20,7 @@ const Modal = ({ target, openDirections, closeModal }: Props) => {
   return (
     <div
       id={`detail-${target?.id}`}
-      className="relative lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 w-full max-w-[500px] mx-auto px-md h-fit bg-white rounded-xl lg:p-md lg:drop-shadow-2xl z-20"
+      className="relative lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 w-full mx-auto px-md h-fit bg-white rounded-xl lg:p-md lg:drop-shadow-2xl pointer-events-auto"
     >
       <div className="absolute top-md right-md w-fit mx-auto">
         <ExitButton handleOnClick={closeModal} />

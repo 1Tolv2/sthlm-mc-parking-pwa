@@ -3,6 +3,8 @@ import InfoButton from "./library/buttons/InfoButton";
 import LocationButton from "./library/buttons/LocationButton";
 import ShowAllButton from "./library/buttons/ShowAllButton";
 import ParkingListSlider from "./library/ParkingListSlider";
+import TopNavigation from "./TopNavigation";
+import ParkingDetailModal from "./library/ParkingDetails";
 
 type Props = {
   isSearching: boolean;
@@ -11,17 +13,23 @@ type Props = {
 
 const MapNavigation = ({ isSearching, setIsSearching }: Props) => {
   return (
-    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col gap-2 w-full h-fit py-md z-50 pointer-events-none">
-      <div className="relative px-md w-full">
-        <div className="w-fit mb-sm">
-          <InfoButton />
-        </div>
-        <div className="flex justify-between z-[51]">
-          <ShowAllButton setIsSearching={setIsSearching} />
-          <LocationButton />
-        </div>
+    <div className="absolute top-0 left-0 h-screen w-screen flex flex-col justify-between p-md box-border">
+      <div className="w-full">
+        <TopNavigation setIsSearching={setIsSearching} />
       </div>
-      {isSearching && <ParkingListSlider />}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col gap-2 w-full w-max-[550px] h-fit py-md z-50 pointer-events-none">
+        <div className="relative px-md flex flex-col gap-2 w-full max-w-[600px] mx-auto">
+          <div className="w-fit">
+            <InfoButton />
+          </div>
+          <div className="flex justify-between">
+            <ShowAllButton setIsSearching={setIsSearching} />
+            <LocationButton />
+          </div>
+          <ParkingDetailModal />
+        </div>
+        {isSearching && <ParkingListSlider />}
+      </div>
     </div>
   );
 };
