@@ -24,7 +24,7 @@ export default function StandardContainer({
   return (
     <div
       onClick={onClick}
-      className={`flex items-center bg-white p-${padding} rounded-xl ${
+      className={`flex items-center bg-white p-${padding} ${
         shadow ? "drop-shadow md:drop-shadow-2xl" : ""
       } ${width} ${height} ${
         round ? "rounded-full" : "rounded-[20px]"

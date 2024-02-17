@@ -82,6 +82,21 @@ export default function Icons({ icon, color }: Props) {
         />
       </svg>
     ),
+    search: (
+      <svg
+        height="100%"
+        width="100%"
+        viewBox="0 0 87 87"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M69.6579 69.6653L84 84M81.9688 42.9643C81.9688 64.4837 64.5149 81.9286 42.9844 81.9286C21.4539 81.9286 4 64.4837 4 42.9643C4 21.4449 21.4539 4 42.9844 4C64.5149 4 81.9688 21.4449 81.9688 42.9643Z"
+          stroke={color ? color : "#225A98"}
+          strokeWidth="7"
+        />
+      </svg>
+    ),
   };
 
   return icons[icon];

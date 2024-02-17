@@ -13,6 +13,8 @@ import { useParkingContext } from "../../context/ParkingContext";
 import { useModalContext } from "../../context/ModalContext";
 import { useAppContext } from "../../context/AppContext";
 import { pruneFeatures } from "../../utils/pruneFeatures";
+import Icons from "./Icons";
+import getHexColor from "../../utils/getHexColor";
 
 type Props = {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +22,7 @@ type Props = {
 
 const AddressSearch = ({ setIsSearching }: Props) => {
   const [address, setAddress] = useState<string>("");
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { setMapView } = useMapContext();
   const { setParkingSpots, resetParking } = useParkingContext();
@@ -90,46 +93,46 @@ const AddressSearch = ({ setIsSearching }: Props) => {
     setSearchResults([]);
   };
 
-  const renderSearchIcon = (): ReactNode => {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 96 960 960"
-        className="w-[120%] pr-md"
-      >
-        <path d="M796 935 533 672q-30 26-69.959 40.5T378 727q-108.162 0-183.081-75Q120 577 120 471t75-181q75-75 181.5-75t181 75Q632 365 632 471.15 632 514 618 554q-14 40-42 75l264 262-44 44ZM377 667q81.25 0 138.125-57.5T572 471q0-81-56.875-138.5T377 275q-82.083 0-139.542 57.5Q180 390 180 471t57.458 138.5Q294.917 667 377 667Z" />
-      </svg>
-    );
-  };
   return (
     <div className="relative w-full ">
-      <StandardContainer width="w-full" className="mx-auto w-full" round>
-        <div className="w-[39px] border-r-2 border-neutral mr-md">
-          {renderSearchIcon()}
+      <StandardContainer
+        width={isExpanded ? "w-full" : "w-fit"}
+        padding="lg"
+        round
+      >
+        <div
+          className="w-[35px] h-[35px]"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <Icons icon="search" color={getHexColor("black") || "#000"} />
         </div>
-        <form className="w-full h-full">
-          <input
-            id="address"
-            type="text"
-            name="address"
-            onChange={handleOnChange}
-            value={address}
-            autoComplete="off"
-            placeholder="Sök på gatunamn"
-            className="w-full h-full outline-transparent focus:outline-transparent"
-          />
-          <input type="submit" hidden title="submit" />
-        </form>
-        {address && (
-          <ExitButton
-            handleOnClick={() => {
-              setIsLoading(true);
-              setAddress("");
-              resetParking();
-              setIsSearching(false);
-              setSearchResults([]);
-            }}
-          />
+        {isExpanded && (
+          <>
+            <form className="flex grow ml-md h-full">
+              <input
+                id="address"
+                type="text"
+                name="address"
+                onChange={handleOnChange}
+                value={address}
+                autoComplete="off"
+                placeholder="Sök på gatunamn"
+                className="w-full h-full outline-transparent focus:outline-transparent"
+              />
+              <input type="submit" hidden title="submit" />
+            </form>
+            {address && (
+              <ExitButton
+                handleOnClick={() => {
+                  setIsLoading(true);
+                  setAddress("");
+                  resetParking();
+                  setIsSearching(false);
+                  setSearchResults([]);
+                }}
+              />
+            )}
+          </>
         )}
       </StandardContainer>
       {searchResults && searchResults.length !== 0 && (
