@@ -4,7 +4,7 @@ import { useParkingContext } from "../../context/ParkingContext";
 
 import StandardContainer from "./StandardContainer";
 import Icons from "./Icons";
-import Description from "./ParkingDetails/Description";
+import Description from "./DetailCard/Description";
 
 const ParkingListSlider = () => {
   const { parkingSpots, targetedParkingSpot } = useParkingContext();

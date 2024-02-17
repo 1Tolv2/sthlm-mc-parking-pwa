@@ -4,7 +4,7 @@ import LocationButton from "./library/buttons/LocationButton";
 import ShowAllButton from "./library/buttons/ShowAllButton";
 import ParkingListSlider from "./library/ParkingListSlider";
 import TopNavigation from "./TopNavigation";
-import ParkingDetailModal from "./library/ParkingDetails";
+import DetailCard from "./library/DetailCard";
 
 type Props = {
   isSearching: boolean;
@@ -24,7 +24,7 @@ const MapNavigation = ({ isSearching, setIsSearching }: Props) => {
             <ShowAllButton setIsSearching={setIsSearching} />
             <LocationButton />
           </div>
-          <ParkingDetailModal />
+          <DetailCard />
         </div>
         {isSearching && <ParkingListSlider />}
       </div>
