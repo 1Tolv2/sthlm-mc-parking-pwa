@@ -77,17 +77,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
     setAddress(e.currentTarget.value);
     if (e.currentTarget.value !== "") {
       const response = await searchStreetName(e.currentTarget.value);
-      // if (response?.length === 1) {
-      //   const data = await getStreets(response[0]);
-      //   console.log("DATA", data);
-      //   setSearchResults([
-      //     `${response[0]} ${data[0].StreetNum}`,
-      //     `${response[0]} ${data[1].StreetNum}`,
-      //     `${response[0]} ${data[2].StreetNum}`,
-      //   ]);
-      // } else {
       setSearchResults(response?.slice(0, 3) || []);
-      // }
     } else if (e.currentTarget.value === "") {
       setSearchResults([]);
     }

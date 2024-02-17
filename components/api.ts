@@ -22,18 +22,6 @@ export const searchParkingSpots = async (
   return data as unknown as ParkingResponse;
 };
 
-export const getStreets = async (
-  streetName: string,
-  streetNumber?: string
-): Promise<CoordinateItem> => {
-  const { data } = await axios.get(
-    `/api/v1/streets?streetName=${streetName}${
-      streetNumber ? "&streetNumber=${streetNumber}" : ""
-    }`
-  );
-  return data as unknown as CoordinateItem;
-};
-
 export const searchStreetName = async (search: string): Promise<string[]> => {
   const { data } = await axios.get(
     `/api/v1/streets/streetNames?search=${search}`
