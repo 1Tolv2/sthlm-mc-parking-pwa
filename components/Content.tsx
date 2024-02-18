@@ -26,12 +26,8 @@ const Content = ({ data }: Props) => {
   const { isInitialLoading, isLoading, setIsLoading, setIsInitialLoading } =
     useAppContext();
   const { setMapView } = useMapContext();
-  const {
-    setParkingSpots,
-    setCurrentLocation,
-    targetedParkingSpot,
-    setTargetedParkingSpot,
-  } = useParkingContext();
+  const { setParkingSpots, setCurrentLocation, setTargetedParkingSpot } =
+    useParkingContext();
   const { setModalContent } = useModalContext();
 
   const handleNearbyParkingSpots = async (
@@ -69,10 +65,12 @@ const Content = ({ data }: Props) => {
   };
 
   useEffect(() => {
-    if (router.isReady && !targetedParkingSpot) {
+    if (router.isReady) {
       if (data && router.query?.id) {
         const id = router.query.id as string;
         const target = data.find((item) => item.id === id);
+        setParkingSpots(data);
+
         if (target) {
           setMapView({
             zoom: 16,

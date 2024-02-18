@@ -24,7 +24,7 @@ const ParkingLocations = () => {
           <Marker
             key={item.id}
             position={[
-              item?.geometry?.coordinates[0][1] as unknown as number,
+              (item?.geometry?.coordinates[0][1] as unknown as number) + 0.002,
               item?.geometry?.coordinates[0][0] as unknown as number,
             ]}
             icon={parkingIcon}
