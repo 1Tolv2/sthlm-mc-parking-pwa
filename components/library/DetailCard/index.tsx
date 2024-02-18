@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useParkingContext } from "../../../context/ParkingContext";
 import Card from "./Card";
 
 const index = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   const { targetedParkingSpot, setTargetedParkingSpot } = useParkingContext();
 

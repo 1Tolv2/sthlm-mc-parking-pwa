@@ -18,11 +18,11 @@ const InfoButton = () => {
     <StandardContainer
       onClick={() => setIsModalOpen(!isModalOpen)}
       padding="sm"
-      width="w-[50px]"
-      className="h-[50px] ml-auto"
+      width="w-fit"
+      className="ml-auto"
       round
     >
-      <div className="relative h-full w-full cursor-pointer pointer-events-auto">
+      <div className="relative h-6 w-6 md:h-8 md:w-8 cursor-pointer pointer-events-auto">
         <Icons icon="information" color="#353535" />
       </div>
       {isModalOpen && (

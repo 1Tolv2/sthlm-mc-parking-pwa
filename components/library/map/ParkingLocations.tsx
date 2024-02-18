@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Marker } from "react-leaflet";
 import * as L from "leaflet";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -8,6 +9,7 @@ import { useParkingContext } from "../../../context/ParkingContext";
 
 const ParkingLocations = () => {
   const { parkingSpots, setTargetedParkingSpot } = useParkingContext();
+  const router = useRouter();
 
   const parkingIcon = new L.Icon({
     iconUrl: "./marker.png",
@@ -29,6 +31,8 @@ const ParkingLocations = () => {
             eventHandlers={{
               click: () => {
                 setTargetedParkingSpot(item);
+                router.query.id = item?.id;
+                router.push(router);
               },
             }}
           />

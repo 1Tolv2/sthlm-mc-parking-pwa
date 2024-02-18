@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 import { getNearbyParkingSpots } from "./api";
 import { useAppContext } from "../context/AppContext";
@@ -20,11 +21,17 @@ const DynamicMap = dynamic(() => import("./library/map/Map"), { ssr: false });
 
 const Content = ({ data }: Props) => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const router = useRouter();
 
   const { isInitialLoading, isLoading, setIsLoading, setIsInitialLoading } =
     useAppContext();
   const { setMapView } = useMapContext();
-  const { setParkingSpots, setCurrentLocation } = useParkingContext();
+  const {
+    setParkingSpots,
+    setCurrentLocation,
+    targetedParkingSpot,
+    setTargetedParkingSpot,
+  } = useParkingContext();
   const { setModalContent } = useModalContext();
 
   const handleNearbyParkingSpots = async (
@@ -62,19 +69,46 @@ const Content = ({ data }: Props) => {
   };
 
   useEffect(() => {
-    const hasAsked = localStorage.getItem("hasAskedForLocationPermission");
-    if (hasAsked === "true") {
-      navigator.geolocation.getCurrentPosition(handleNearbyParkingSpots, () => {
-        if (data && data.length > 0) setParkingSpots(data);
+    if (router.isReady && !targetedParkingSpot) {
+      if (data && router.query?.id) {
+        const id = router.query.id as string;
+        const target = data.find((item) => item.id === id);
+        if (target) {
+          setMapView({
+            zoom: 16,
+            center: {
+              lat: target.geometry.coordinates[0][1] as unknown as number,
+              lng: target.geometry.coordinates[0][0] as unknown as number,
+            },
+          });
+          setCurrentLocation({
+            lat: target.geometry.coordinates[0][1] as unknown as number,
+            lng: target.geometry.coordinates[0][0] as unknown as number,
+          });
+          setTargetedParkingSpot(target);
+        }
         setIsLoading(false);
         setIsInitialLoading(false);
-      });
-    } else {
-      if (data && data.length > 0) setParkingSpots(data);
-      setIsLoading(false);
-      setIsInitialLoading(false);
+      } else {
+        const hasAsked = localStorage.getItem("hasAskedForLocationPermission");
+
+        if (hasAsked === "true") {
+          navigator.geolocation.getCurrentPosition(
+            handleNearbyParkingSpots,
+            () => {
+              if (data && data.length > 0) setParkingSpots(data);
+              setIsLoading(false);
+              setIsInitialLoading(false);
+            }
+          );
+        } else {
+          if (data && data.length > 0) setParkingSpots(data);
+          setIsLoading(false);
+          setIsInitialLoading(false);
+        }
+      }
     }
-  }, []);
+  }, [router]);
 
   return (
     <>

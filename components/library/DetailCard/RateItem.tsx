@@ -21,7 +21,7 @@ const RateItem = ({ type, dayOfTheWeek, rate }: Props) => {
   };
 
   return (
-    <li className="mb-sm">
+    <li>
       {type === "highlighted" ? (
         <HighlightedRate heading={headings[dayOfTheWeek]} rate={rate} />
       ) : (
@@ -46,14 +46,14 @@ type ItemProps = {
 const RegularRate = ({ heading, rate, dayOfTheWeek }: ItemProps) => {
   return (
     <>
-      <h3 className="font-medium text-gray-500">{heading}</h3>
+      <h3 className="font-medium text-gray-500 leading-5">{heading}</h3>
       {dayOfTheWeek !== "rest" && (
-        <span className="text-gray-500 mr-sm">
+        <span className="text-gray-500 mr-sm text-sm sm:text-base">
           {`${rate.time?.[0]} - ${rate.time?.[1]} `}
         </span>
       )}
       {rate.fee >= 0 && (
-        <span className={"text-gray-500"}>
+        <span className="text-gray-500 text-sm sm:text-base">
           {rate.fee.toString().replace(".", ",") + " kr/tim"}
         </span>
       )}

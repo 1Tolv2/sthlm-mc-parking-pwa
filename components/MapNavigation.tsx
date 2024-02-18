@@ -11,15 +11,13 @@ type Props = {
 
 const MapNavigation = ({ isSearching, setIsSearching }: Props) => {
   return (
-    <div className="absolute top-0 left-0 h-screen w-screen flex flex-col justify-between p-md box-border">
+    <div className="absolute top-0 left-0 h-[100dvh] w-screen flex flex-col justify-between p-sm sm:p-md box-border">
       <TopNavigation setIsSearching={setIsSearching} />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col gap-2 w-full w-max-[550px] h-fit py-md z-50 pointer-events-none">
-        <div className="relative px-md flex flex-col gap-2 w-full max-w-[600px]">
-          <InfoButton />
-          <DetailCard />
-        </div>
-        {isSearching && <ParkingListSlider />}
+      <div className="relative w-full flex flex-col gap-2 z-50 pointer-events-none">
+        <InfoButton />
+        <DetailCard />
       </div>
+      <ParkingListSlider />
     </div>
   );
 };

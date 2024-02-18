@@ -2,6 +2,7 @@ import React from "react";
 import { FeatureItem } from "../../types";
 import { useParkingContext } from "../../context/ParkingContext";
 
+import Button from "./buttons/Button";
 import StandardContainer from "./StandardContainer";
 import Icons from "./Icons";
 import Description from "./DetailCard/Description";
@@ -31,7 +32,7 @@ const ParkingListSlider = () => {
                 {parkingSpot.properties.ADDRESS}
               </h3>
               <StandardContainer className="!items-start grow" width="w-full">
-                <div className="flex flex-col md:flex-row gap-md h-full">
+                <div className="flex flex-col md:flex-row gap-md justify-between h-full w-full">
                   <Description target={parkingSpot} />
                   <div
                     className="hidden md:block h-16 cursor-pointer mt-auto"
@@ -39,15 +40,13 @@ const ParkingListSlider = () => {
                   >
                     <Icons icon="direction" />
                   </div>
-                  <div
-                    className="flex md:hidden justify-center gap-3 w-full h-fit p-2.5 rounded-xl bg-primary text-white cursor-pointer"
+                  <Button
                     onClick={() => handleOpenDirections(parkingSpot)}
+                    icon="direction"
+                    stretch
                   >
-                    <div className="relative h-8">
-                      <Icons color="white" icon="direction" />
-                    </div>
-                    <p className="text-lg font-medium p-px m-0">Navigera</p>
-                  </div>
+                    {"Navigera"}
+                  </Button>
                 </div>
               </StandardContainer>
             </li>

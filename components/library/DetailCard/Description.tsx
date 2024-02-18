@@ -7,9 +7,9 @@ import RateItem from "./RateItem";
 type Rates = { sundays: Rate; weekdays: Rate; saturdays: Rate };
 type Rate = { time: string[]; fee: number; note: string };
 
-type Props = { target: FeatureItem | null };
+type Props = { target: FeatureItem | null; containerClasses?: string };
 
-const Description = ({ target }: Props) => {
+const Description = ({ target, containerClasses }: Props) => {
   const [currentRate, setCurrentRate] = useState<string | null>(null);
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
@@ -27,8 +27,8 @@ const Description = ({ target }: Props) => {
 
   const rates = getParkingRates(target?.properties?.PARKING_RATE || "");
   return (
-    <div className="flex flex-col pl-[10px] gap-sm">
-      <ul>
+    <div className={`flex flex-col pl-[10px] gap-sm ${containerClasses}`}>
+      <ul className="flex flex-col gap-sm">
         {Object.entries(rates).map(([key, value]) => {
           const type =
             currentRate === key
