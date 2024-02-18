@@ -9,7 +9,7 @@ type Props = {
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const MapNavigation = ({ isSearching, setIsSearching }: Props) => {
+const MapNavigation = ({ setIsSearching }: Props) => {
   return (
     <div className="absolute top-0 left-0 h-[100dvh] w-screen flex flex-col justify-between p-sm sm:p-md box-border">
       <TopNavigation setIsSearching={setIsSearching} />
