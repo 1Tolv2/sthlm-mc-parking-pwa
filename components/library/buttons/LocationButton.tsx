@@ -106,7 +106,12 @@ export default function LocationButton() {
   }, [currentLocation]);
 
   return (
-    <StandardContainer shadow padding="lg" className="w-[75px] h-[75px]" round>
+    <StandardContainer
+      shadow
+      padding="lg"
+      className="!w-[75px] !h-[75px]"
+      round
+    >
       <div
         onClick={isLoading ? undefined : handleLocation}
         className="relative top-px -left-px h-full w-full cursor-pointer pointer-events-auto"
