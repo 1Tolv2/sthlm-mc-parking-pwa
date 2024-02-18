@@ -8,6 +8,7 @@ import { getNearbyParkingSpots } from "../../api";
 import StandardContainer from "../StandardContainer";
 import Icons from "../Icons";
 import { CoordinateItem } from "../../../types";
+import getHexColor from "../../../utils/getHexColor";
 
 export default function LocationButton() {
   const [icon, setIcon] = useState(
@@ -22,11 +23,11 @@ export default function LocationButton() {
     if (typeof location !== "undefined") setIcon(location);
   };
 
-  const { setParkingSpots, currentLocation, setCurrentLocation } =
+  const { resetParking, setParkingSpots, currentLocation, setCurrentLocation } =
     useParkingContext();
   const { isLoading, setIsLoading } = useAppContext();
   const { setModalContent } = useModalContext();
-  const { setMapView } = useMapContext();
+  const { resetMap, setMapView } = useMapContext();
 
   /**
    *
@@ -86,6 +87,8 @@ export default function LocationButton() {
       );
     } else {
       setCurrentLocation(null);
+      resetMap();
+      resetParking();
       toggleStates({ location: "locationOff", loading: false });
     }
   };
@@ -102,21 +105,20 @@ export default function LocationButton() {
   }, [currentLocation]);
 
   return (
-    <div className="flex justify-end mx-auto w-full">
-      <StandardContainer
-        shadow
-        padding="none"
-        height=""
-        width=""
-        className="w-[54px] h-[54px]"
+    <StandardContainer shadow padding="lg" className="w-[75px] h-[75px]" round>
+      <div
+        onClick={isLoading ? undefined : handleLocation}
+        className="relative top-px -left-px h-full w-full cursor-pointer pointer-events-auto"
       >
-        <div
-          onClick={isLoading ? undefined : handleLocation}
-          className="h-full w-full p-sm cursor-pointer pointer-events-auto"
-        >
-          <Icons icon={icon} />
-        </div>
-      </StandardContainer>
-    </div>
+        <Icons
+          icon={icon}
+          color={
+            (icon === "locationOn"
+              ? getHexColor("primary")
+              : getHexColor("black")) || "#000"
+          }
+        />
+      </div>
+    </StandardContainer>
   );
 }
