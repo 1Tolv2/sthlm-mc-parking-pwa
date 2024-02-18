@@ -68,7 +68,7 @@ const HighlightedRate = ({ heading, rate }: ItemProps) => {
       <span className="absolute -left-5 top-1/2 -translate-y-1/2 h-10">
         <Icons icon="rightArrow" color={getHexColor("primary") ?? undefined} />
       </span>
-      {heading && <h3 className="font-medium text-lg md:text-xl">{heading}</h3>}
+      {heading && <h3 className="font-medium text-lg sm:text-xl">{heading}</h3>}
       {rate.time && (
         <span className="text-lg mr-sm">
           {`${rate.time?.[0]} - ${rate.time?.[1]} `}

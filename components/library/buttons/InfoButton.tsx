@@ -22,7 +22,7 @@ const InfoButton = () => {
       className="ml-auto"
       round
     >
-      <div className="relative h-6 w-6 md:h-8 md:w-8 cursor-pointer pointer-events-auto">
+      <div className="relative h-6 w-6 sm:h-8 sm:w-8 cursor-pointer pointer-events-auto">
         <Icons icon="information" color="#353535" />
       </div>
       {isModalOpen && (

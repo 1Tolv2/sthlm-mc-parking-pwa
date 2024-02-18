@@ -30,11 +30,11 @@ const Card = ({ target, openDirections, closeModal }: Props) => {
           </div>
 
           {target && (
-            <Description target={target} containerClasses="-mb-6 md:mb-0" />
+            <Description target={target} containerClasses="-mb-6 sm:mb-0" />
           )}
         </div>
         <div className="relative -bottom-[35px] mx-auto">
-          <span className="block max-w-[230px] mx-auto italic text-gray-500 text-center text-xs md:text-sm mb-1">
+          <span className="block max-w-[230px] mx-auto italic text-gray-500 text-center text-xs sm:text-sm mb-1">
             Avvikelser kan förekomma, kontrollera alltid föreskrifterna på plats
           </span>
           <Button onClick={openDirections} icon="direction">
