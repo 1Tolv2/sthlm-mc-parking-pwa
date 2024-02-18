@@ -85,6 +85,7 @@ export default function LocationButton() {
         handleNearbyParkingSpots,
         handleDeniedLocation
       );
+      localStorage.setItem("hasAskedForLocationPermission", "true");
     } else {
       setCurrentLocation(null);
       resetMap();

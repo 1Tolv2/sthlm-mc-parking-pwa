@@ -62,11 +62,18 @@ const Content = ({ data }: Props) => {
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(handleNearbyParkingSpots, () => {
+    const hasAsked = localStorage.getItem("hasAskedForLocationPermission");
+    if (hasAsked === "true") {
+      navigator.geolocation.getCurrentPosition(handleNearbyParkingSpots, () => {
+        if (data && data.length > 0) setParkingSpots(data);
+        setIsLoading(false);
+        setIsInitialLoading(false);
+      });
+    } else {
       if (data && data.length > 0) setParkingSpots(data);
       setIsLoading(false);
       setIsInitialLoading(false);
-    });
+    }
   }, []);
 
   return (
