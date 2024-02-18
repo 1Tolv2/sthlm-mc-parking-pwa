@@ -41,12 +41,17 @@ export async function getStaticProps(): Promise<
   GetStaticPropsResult<FeatureItem[] | null>
 > {
   const url = `${process.env.NEXT_APP_OPEN_PARKING_API_URL}/all?outputFormat=json&apiKey=${process.env.NEXT_APP_OPEN_PARKING_API_KEY}`;
-  const { data } = await axios.get(url);
 
-  data.features = pruneFeatures(data.features);
-
+  let data;
+  try {
+    const response = await axios.get(url);
+    data = response.data;
+    data.features = pruneFeatures(data.features);
+  } catch (err) {
+    console.error(err);
+  }
   return {
-    props: { data: data.features } as unknown as FeatureItem[] | null,
+    props: { data: data?.features ?? null } as unknown as FeatureItem[] | null,
     revalidate: 300,
   };
 }

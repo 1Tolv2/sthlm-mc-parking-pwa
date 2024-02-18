@@ -10,6 +10,7 @@ import { useModalContext } from "../context/ModalContext";
 import { FeatureItem, CoordinateItem } from "../types";
 
 import MapNavigation from "./MapNavigation";
+import ErrorScreen from "./library/ErrorScreen";
 import LoadingScreen from "./library/loading/LoadingScreen";
 import { useMapContext } from "../context/MapContext";
 
@@ -65,8 +66,8 @@ const Content = ({ data }: Props) => {
   };
 
   useEffect(() => {
-    if (router.isReady) {
-      if (data && router.query?.id) {
+    if (router.isReady && data) {
+      if (router.query?.id) {
         const id = router.query.id as string;
         const target = data.find((item) => item.id === id);
         setParkingSpots(data);
@@ -94,13 +95,13 @@ const Content = ({ data }: Props) => {
           navigator.geolocation.getCurrentPosition(
             handleNearbyParkingSpots,
             () => {
-              if (data && data.length > 0) setParkingSpots(data);
+              if (data.length > 0) setParkingSpots(data);
               setIsLoading(false);
               setIsInitialLoading(false);
             }
           );
         } else {
-          if (data && data.length > 0) setParkingSpots(data);
+          if (data.length > 0) setParkingSpots(data);
           setIsLoading(false);
           setIsInitialLoading(false);
         }
@@ -110,6 +111,7 @@ const Content = ({ data }: Props) => {
 
   return (
     <>
+      {(!data || data.length === 0) && <ErrorScreen />}
       {isLoading && isInitialLoading && <LoadingScreen withSilhouette={true} />}
       <DynamicMap>
         <MapNavigation

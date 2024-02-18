@@ -13,7 +13,7 @@ const Modal = ({ handleOnClose, content }: Props) => {
         <div className="absolute right-4 top-4">
           <ExitButton color="white" handleOnClick={handleOnClose} />
         </div>
-        <div className="text-base sm:text-lg font-tratex p-xl border-8 border-white rounded-xl">
+        <div className="text-lg font-tratex p-xl border-8 border-white rounded-xl">
           {content}
         </div>
       </div>

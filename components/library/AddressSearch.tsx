@@ -97,11 +97,11 @@ const AddressSearch = ({ setIsSearching }: Props) => {
     <div className="relative w-full ">
       <StandardContainer
         width={isExpanded ? "w-full" : "w-fit"}
-        padding="md md:p-lg"
+        padding="md sm:p-lg"
         round
       >
         <div
-          className="w-[30px] h-[30px] md:w-[35px] md:h-[35px]"
+          className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px]"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <Icons icon="search" color={getHexColor("black") || "#000"} />
@@ -137,7 +137,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
       </StandardContainer>
       {searchResults && searchResults.length !== 0 && (
         <div className="absolute pl-[50px] pr-[39px] w-full opacity-90 z-50">
-          <StandardContainer className="mt-sm" width="w-full md:w-[450px]">
+          <StandardContainer className="mt-sm" width="w-full sm:w-[450px]">
             <ul className="w-full">
               {searchResults &&
                 searchResults.map((result) => (
