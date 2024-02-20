@@ -6,9 +6,12 @@ import * as L from "leaflet";
 // @ts-ignore
 import MarkerClusterGroup from "@christopherpickering/react-leaflet-markercluster";
 import { useParkingContext } from "../../../context/ParkingContext";
+import { useMapContext } from "../../../context/MapContext";
 
 const ParkingLocations = () => {
-  const { parkingSpots, setTargetedParkingSpot } = useParkingContext();
+  const { parkingSpots, setTargetedParkingSpot, setCurrentLocation } =
+    useParkingContext();
+  const { setMapView } = useMapContext();
   const router = useRouter();
 
   const parkingIcon = new L.Icon({
@@ -30,6 +33,17 @@ const ParkingLocations = () => {
             icon={parkingIcon}
             eventHandlers={{
               click: () => {
+                setMapView({
+                  zoom: 16,
+                  center: {
+                    lat: item.geometry.coordinates[0][1] as unknown as number,
+                    lng: item.geometry.coordinates[0][0] as unknown as number,
+                  },
+                });
+                setCurrentLocation({
+                  lat: item.geometry.coordinates[0][1] as unknown as number,
+                  lng: item.geometry.coordinates[0][0] as unknown as number,
+                });
                 setTargetedParkingSpot(item);
                 router.query.id = item?.id;
                 router.push(router);
