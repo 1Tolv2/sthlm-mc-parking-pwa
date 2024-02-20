@@ -60,13 +60,13 @@ const LoadingAnimation = ({
   };
 
   return (
-    <div className="relative w-40 h-48">
+    <div className="relative w-24 sm:w-40">
       {withSilhouette && (
-        <div className="absolute w-[300px] h-[300px] bottom-1/2 left-1/2 -translate-x-1/2">
+        <div className="absolute w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] bottom-1/2 left-1/2 -translate-x-1/2">
           {icon.silhouette()}
         </div>
       )}
-      <div className="relative w-40 h-48 overflow-hidden">
+      <div className="relative w-full h-full overflow-hidden">
         <div className="animate-shake">{icon.motorcycle()}</div>
         <div className="animate-marquee relative -top-4 w-[200%]">
           <span className="float-left w-1/2">{icon.road()}</span>
