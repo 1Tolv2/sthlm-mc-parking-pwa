@@ -8,7 +8,7 @@ type Props = {
 
 const TopNavigation = ({ setIsSearching }: Props) => {
   return (
-    <div className="flex flex-col gap-2 h-fit w-full z-50">
+    <div className="flex flex-col gap-2 h-fit w-full z-50 pointer-events-none">
       <AddressSearch setIsSearching={setIsSearching} />
       <LocationButton />
     </div>

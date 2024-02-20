@@ -94,21 +94,21 @@ const AddressSearch = ({ setIsSearching }: Props) => {
   };
 
   return (
-    <div className="relative w-full ">
+    <div className="relative w-full">
       <StandardContainer
         width={isExpanded ? "w-full" : "w-fit"}
         padding="md sm:p-lg"
         round
       >
         <div
-          className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px]"
+          className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px] pointer-events-auto"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <Icons icon="search" color={getHexColor("black") || "#000"} />
         </div>
         {isExpanded && (
           <>
-            <form className="flex grow ml-md h-full">
+            <form className="flex grow ml-md h-full pointer-events-auto">
               <input
                 id="address"
                 type="text"
@@ -136,7 +136,7 @@ const AddressSearch = ({ setIsSearching }: Props) => {
         )}
       </StandardContainer>
       {searchResults && searchResults.length !== 0 && (
-        <div className="absolute pl-[50px] pr-[39px] w-full opacity-90 z-50">
+        <div className="absolute pl-[50px] pr-[39px] w-full opacity-90 z-50 pointer-events-auto">
           <StandardContainer className="mt-sm" width="w-full sm:w-[450px]">
             <ul className="w-full">
               {searchResults &&
